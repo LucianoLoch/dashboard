@@ -12,7 +12,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   ...TeamRoutes,
-
   ...BidinfoRoutes,
   ...TransfermarketRoutes,
   { path: '', component: TeamViewComponent, canActivate: [AuthGuards]},
