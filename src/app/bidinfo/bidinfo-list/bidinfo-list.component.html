@@ -1,45 +1,50 @@
-<md-card *ngIf="loading">
-  <md-card-content>
-         <md-progress-spinner style="margin:0 auto;"       
-          [color]="color"
-          [mode]="mode">      
-      </md-progress-spinner>
-  </md-card-content>
-</md-card>
+        <md-progress-spinner *ngIf="loading" style="margin:0 auto;" [color]="color" [mode]="mode">
+        </md-progress-spinner>
 
-<md-card *ngIf="!loading">
-    <md-card-title>Lances: {{bidinfos?.length}}</md-card-title>
+
+<div *ngIf="!loading">
+
     <div>
-        <md-card-content>
-            <div *ngIf="bidinfos" class="row">
-                <md-card-content>
-                    <div class="table-responsive">
-                        <table class="table table-condensed">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">
-                                        <md-card-title>Jogador</md-card-title>
-                                    </th>
-                                    <th class="text-center">
-                                        <md-card-title>Valor Lance</md-card-title>
-                                    </th>
-                                    <th class="text-center">
-                                        <md-card-title>Valor Inicial</md-card-title>
-                                    </th>
+        <div *ngIf="bidinfos" class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <md-card class="example-card" style="padding-bottom: 10px; padding-top: 5px">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3>Jogador</h3>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let bidinfo of bidinfos">
-                                    <td class="text-center">{{ bidinfo.playerName }}</td>
-                                    <td class="text-center">{{ bidinfo.bidValue }}</td>
-                                    <td class="text-center">{{ bidinfo.originalValue }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Valor do Lance</h3> 
+                        </div>
+                        <div class="col-md-3">
+                            <h3>Valor Inicial</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <h3>
+                                <i class="material-icons">notifications</i>
+                                <span class="notification"> {{bidinfos?.length}}</span>
+                            </h3>
+                        </div>
                     </div>
-                </md-card-content>
+                </md-card>
+
+
+                <div *ngFor="let bidinfo of bidinfos" style="padding-bottom: 10px; padding-top: 5px">
+                    <md-card class="example-card">
+                        <div class="row">
+                            <div class="col-md-4">
+                                    <h4>{{ bidinfo.playerName }}</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>R$ {{ bidinfo.bidValue }},00</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>R${{ bidinfo.originalValue }},00</h4>
+                            </div>
+                        </div>
+                    </md-card>
+                </div>
             </div>
-        </md-card-content>
+        </div>
     </div>
-</md-card>
+</div>
