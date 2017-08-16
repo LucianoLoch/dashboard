@@ -1,3 +1,6 @@
+import { TransfermarketFilterComponent } from './../transfermarket/transfermarket-filter/transfermarket-filter.component';
+import { BidinfoListComponent } from './../bidinfo/bidinfo-list/bidinfo-list.component';
+import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
@@ -10,6 +13,7 @@ import { TeamEditComponent } from './team-edit/team-edit.component';
 import { TeamListComponent } from './team-list/team-list.component';
 import { TeamViewComponent } from './team-view/team-view.component';
 import { FormsModule } from '@angular/forms';
+import {MdTableModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -20,16 +24,21 @@ import { FormsModule } from '@angular/forms';
 		MdSelectModule,
 		MaterialModule,
     MdNativeDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdTableModule,
   ],
   declarations: [
     TeamCreateComponent, 
     TeamEditComponent, 
     TeamListComponent, 
     TeamViewComponent,
+    TransfermarketFilterComponent,
+    BidinfoListComponent
+  
   ],
   	providers: [
-		TeamService, UserService
-	]
+		TeamService, UserService,
+	],
+  
 })
 export class TeamModule { }

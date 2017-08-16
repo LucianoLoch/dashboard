@@ -1,0 +1,24 @@
+<div class="col-lg-6 col-md-12">
+    <div class="card">
+        <div class="card-header" data-background-color="orange">
+            <h4 class="title">Seus Lances</h4>
+            <p class="category">{{bidinfos?.length}}</p>
+        </div>
+        <div class="card-content table-responsive">
+            <table class="table table-hover">
+                <thead class="text-warning">
+                    <th>Jogador</th>
+                    <th>Valor do Lance</th>
+                    <th>Valor Inicial</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bidinfo of bidinfos">
+                        <td>{{ bidinfo.playerName }}</td>
+                        <td>R$ {{ bidinfo.bidValue }},00</td>
+                        <td>R$ {{ bidinfo.originalValue }},00</td>
+                    </tr>                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

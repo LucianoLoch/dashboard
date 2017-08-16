@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { TransfermarketRoutes } from './transfermarket/transfermarket-routing.module';
 import { TeamRoutes } from './team/team-routing.module';
 import { BidinfoRoutes } from './bidinfo/bidinfo-routing.module';
@@ -14,7 +15,8 @@ export const routes: Routes = [
   ...TeamRoutes,
   ...BidinfoRoutes,
   ...TransfermarketRoutes,
-  { path: '', component: TeamViewComponent, canActivate: [AuthGuards]},
+  { path: 'dashboard', component: DashboardComponent, canActivate : [AuthGuards]},
+  { path: '', component: DashboardComponent, canActivate: [AuthGuards]},
   { path: 'login', component: UserLoginComponent },
   { path: 'register', component: UserCreateComponent },
 ];

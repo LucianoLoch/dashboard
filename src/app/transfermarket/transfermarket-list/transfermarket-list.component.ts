@@ -94,7 +94,7 @@ export class TransfermarketListComponent implements OnInit {
 
   public config: PaginationInstance = {
     id: 'advanced',
-    itemsPerPage: 5,
+    itemsPerPage: 10,
     currentPage: 1
   };
 
@@ -213,9 +213,7 @@ export class TransfermarketListComponent implements OnInit {
 
   filterRemove() {
     this.nameFilter = '';
-    this.bidAprovedFilter = false;
     this.bidValueFilter = 0;
-    this.hasBidFilter = false;
     this.positionFilter = '';
     this.originalValueFilter = 0;
   }

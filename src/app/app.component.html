@@ -1,52 +1,41 @@
-<nav class="navbar navbar-invert">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Pojeto</a>
-        </div>
-        <div *ngIf="currentUser" class="collapse navbar-collapse">
-            <ul *ngIf="team" class="nav navbar-nav">
-                <li><a routerLink="/transfermarket">Mercado</a></li>
-                <li><a routerLink="/bid/list">Lista de Lances</a></li>
-                <li *ngIf="currentUser"><a routerLink="/team/view">Time</a></li>
-            </ul>
+<div *ngIf="currentUser" class="wrapper">
+    <app-sidebar></app-sidebar>
 
-            <ul *ngIf="!team" class="nav navbar-nav">
-                <li><a routerLink="/team/create">Cadastrar Time</a></li>
-            </ul>
+    <div class="main-panel">
+        <app-navbar></app-navbar>
 
-            <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="material-icons">notifications</i>
-                        <span class="notification">3</span>
-                        <p class="hidden-lg hidden-md">Notificações</p>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Seu Lance foi superado</a></li>
-                        <li><a href="#">Você possui 11 jogadores</a></li>
-                        <li><a href="#">O tempo para o leilão do jogador Messi está acabando </a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="material-icons">person</i>
-                        <p class="hidden-lg hidden-md">Perfil</p>
-                    </a>
-                    <ul  class="dropdown-menu">
-                        <li><a routerLink="/">{{currentUser.nome}}</a></li>
-                        <li><a href="#">Editar Perfil</a></li>
-                        <li><a routerLink="/login">Sair</a></li>
-                    </ul>
-                </li>              
+        <div class="content">
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
 
-            </ul>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <p class="copyright pull-right">
+                            &copy;
+                            <a href="/">Pojeto</a> feito na zueira
+                        </p>
+                    </div>
+                </footer>
+            </div>
         </div>
     </div>
-</nav>
-<router-outlet></router-outlet>
+</div>
+<div *ngIf="!currentUser" class="wrapper">      
+    <div class="main-panel">
+       
+        <div class="content">
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <p class="copyright pull-right">
+                            &copy;
+                            <a href="/">Pojeto</a> feito na zueira
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

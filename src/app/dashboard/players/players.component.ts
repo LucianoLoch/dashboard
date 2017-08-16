@@ -1,16 +1,17 @@
-import { TeamService } from './../team.service';
-import { ActivatedRoute } from '@angular/router';
+import { TeamService } from './../../team/team.service';
 import { Player } from './../../player/player.model';
 import { User } from './../../user/user.model';
-import { Team } from './../team.model';
+import { Team } from './../../team/team.model';
+
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-team-view',
-  templateUrl: './team-view.component.html',
-  styleUrls: ['./team-view.component.css'],
+  selector: 'app-players',
+  templateUrl: './players.component.html',
+  styleUrls: ['./players.component.css']
 })
-export class TeamViewComponent implements OnInit {
+export class PlayersComponent implements OnInit {
 
   public id: number;
   public teamResult: Team;
@@ -21,23 +22,13 @@ export class TeamViewComponent implements OnInit {
   loading: boolean = true;
   color = 'primary';
   mode = 'indeterminate';
-	/**
-	 * Construtor.
-	 *
-	 * @param ActivatedRoute route
-	 * @param TeamService teamService
-	 */
+
   constructor(
     public route: ActivatedRoute,
     public teamService: TeamService) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-
-
   }
 
-	/**
-	 * Método executado logo após a criação do componente.
-	 */
   ngOnInit() {
     this.loading = true;
     console.log(this.user);
@@ -56,8 +47,6 @@ export class TeamViewComponent implements OnInit {
         this.loading = false;
       },
       error => this.msgErro = error);
-
-
 
   }
 

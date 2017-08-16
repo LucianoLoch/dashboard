@@ -26,6 +26,12 @@ import { MdSelectModule, MdOptionModule, MdAutocompleteModule} from '@angular/ma
 import { ToastrModule } from 'ngx-toastr';
 
 import 'hammerjs';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TeamComponent } from './dashboard/team/team.component';
+import { PlayersComponent } from './dashboard/players/players.component';
+import { BidlistComponent } from './dashboard/bidlist/bidlist.component';
 
 
 
@@ -40,7 +46,7 @@ import 'hammerjs';
     AppRoutingModule,
     TeamModule,
     TransfermarketModule,
-    BidinfoModule,
+  //  BidinfoModule,
     UserModule,
     HttpModule,
  //   PaginationModule.forRoot(),
@@ -49,7 +55,7 @@ import 'hammerjs';
     ToastrModule.forRoot(),  
   ],
     declarations: [ 
-    AppComponent    
+    AppComponent, SidebarComponent, NavbarComponent, DashboardComponent, TeamComponent, PlayersComponent, BidlistComponent    
   ],
   providers: [
     HttpUtilService,

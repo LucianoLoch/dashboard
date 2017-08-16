@@ -6,7 +6,7 @@ import { PlayerService } from './../player/player.service';
 import { TransfermarketService } from './transfermarket.service';
 import { TransfermarketNameFilter } from './transfermarket.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdSelectModule, MdOptionModule, MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MdSelectModule, MdOptionModule, MaterialModule, MdNativeDateModule, MdSlideToggleModule, MdTableModule } from '@angular/material';
 import { TeamModule } from './../team/team.module';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { RouterModule } from '@angular/router';
@@ -29,10 +29,12 @@ import { FormsModule } from '@angular/forms';
 		MaterialModule,
     MdNativeDateModule,
     ReactiveFormsModule,
+    MdSlideToggleModule,
+    MdTableModule,
 		NgxPaginationModule
   ],
   declarations: [
-    TransfermarketFilterComponent, 
+ //   TransfermarketFilterComponent, 
     TransfermarketListComponent, 
     TransfermarketNameFilter
   ],

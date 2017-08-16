@@ -14,7 +14,7 @@ import {MdProgressSpinnerModule} from '@angular/material';
 		MdProgressSpinnerModule
   ],
   declarations: [
-    BidinfoListComponent
+  //  BidinfoListComponent
   ],
   	providers: [
 		BidinfoService
