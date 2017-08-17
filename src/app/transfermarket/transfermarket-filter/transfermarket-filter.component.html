@@ -1,74 +1,82 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row">           
                 <div class="card">
                     <div class="card-header" data-background-color="blue">
                         <h4 class="title">Filtrar Jogador</h4>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="green">
+                            <i class="material-icons">person</i>
+                          </div>
+                          <div class="card-content">
+                            <p class="category">Jogador</p>
+                            <md-input-container class="title">
+                                <input mdInput placeholder="Filtar por Nome" [mdAutocomplete]="auto"  [formControl]="playerCtrl" [(ngModel)]="playerFilter.name">
+                            </md-input-container>
+                            <md-autocomplete class="title" #auto="mdAutocomplete">
+                                <md-option (input)="onInputPlayer(player.name)" *ngFor="let player of filteredPlayers | async" [value]="player.name">
+                                    {{player.name}}
+                                </md-option>
+                            </md-autocomplete>
+                            <h3 class="title">{{ team?.manager }}</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="red">
+                            <i class="material-icons">person_pin_circle</i>
+                          </div>
+                          <div class="card-content">
+                            <p class="category">Posição</p>
+                            <md-input-container>
+                                <input mdInput placeholder="Filtar por posição" [mdAutocomplete]="position" [formControl]="positionsCtrl" [(ngModel)]="playerFilter.position">
+                            </md-input-container>
+                            <md-autocomplete #position="mdAutocomplete">
+                                <md-option *ngFor="let position of filteredPositions | async" [value]="position">
+                                    {{position}}
+                                </md-option>
+                            </md-autocomplete>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="blue">
+                            <i class="material-icons">local_phone</i>
+                          </div>
+                          <div class="card-content">
+                            <p class="category">Liga</p>
+                            <md-input-container>
+                                <input mdInput placeholder="Filtar por Liga" [mdAutocomplete]="leagues" [formControl]="leaguesCtrl" [(ngModel)]="playerFilter.league">
+                            </md-input-container>
+                            <md-autocomplete #leagues="mdAutocomplete">
+                                <md-option *ngFor="let leagues of filteredLeagues | async" [value]="leagues.name">
+                                    {{leagues.name}}
+                                </md-option>
+                            </md-autocomplete>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="orange">
+                            <i class="material-icons">filter_9_plus</i>
+                          </div>
+                          <div class="card-content">
+                            <p class="category">Rating</p>
+                            <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1" [thumb-label]="thumbLabel"
+                            [value]="defaultvalue">
+                        </md-slider>
+                            {{playerFilter.rating}}
+                          </div>
+                        </div>
+                      </div>
+
+
                     <div class="card-content">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <md-card class="result">
-                                    <md-card-content>
-                                        <h2 class="example-h2">Jogador</h2>
-                                        <md-input-container>
-                                            <input mdInput placeholder="Filtar por Nome" [mdAutocomplete]="auto"  [formControl]="playerCtrl" [(ngModel)]="playerFilter.name">
-                                        </md-input-container>
-                                        <md-autocomplete #auto="mdAutocomplete">
-                                            <md-option (input)="onInputPlayer(player.name)" *ngFor="let player of filteredPlayers | async" [value]="player.name">
-                                                {{player.name}}
-                                            </md-option>
-                                        </md-autocomplete>
-                                    </md-card-content>
-                                </md-card>
-                            </div>
-
-                            <div class="col-md-6">
-                                <md-card class="result">
-                                    <md-card-content>
-                                        <h2 class="example-h2">Posição</h2>
-                                        <md-input-container>
-                                            <input mdInput placeholder="Filtar por posição" [mdAutocomplete]="position" [formControl]="positionsCtrl" [(ngModel)]="playerFilter.position">
-                                        </md-input-container>
-
-                                        <md-autocomplete #position="mdAutocomplete">
-                                            <md-option *ngFor="let position of filteredPositions | async" [value]="position">
-                                                {{position}}
-                                            </md-option>
-                                        </md-autocomplete>
-                                    </md-card-content>
-                                </md-card>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <md-card class="result">
-                                    <md-card-content>
-                                        <h2 class="example-h2">Liga</h2>
-                                        <md-input-container>
-                                            <input mdInput placeholder="Filtar por Liga" [mdAutocomplete]="leagues" [formControl]="leaguesCtrl" [(ngModel)]="playerFilter.league">
-                                        </md-input-container>
-                                        <md-autocomplete #leagues="mdAutocomplete">
-                                            <md-option *ngFor="let leagues of filteredLeagues | async" [value]="leagues.name">
-                                                {{leagues.name}}
-                                            </md-option>
-                                        </md-autocomplete>
-                                    </md-card-content>
-                                </md-card>
-                            </div>
-                            <div class="col-md-6">
-                                <md-card class="result">
-                                    <md-card-content>
-                                        <h2 class="example-h2">Rating</h2>
-                                        <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1" [thumb-label]="thumbLabel"
-                                            [value]="defaultvalue">
-                                        </md-slider>
-                                        {{playerFilter.rating}}
-                                    </md-card-content>
-                                </md-card>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <button md-raised-button [disabled]="" (click)="onFilter(playerFilter)">Filtrar</button>
@@ -76,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+        
         </div>
     </div>
 </div>
