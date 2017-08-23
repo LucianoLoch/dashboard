@@ -135,7 +135,8 @@ export class TransfermarketService {
 
     this.playerService.listarFiltro(playerFilter)
       .subscribe((players) => {
-        this.players = players
+        this.players = players;
+        console.log(this.players);
 
         this.teamService.buscarPorIdUser(this.user.id)
           .subscribe((team) => {

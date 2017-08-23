@@ -1,3 +1,3 @@
-<app-team></app-team>
-<app-bidlist></app-bidlist>
-<app-players></app-players>
+<app-team [team]="team"></app-team>
+<app-bidlist [team]="team"></app-bidlist>
+<app-players [players]="team?.players"></app-players>

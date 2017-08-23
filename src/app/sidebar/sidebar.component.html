@@ -1,22 +1,24 @@
-<div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-1.jpg">
+<div class="sidebar" data-color="green">
   <div class="logo">
-    <a href="http://www.creative-tim.com" class="simple-text">Pojeto</a>
+    <a href="/" class="simple-text">Pojeto</a>
   </div>
 
   <div class="sidebar-wrapper">
-    <ul class="nav">
-      <li class="active">
-        <a routerLink="/"><i class="material-icons">dashboard</i><p>Dashboard</p></a>
-      </li>
-      <li>
-        <a routerLink="/transfermarket"><i class="material-icons">store</i><p>Mercado</p></a>
-      </li>
-      <li>
-        <a routerLink="/bid/list"><i class="material-icons">library_books</i><p>Lista de Lances</p></a>
-      </li>
-      <li>
-        <a routerLink="/team/view"><i class="material-icons">content_paste</i><p>Time</p></a>
-      </li>
-    </ul>
+    <div class="nav-container">
+      <ul class="nav">
+        <li routerLinkActive="active">
+          <a routerLink="/dashboard"><i class="material-icons">dashboard</i><p>Dashboard</p></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/transfermarket"><i class="material-icons">store</i><p>Mercado</p></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/bid/list"><i class="material-icons">library_books</i><p>Lista de Lances</p></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/team/view"><i class="material-icons">content_paste</i><p>Time</p></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

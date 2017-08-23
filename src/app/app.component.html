@@ -1,8 +1,7 @@
 <div *ngIf="currentUser" class="wrapper">
-    <app-sidebar></app-sidebar>
-
+    <app-sidebar *ngIf="team"></app-sidebar>
     <div class="main-panel">
-        <app-navbar></app-navbar>
+        <app-navbar [team]="team" [currentUser]="currentUser"></app-navbar>
 
         <div class="content">
             <div class="container-fluid">
@@ -21,12 +20,10 @@
     </div>
 </div>
 <div *ngIf="!currentUser" class="wrapper">      
-    <div class="main-panel">
-       
+    <div class="main-panel">       
         <div class="content">
             <div class="container-fluid">
                 <router-outlet></router-outlet>
-
                 <footer class="footer">
                     <div class="container-fluid">
                         <p class="copyright pull-right">

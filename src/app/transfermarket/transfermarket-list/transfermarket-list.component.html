@@ -2,6 +2,60 @@
 
 
 <div class="row" *ngIf="!loading" style="padding-bottom: 10px; padding-top: 5px">
+
+
+    <div class="col-md-10">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-sucess">
+                            <tr>
+                                <th class="text-center">Jogador</th>
+                                <th class="text-center">Posição</th>
+                                <th class="text-center">Rating</th>
+                                <th class="text-center">Lance</th>
+                                <th class="text-center">Lance Inicial</th>
+                                <th class="text-center">Tem Lance</th>
+                                <th class="text-center">Vencendo</th>
+                                <th class="text-center">Lance</th>
+                                <th class="text-center">
+                                    <md-card-actions>
+                                        <button md-button (click)="onRefresh()" rel="tooltip" title="Atualizar">
+                                            <i class="fa fa-refresh"></i>
+                                        </button>
+                                    </md-card-actions>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let transfermarket of transfermarkets | transferMarketNameFilter:nameFilter:positionFilter:ratingFilter:bidValueFilter:originalValueFilter:hasBidFilter:bidAprovedFilter | paginate: config ">
+
+                                <td class="text-center">{{transfermarket.name}}</td>
+                                <td class="text-center">{{transfermarket.position}}</td>
+                                <td class="text-center">{{transfermarket.rating}}</td>
+                                <td class="text-center">R$ {{transfermarket.bidValue}},00</td>
+                                <td class="text-center">R$ {{transfermarket.originalValue}},00</td>
+                                <td *ngIf="transfermarket.hasBid" class="text-center">Sim</td>
+                                <td *ngIf="!transfermarket.hasBid" class="text-center">Não</td>
+                                <td *ngIf="transfermarket.bidAproved" class="text-center">Sim</td>
+                                <td *ngIf="!transfermarket.bidAproved" class="text-center">Não</td>
+                                <td class="text-center"><button md-raised-button (click)="onBid(transfermarket)">Dar Lance</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center" style="padding-bottom: 10px; padding-top: 5px">
+                    <div class="has-text-centered">
+                        <pagination-controls [id]="config.id" [directionLinks]="directionLinks" [autoHide]="autoHide" [previousLabel]="labels.previousLabel"
+                            [nextLabel]="labels.nextLabel" [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                            [screenReaderPageLabel]="labels.screenReaderPageLabel" [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                            (pageChange)="onPageChange($event)"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-2">
         <div class="card">
             <div class="card-header" data-background-color="blue">
@@ -58,56 +112,5 @@
 
             </md-card>
         </div>
-    </div>
-
-    <div class="col-md-10">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Jogador</th>
-                            <th class="text-center">Posição</th>
-                            <th class="text-center">Rating</th>
-                            <th class="text-center">Lance</th>
-                            <th class="text-center">Lance Inicial</th>
-                            <th class="text-center">Tem Lance</th>
-                            <th class="text-center">Vencendo</th>
-                            <th class="text-center">Lance</th>
-                            <th class="text-center">
-                                <md-card-actions>
-                                    <button md-button (click)="onRefresh()" rel="tooltip" title="Atualizar">
-                                            <i class="fa fa-refresh"></i>
-                                        </button>
-                                </md-card-actions>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let transfermarket of transfermarkets | transferMarketNameFilter:nameFilter:positionFilter:ratingFilter:bidValueFilter:originalValueFilter:hasBidFilter:bidAprovedFilter | paginate: config ">
-
-                            <td class="text-center">{{transfermarket.name}}</td>
-                            <td class="text-center">{{transfermarket.position}}</td>
-                            <td class="text-center">{{transfermarket.rating}}</td>
-                            <td class="text-center">R$ {{transfermarket.bidValue}},00</td>
-                            <td class="text-center">R$ {{transfermarket.originalValue}},00</td>
-                            <td *ngIf="transfermarket.hasBid" class="text-center">Sim</td>
-                            <td *ngIf="!transfermarket.hasBid" class="text-center">Não</td>
-                            <td *ngIf="transfermarket.bidAproved" class="text-center">Sim</td>
-                            <td *ngIf="!transfermarket.bidAproved" class="text-center">Não</td>
-                            <td class="text-center"><button md-raised-button (click)="onBid(transfermarket)">Dar Lance</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="text-center" style="padding-bottom: 10px; padding-top: 5px">
-                <div class="has-text-centered">
-                    <pagination-controls [id]="config.id" [directionLinks]="directionLinks" [autoHide]="autoHide" [previousLabel]="labels.previousLabel"
-                        [nextLabel]="labels.nextLabel" [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel" [screenReaderPageLabel]="labels.screenReaderPageLabel"
-                        [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel" (pageChange)="onPageChange($event)"></pagination-controls>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>

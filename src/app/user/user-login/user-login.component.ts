@@ -43,10 +43,12 @@ export class UserLoginComponent {
                  console.log(userLogged);
                 if (userLogged && userLogged.keyAuth) {
                     this.alertService.success('Usuário Logado com Sucesso');
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/dashboard']);
+                    window.location.reload();
                 } else {
                     this.alertService.error('Usuário inválido ou senha incorreta.');
                     this.router.navigate(['/login']);
+                    
                 }
 
             },
@@ -58,7 +60,7 @@ export class UserLoginComponent {
         console.log(user);
         if (user && user.keyAuth) {
             this.alertService.success('Usuário Logado com Sucesso');
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
         } else {
             this.alertService.error('Usuário inválido ou senha incorreta.');
             this.router.navigate(['/login']);

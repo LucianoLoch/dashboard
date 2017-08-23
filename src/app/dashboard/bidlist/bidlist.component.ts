@@ -7,7 +7,7 @@ import { User } from './../../user/user.model';
 import { Team } from './../../team/team.model';
 
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-bidlist',
@@ -22,19 +22,18 @@ export class BidlistComponent implements OnInit {
   public pagina: number;
   public totalRegistros: number;
   public msgErro: string;
-  public team: Team;
   public user: User;
   public player: Player;
   loading: boolean = true;
   color = 'primary';
   mode = 'indeterminate';
+  @Input() team: Team;
 
   constructor(public bidinfoService: BidinfoService,
     public teamService: TeamService,
     public playerService: PlayerService,
     public route: ActivatedRoute) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-
   }
 
   ngOnInit() {

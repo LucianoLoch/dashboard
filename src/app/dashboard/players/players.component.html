@@ -1,10 +1,11 @@
-<div class="col-lg-6 col-md-12">
+<div  class="col-lg-6 col-md-12">
     <div class="card">
         <div class="card-header" data-background-color="green">
             <h4 class="title">Seus Jogadores</h4>
-            <p class="category">{{ team?.players.length}}</p>
+            <p *ngIf="players?.length>0" class="category">{{players?.length}}</p>
+            <p *ngIf="players?.length<=0" class="category">Você não possuí nenhum jogador no momento.</p>
         </div>
-        <div class="card-content table-responsive">
+        <div *ngIf="players?.length > 0" class="card-content table-responsive">
             <table class="table table-hover">
                 <thead class="text-success">
                     <th>Jogador</th>
@@ -12,10 +13,10 @@
                     <th>Rating</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let player of team?.players">
+                    <tr *ngFor="let player of players">
                         <td>{{ player.name }}</td>
-                        <td><span class="label label-primary">{{ player.position}}</span></td>
-                        <td><span class="label label-success">{{ player.rating}}</span></td>
+                        <td><span class="label label-warning">{{ player.position}}</span></td>
+                        <td><span [ngClass]="getRatingColor(player.rating)"class="label">{{ player.rating}}</span></td>
                     </tr>                   
                 </tbody>
             </table>

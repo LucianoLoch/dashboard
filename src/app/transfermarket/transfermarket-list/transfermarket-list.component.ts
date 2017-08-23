@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { AnonymousSubscription } from "rxjs/Subscription";
-import { PaginationInstance} from 'ngx-pagination';
+import { PaginationInstance } from 'ngx-pagination';
 
 
 @Component({
@@ -124,16 +124,16 @@ export class TransfermarketListComponent implements OnInit {
       subscribe(
       (data: Transfermarket[]) => {
         this.transfermarkets = data;
-        this.filterRemove();
+       // this.filterRemove();
         this.loading = false;
         this.team = this.transfermarketService.getTeam();
         this.subscribeToData();
       },
       function (error) {
-        console.log(error);
+
       },
       function () {
-        console.log('complete');
+
       }
       );
 
@@ -141,7 +141,6 @@ export class TransfermarketListComponent implements OnInit {
   onRefresh() {
     this.bid = new Bidinfo();
     this.loading = true;
-    this.filterRemove();
     this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
     this.loading = false;
   }
@@ -212,10 +211,6 @@ export class TransfermarketListComponent implements OnInit {
   }
 
   filterRemove() {
-    this.nameFilter = '';
-    this.bidValueFilter = 0;
-    this.positionFilter = '';
-    this.originalValueFilter = 0;
   }
 
 

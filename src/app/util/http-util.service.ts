@@ -9,7 +9,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpUtilService {
 
-	public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
+	//public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
+	public API_URL: string = 'http://nbbnu006609:9191/';
+	
+
+	//http://nbbnu006609:9191/player/get/5
 	
 	url(path: string) {
 		return this.API_URL + path;

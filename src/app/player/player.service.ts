@@ -32,7 +32,7 @@ export class PlayerService {
 
   listarFiltro(playerFilter: PlayerFilter): Observable<Player[]> {
     let params = JSON.parse(JSON.stringify(playerFilter || null));
-    return this.http.post(this.httpUtil.url('player/getPlayer'), params,
+    return this.http.post(this.httpUtil.url('player/getPlayers'), params,
       this.httpUtil.headers())
       .map(this.httpUtil.extrairDados)
       .catch(this.httpUtil.processarErros);

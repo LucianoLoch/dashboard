@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   
     login(user : User) {
-        return this.http.put(this.httpUtil.url(this.loginUrl), user, 
+        return this.http.post(this.httpUtil.url(this.loginUrl), user, 
                         this.httpUtil.headers())
                     .map(this.httpUtil.extrairDadosUser)
                     .catch(this.httpUtil.processarErros);                    
@@ -24,6 +24,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
+        
     }
 
     isLogged(){
