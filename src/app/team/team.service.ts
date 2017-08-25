@@ -49,7 +49,7 @@ export class TeamService {
 
 
   buscarPorIdUser(id: number): Observable<Team> {
-    let teamPath = this.path + '/listTeam';
+    let teamPath = this.path + '/getByUser';
     return this.http.get(this.httpUtil.url(teamPath + '/' + id), this.httpUtil.headers())
       .map(this.httpUtil.extrairDados)
       .catch(this.httpUtil.processarErros);

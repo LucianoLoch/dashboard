@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 export class HttpUtilService {
 
 	//public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
-	public API_URL: string = 'http://nbbnu006609:9191/';
+	public API_URL: string = 'http://localhost:9191/';
 	
 
 	//http://nbbnu006609:9191/player/get/5
@@ -33,8 +33,15 @@ export class HttpUtilService {
 	}
 
 	extrairDados(response: Response) {
-    	let data = response.json();
+		let data = response.json();
+		console.log(data);
     	return data;
+	}
+	  
+	extrairDadosTeam(response: Response) {
+		let data = response.json();
+		console.log(JSON.stringify(data.content));
+		return JSON.stringify(data.content);
   	}
 	  
 
@@ -44,6 +51,7 @@ export class HttpUtilService {
 	}
 
 	extrairDadosUser(response : Response){
+		console.log(response.json());		
 		let user = response.json();	
 		console.log(user);	
 		if (user && user.keyAuth){

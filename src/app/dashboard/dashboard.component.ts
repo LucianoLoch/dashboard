@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
     this.teamService.buscarPorIdUser(this.user.id)
       .subscribe((team) => {
+        console.log(team);
         this.team = team;
         this.loading = false;
       },

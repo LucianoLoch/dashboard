@@ -8,7 +8,7 @@ export class AuthenticationService {
 
 	public path = 'http://localhost:8585/pofexo/rest/user/login';
 
-  public loginUrl:string = 'user/login';
+    public loginUrl:string = 'user/login';
 	public logoutUrl:string = '';
     
 	constructor(public http: Http, public httpUtil :HttpUtilService) { }
