@@ -1,0 +1,23 @@
+<div class="col-lg-6 col-md-12">
+    <div class="card">
+        <div class="card-header" data-background-color="red">
+            <h4 class="title">Suas Notificações</h4>
+            <p *ngIf="notifications?.length > 0" class="category">{{notifications?.length}}</p>
+            <p *ngIf="notifications?.length <= 0" class="category">Você não possuí nenhuma notificação no momento.</p>
+        </div>
+        <div *ngIf="notifications?.length > 0" class="card-content table-responsive">
+            <table class="table table-hover">
+                <thead class="text-danger">
+                    <th>Jogador</th>
+                    <th>Notificação</th>                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let not of notifications">
+                        <td>{{ not.playerName }}</td>
+                        <td>{{ not.notification }}</td>                        
+                    </tr>                   
+                </tbody>
+            </table>
+        </div>       
+    </div>
+</div>

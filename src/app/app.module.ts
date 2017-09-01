@@ -1,3 +1,5 @@
+import { NotificationComponent } from './dashboard/notification/notification.component';
+import { NotificationService } from './transfermarket/notification.service';
 import { AuthGuards } from './auth-guards/auth-guards';
 import { AlertService } from './util/alert.service';
 import { UserService } from './user/user.service';
@@ -33,6 +35,8 @@ import { TeamComponent } from './dashboard/team/team.component';
 import { PlayersComponent } from './dashboard/players/players.component';
 import { BidlistComponent } from './dashboard/bidlist/bidlist.component';
 
+import { TdDataTableService } from '@covalent/core';
+
 
 
 
@@ -55,14 +59,16 @@ import { BidlistComponent } from './dashboard/bidlist/bidlist.component';
     ToastrModule.forRoot(),  
   ],
     declarations: [ 
-    AppComponent, SidebarComponent, NavbarComponent, DashboardComponent, TeamComponent, PlayersComponent, BidlistComponent    
+    AppComponent, SidebarComponent, NavbarComponent, DashboardComponent, TeamComponent, PlayersComponent, BidlistComponent, NotificationComponent    
   ],
   providers: [
     HttpUtilService,
     AuthGuards,
     AuthenticationService,
     UserService,
-    AlertService,    
+    AlertService,   
+    TdDataTableService,
+    NotificationService 
     
   ],
   bootstrap: [AppComponent]

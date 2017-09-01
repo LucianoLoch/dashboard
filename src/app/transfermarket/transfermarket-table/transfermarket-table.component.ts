@@ -1,3 +1,4 @@
+import { BidInfo } from './../../bidinfo/bid-info';
 import { TransfermarketNameFilter } from './../transfermarket.pipe';
 import { Player } from './../../player/player.model';
 import { AlertService } from './../../util/alert.service';
@@ -14,13 +15,43 @@ import { Observable } from 'rxjs/Rx';
 import { AnonymousSubscription } from "rxjs/Subscription";
 import { PaginationInstance } from 'ngx-pagination';
 
+import {
+  TdDataTableService,
+  TdDataTableSortingOrder,
+  ITdDataTableSortChangeEvent,
+  ITdDataTableColumn
+} from '@covalent/core';
+
+import { IPageChangeEvent } from '@covalent/core';
 
 @Component({
-  selector: 'app-transfermarket-list',
-  templateUrl: './transfermarket-list.component.html',
-  styleUrls: ['./transfermarket-list.component.css']
+  selector: 'app-transfermarket-table',
+  templateUrl: './transfermarket-table.component.html',
+  styleUrls: ['./transfermarket-table.component.css']
 })
-export class TransfermarketListComponent implements OnInit {
+export class TransfermarketTableComponent implements OnInit {
+  
+  columns: ITdDataTableColumn[] = [
+    { name: 'name', label: 'Jogador', tooltip: '' },
+    { name: 'rating', label: 'Rating' },   
+    { name: 'position', label: 'Posição' },
+    { name: 'bidValue', label: 'Lance', numeric: true, filter: true },
+    { name: 'originalValue', label: 'Lance Inicial', numeric: true, filter: true },
+    { name: 'hasBid', label: 'Tem Lance', filter: true },
+    { name: 'bidAproved', label: 'Lance Aprovado', filter: true },
+    { name: 'bid', label: 'Lance'},
+    
+  ];
+  filteredData: any[]; ;
+  filteredTotal: number; 
+
+  searchTerm: string = '';
+  fromRow: number = 1;
+  currentPage: number = 1;
+  pageSize: number = 5;
+  sortBy: string = 'name';
+  selectedRows: any[] = [];
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
   public timerSubscription: AnonymousSubscription;
   public playersSubscription: AnonymousSubscription;
@@ -45,13 +76,22 @@ export class TransfermarketListComponent implements OnInit {
     public alertService: AlertService,
     _playerService: PlayerService,
     _bidinfoService: BidinfoService,
-    public route: ActivatedRoute) {
+    public route: ActivatedRoute,
+    public _dataTableService: TdDataTableService) {
     this.bidinfoService = _bidinfoService;
 
     this.route.queryParams.subscribe(params => {
       this.playerFilter = params["playerFilter"];
     });
+  }
 
+
+  ngOnInit() {
+    this.bid = new Bidinfo();
+    this.loading = true;
+    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
+    this.refreshData(true);
+    this.team = this.transfermarketService.getTeam();
   }
 
   public ngOnDestroy(): void {
@@ -63,69 +103,61 @@ export class TransfermarketListComponent implements OnInit {
     }
   }
 
-
-
-  getPlayers(): Player[] {
-    return [];
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {  
+    this.sortBy = sortEvent.name;
+    this.sortOrder = sortEvent.order;
+    this.filter();
   }
 
-
-  ngOnInit() {
-    this.bid = new Bidinfo();
-    this.loading = true;
-    //this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
-    this.refreshData();
-    this.team = this.transfermarketService.getTeam();
-    let timer = Observable.timer();
-    timer.subscribe();
-
-
+  search(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.filter();
   }
-  public filter: string = '';
-  public nameFilter: string;
-  public positionFilter: string;
-  public ratingFilter: number;
-  public bidValueFilter: number;
-  public originalValueFilter: number;
-  public hasBidFilter: boolean;
-  public bidAprovedFilter: boolean;
 
-  public config: PaginationInstance = {
-    id: 'advanced',
-    itemsPerPage: 10,
-    currentPage: 1
-  };
+  page(pagingEvent: IPageChangeEvent): void {
+    this.fromRow = pagingEvent.fromRow;
+    this.currentPage = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.filter();
+  }
 
-  public labels: any = {
-    previousLabel: 'Anterior',
-    nextLabel: 'Próximo',
-    screenReaderPaginationLabel: 'Paginação',
-    screenReaderPageLabel: 'pagina',
-    screenReaderCurrentLabel: `Você está na página`
-  };
-
-  onPageChange(number: number) {
-    this.config.currentPage = number;
+  filter(): void {
+    let newData: any[] = this.transfermarkets;
+    let excludedColumns: string[] = this.columns
+      .filter((column: ITdDataTableColumn) => {
+        return ((column.filter === undefined && column.hidden === true) ||
+          (column.filter !== undefined && column.filter === false));
+      }).map((column: ITdDataTableColumn) => {
+        return column.name;
+      });
+    newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+    this.filteredTotal = newData.length;
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.filteredData = newData;
   }
 
   public subscribeToData(): void {
-
     this.timerSubscription = Observable.timer(60000)
-      .subscribe(() => this.refreshData());
+      .subscribe(() => this.refreshData(false));
   }
 
-  public refreshData(): void {
+  public refreshData(firtsTime : Boolean): void {
     this.loading = true;
 
     this.playersSubscription = this.transfermarketService.listarFilterObservable(this.playerFilter).
       subscribe(
-      (data: Transfermarket[]) => {
-        this.transfermarkets = data;
-       // this.filterRemove();
+      (data: Transfermarket[]) => { 
+        
         this.loading = false;
         this.team = this.transfermarketService.getTeam();
+        this.transfermarkets = data;
+        this.filter();
+        //this.filteredData = this.transfermarkets;
+        //this.filteredTotal = this.transfermarkets.length;
         this.subscribeToData();
-      },
+        
+    },
       function (error) {
 
       },
@@ -139,6 +171,7 @@ export class TransfermarketListComponent implements OnInit {
     this.bid = new Bidinfo();
     this.loading = true;
     this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
+    this.filter();
     this.loading = false;
   }
 
@@ -207,11 +240,5 @@ export class TransfermarketListComponent implements OnInit {
       });
   }
 
-  filterRemove() {
-  }
-
-
-
 
 }
-

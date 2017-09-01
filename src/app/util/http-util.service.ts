@@ -34,13 +34,21 @@ export class HttpUtilService {
 
 	extrairDados(response: Response) {
 		let data = response.json();
-		console.log(data);
-    	return data;
+		return data;
+	}
+
+	extrairDadosBid(response: Response) {
+		let data = response.json();
+		return data.bid;
+	}
+
+	extrairDadosContent(response: Response) {
+		let data = response.json();
+		return data.content;
 	}
 	  
 	extrairDadosTeam(response: Response) {
 		let data = response.json();
-		console.log(JSON.stringify(data.content));
 		return JSON.stringify(data.content);
   	}
 	  
@@ -51,11 +59,10 @@ export class HttpUtilService {
 	}
 
 	extrairDadosUser(response : Response){
-		console.log(response.json());		
 		let user = response.json();	
-		console.log(user);	
 		if (user && user.keyAuth){
 			localStorage.setItem('currentUser', JSON.stringify(user));
+			localStorage.setItem('keyAuth', JSON.stringify(user.keyAuth));			
 		}
 		return user;
 	}

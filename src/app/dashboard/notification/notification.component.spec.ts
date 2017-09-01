@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TransfermarketListComponent } from './transfermarket-list.component';
+import { BidlistComponent } from './bidlist.component';
 
-describe('TransfermarketListComponent', () => {
-  let component: TransfermarketListComponent;
-  let fixture: ComponentFixture<TransfermarketListComponent>;
+describe('BidlistComponent', () => {
+  let component: BidlistComponent;
+  let fixture: ComponentFixture<BidlistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TransfermarketListComponent ]
+      declarations: [ BidlistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TransfermarketListComponent);
+    fixture = TestBed.createComponent(BidlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -94,13 +94,11 @@ export class TransfermarketService {
           shop.position = player.position;
           shop.rating = player.rating;
           shop.idPlayer = player.id;
-          console.log(player.id);
-
+          
           this.bidinfoService.buscarPorIdPlayers(player.id)
             .subscribe((bidInfo) => {
               this.bidInfo = bidInfo;
               let bid: Bidinfo = this.bidInfo;
-              console.log(this.bidInfo);
               if (this.bidInfo) {
                 shop.idBid = bid.id;
                 shop.originalValue = bid.originalValue;
@@ -136,8 +134,6 @@ export class TransfermarketService {
     this.playerService.listarFiltro(playerFilter)
       .subscribe((players) => {
         this.players = players;
-        console.log(this.players);
-
         this.teamService.buscarPorIdUser(this.user.id)
           .subscribe((team) => {
             this.team = team
@@ -151,7 +147,6 @@ export class TransfermarketService {
               shop.rating = player.rating;
               shop.idPlayer = player.id;
               shop.team = this.team;
-
               if (!player.hasBid) {
                 shop.idBid = 0;
                 shop.bidValue = this.bid(player.rating);
@@ -166,7 +161,6 @@ export class TransfermarketService {
                   .subscribe((bidInfo) => {
                     this.bidInfo = bidInfo;
                     let bid: Bidinfo = this.bidInfo;
-                    console.log(this.bidInfo);
                     if (this.bidInfo) {
                       shop.idBid = bid.id;
                       shop.originalValue = bid.originalValue;
@@ -241,7 +235,6 @@ export class TransfermarketService {
         .map(this.httpUtil.extrairDados)
         .catch(this.httpUtil.processarErros)
         .subscribe((data) => {
-          console.log(data);
           this.bidInfo = data
           observer.next(this.bidInfo);
           observer.complete();

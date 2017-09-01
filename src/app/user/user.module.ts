@@ -1,3 +1,4 @@
+import { TeamService } from './../team/team.service';
 import { AuthenticationService } from './authentication.service';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     UserLoginComponent
   ],
   providers: [
-		AuthenticationService
+		AuthenticationService,
+    TeamService
 	]
 })
 export class UserModule { }

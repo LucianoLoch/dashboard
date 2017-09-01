@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let transfermarket of transfermarkets | transferMarketNameFilter:nameFilter:positionFilter:ratingFilter:bidValueFilter:originalValueFilter:hasBidFilter:bidAprovedFilter | paginate: config ">
+                            <tr *ngFor="let transfermarket of transfermarkets | paginate: config ">
 
                                 <td class="text-center">{{transfermarket.name}}</td>
                                 <td class="text-center">{{transfermarket.position}}</td>

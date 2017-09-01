@@ -1,3 +1,5 @@
+import { Notification } from './../transfermarket/notification.model';
+import { NotificationService } from './../transfermarket/notification.service';
 import { UserService } from './../user/user.service';
 import { TeamService } from './../team/team.service';
 import { Team } from './../team/team.model';
@@ -15,6 +17,18 @@ export class NavbarComponent {
 
   @Input() currentUser: User;
   @Input() team : Team;
+  public notifications : Notification[];
+
+  constructor(public notificationService :NotificationService){    
+  }
+
+  ngOnInit() {
+    this.team = JSON.parse(localStorage.getItem('team'));
+    this.notificationService.getLastNotifications(this.team.id)
+      .subscribe((notifications) => {
+        this.notifications = notifications;
+      }, error => this.msgErro = error);
+  }
 
 }
 

@@ -56,10 +56,10 @@ export class BidinfoService {
 	}
 
 	buscarPorIdPlayers(id: number): Observable<Bidinfo> {
-		let bidinfoPath = this.pathApi + '/getBidFromPlayerId';
+		let bidinfoPath = 'market/player/getBid';
 		return this.http.get(this.httpUtil.url(bidinfoPath + '/' + id),
 			this.httpUtil.headers())
-			.map(this.httpUtil.extrairDados)
+			.map(this.httpUtil.extrairDadosBid)
 			.catch(this.httpUtil.processarErros);
 	}
 
@@ -73,10 +73,10 @@ export class BidinfoService {
 	}
 
 	buscarPorTeam(id: number): Observable<Bidinfo[]> {
-		let bidinfoPath = this.pathApi + '/getBidFromTeamId';
+		let bidinfoPath = '/market/team/getBid';
 		return this.http.get(this.httpUtil.url(bidinfoPath + '/' + id),
 			this.httpUtil.headers())
-			.map(this.httpUtil.extrairDados)
+			.map(this.httpUtil.extrairDadosContent)
 			.catch(this.httpUtil.processarErros);
 	}
 

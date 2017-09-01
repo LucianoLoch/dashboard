@@ -1,3 +1,4 @@
-<app-team [team]="team"></app-team>
-<app-bidlist [team]="team"></app-bidlist>
-<app-players [players]="team?.players"></app-players>
+<app-team *ngIf="team" [team]="team"></app-team>
+<app-bidlist *ngIf="team" [team]="team"></app-bidlist>
+<app-players *ngIf="team" [players]="team?.players"></app-players>
+<app-notification *ngIf="team" [team]="team"></app-notification>

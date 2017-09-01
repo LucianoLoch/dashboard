@@ -15,7 +15,7 @@ import { Player } from './player.model';
 @Injectable()
 export class PlayerService {
 
-  public path = 'player/listPlayer/53';
+  public path = 'player/list';
 
   public msgErro: string;
   public players: Player[];
@@ -25,16 +25,15 @@ export class PlayerService {
 
   listarTodos(): Observable<Player[]> {
     return this.http.get(this.httpUtil.url(this.path), this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
+      .map(this.httpUtil.extrairDadosContent)
       .catch(this.httpUtil.processarErros);
   }
-
 
   listarFiltro(playerFilter: PlayerFilter): Observable<Player[]> {
     let params = JSON.parse(JSON.stringify(playerFilter || null));
     return this.http.post(this.httpUtil.url('player/getPlayers'), params,
       this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
+      .map(this.httpUtil.extrairDadosContent)
       .catch(this.httpUtil.processarErros);
   }
 
@@ -50,24 +49,6 @@ export class PlayerService {
 
   buscarPorId(id: number): Observable<Player> {
     return this.http.get(this.httpUtil.url('player/getPlayer/' + id),
-      this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
-      .catch(this.httpUtil.processarErros);
-  }
-
-
-  atualizar(player: Player) {
-    let params = JSON.stringify(player);
-
-    return this.http.put(this.httpUtil.url(this.path), params,
-      this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
-      .catch(this.httpUtil.processarErros);
-  }
-
-  excluir(id: number) {
-
-    return this.http.delete(this.httpUtil.url(this.path + '/' + id),
       this.httpUtil.headers())
       .map(this.httpUtil.extrairDados)
       .catch(this.httpUtil.processarErros);

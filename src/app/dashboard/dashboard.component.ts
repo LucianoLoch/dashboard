@@ -2,7 +2,7 @@ import { Player } from './../player/player.model';
 import { Team } from './../team/team.model';
 import { User } from './../user/user.model';
 import { TeamService } from './../team/team.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -24,27 +24,25 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
-    public teamService: TeamService) {
+    public teamService: TeamService,
+    public router: Router) {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   ngOnInit() {
     this.loading = true;
-    console.log(this.user);
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.id = +this.route.snapshot.params['id'];
-    let idUser = 0;
-    if (this.id === 0) {
-      idUser = this.id;
-    } else {
-      idUser = this.user.id;
-    }
+    this.id = +this.route.snapshot.params['id'];    
 
     this.teamService.buscarPorIdUser(this.user.id)
-      .subscribe((team) => {
-        console.log(team);
-        this.team = team;
-        this.loading = false;
+      .subscribe((team) => {        
+        this.team = team;        
+        if (this.team){
+          this.loading = false;
+          localStorage.setItem('team', JSON.stringify(this.team));					
+        }else {
+          this.router.navigate(['/team/create']);
+        }
       },
       error => this.msgErro = error);
 

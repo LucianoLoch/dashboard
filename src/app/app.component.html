@@ -1,5 +1,5 @@
 <div *ngIf="currentUser" class="wrapper">
-    <app-sidebar *ngIf="team"></app-sidebar>
+    <app-sidebar [team]="team" [currentUser]="currentUser"></app-sidebar>
     <div class="main-panel">
         <app-navbar [team]="team" [currentUser]="currentUser"></app-navbar>
 
