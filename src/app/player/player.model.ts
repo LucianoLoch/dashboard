@@ -1,3 +1,4 @@
+import { PlayerAttributes } from './playerAttributes.model';
 export class Player {
 	constructor(
 		public id?: number,
@@ -5,5 +6,6 @@ export class Player {
 		public position?: string,
 		public baseId?: number,
 		public rating?: number,
-		public hasBid?:boolean){}
+		public hasBid?:boolean,
+		public attributes?: PlayerAttributes[]){}
 }

@@ -36,6 +36,7 @@ import { PlayersComponent } from './dashboard/players/players.component';
 import { BidlistComponent } from './dashboard/bidlist/bidlist.component';
 
 import { TdDataTableService } from '@covalent/core';
+import { CovalentExpansionPanelModule } from '@covalent/core';
 
 
 
@@ -56,7 +57,8 @@ import { TdDataTableService } from '@covalent/core';
  //   PaginationModule.forRoot(),
 //		TabsModule.forRoot(),
     FormsModule,
-    ToastrModule.forRoot(),  
+    ToastrModule.forRoot(),
+    CovalentExpansionPanelModule  
   ],
     declarations: [ 
     AppComponent, SidebarComponent, NavbarComponent, DashboardComponent, TeamComponent, PlayersComponent, BidlistComponent, NotificationComponent    

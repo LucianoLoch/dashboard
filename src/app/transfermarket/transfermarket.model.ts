@@ -1,3 +1,4 @@
+import { PlayerAttributes } from './../player/playerAttributes.model';
 import { Team } from './../team/team.model';
 
 export class Transfermarket {
@@ -13,5 +14,6 @@ export class Transfermarket {
 		public playerId?: number,
 		public bidAproved?: boolean,
 		public hasBid?: boolean,
-		public team?: Team){}	
+		public team?: Team,
+		public attributes?: PlayerAttributes){}	
 }

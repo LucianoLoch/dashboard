@@ -54,7 +54,7 @@ export class TeamCreateComponent implements OnInit {
 		this.teamService.register(this.team)
 			.subscribe(
 			(res) => {
-				this.router.navigate(['/']);	
+				this.router.navigate(['/dashboard']);	
 				window.location.reload();				
 				this.alertService.success('Registro Efetuado com sucesso', true);
 				

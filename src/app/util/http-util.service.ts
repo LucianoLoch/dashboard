@@ -49,6 +49,7 @@ export class HttpUtilService {
 	  
 	extrairDadosTeam(response: Response) {
 		let data = response.json();
+		
 		return JSON.stringify(data.content);
   	}
 	  
@@ -62,7 +63,8 @@ export class HttpUtilService {
 		let user = response.json();	
 		if (user && user.keyAuth){
 			localStorage.setItem('currentUser', JSON.stringify(user));
-			localStorage.setItem('keyAuth', JSON.stringify(user.keyAuth));			
+			localStorage.setItem('keyAuth', JSON.stringify(user.keyAuth));	
+			
 		}
 		return user;
 	}

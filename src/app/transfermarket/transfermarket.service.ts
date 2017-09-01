@@ -1,3 +1,4 @@
+import { PlayerAttributes } from './../player/playerAttributes.model';
 import { Bidinfo } from './../bidinfo/bidinfo.model';
 import { Team } from './../team/team.model';
 import { User } from './../user/user.model';
@@ -147,6 +148,7 @@ export class TransfermarketService {
               shop.rating = player.rating;
               shop.idPlayer = player.id;
               shop.team = this.team;
+              shop.attributes = player.attributes;
               if (!player.hasBid) {
                 shop.idBid = 0;
                 shop.bidValue = this.bid(player.rating);
@@ -241,6 +243,10 @@ export class TransfermarketService {
         });
     });
   }
+
+
+
+
 
 
 

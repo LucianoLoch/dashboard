@@ -6,6 +6,7 @@
             <p *ngIf="players?.length<=0" class="category">Você não possuí nenhum jogador no momento.</p>
         </div>
         <div *ngIf="players?.length > 0" class="card-content table-responsive">
+            <td-expansion-panel>
             <table class="table table-hover">
                 <thead class="text-success">
                     <th>Jogador</th>
@@ -20,6 +21,7 @@
                     </tr>                   
                 </tbody>
             </table>
+            </td-expansion-panel>
         </div>
     </div>
 </div>

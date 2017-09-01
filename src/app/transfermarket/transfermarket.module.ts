@@ -1,3 +1,4 @@
+import { TransfermarketAttributesComponent } from './transfermarket-attributes/transfermarket-attributes.component';
 import { TransfermarketTableComponent } from './transfermarket-table/transfermarket-table.component';
 import { LeagueService } from './league.service';
 import { TeamService } from './../team/team.service';
@@ -106,11 +107,15 @@ import {
     CovalentCommonModule,
     
   ],
+  entryComponents:[
+    TransfermarketAttributesComponent
+  ],
   declarations: [
  //   TransfermarketFilterComponent, 
     TransfermarketListComponent, 
     TransfermarketNameFilter,
-    TransfermarketTableComponent
+    TransfermarketTableComponent,
+    TransfermarketAttributesComponent
   ],
   providers: [
     TransfermarketService, 
