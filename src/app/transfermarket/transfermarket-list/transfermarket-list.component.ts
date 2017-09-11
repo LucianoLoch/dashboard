@@ -138,7 +138,7 @@ export class TransfermarketListComponent implements OnInit {
   onRefresh() {
     this.bid = new Bidinfo();
     this.loading = true;
-    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
+    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter,1);
     this.loading = false;
   }
 

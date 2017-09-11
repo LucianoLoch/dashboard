@@ -10,7 +10,7 @@
             <tr>
                 <td>{{ data.name }}</td>
                 <td>{{ data.position }}</td>
-                <td>{{ data.rating }}</td>                
+                <td><span [ngClass]="getAttributeColor(data.rating )"class="label">{{ data.rating }}</span></td>  
             </tr>
         </tbody>
     </table>   
@@ -23,7 +23,7 @@
         <tbody>
             <tr *ngFor="let attribute of data.attributes">
                 <td>{{ attribute.name }}</td>
-                <td>{{ attribute.value }}</td>
+                <td><span [ngClass]="getAttributeColor(attribute.value)"class="label">{{ attribute.value}}</span></td>               
             </tr>
         </tbody>
     </table>   

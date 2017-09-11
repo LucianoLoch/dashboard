@@ -123,16 +123,16 @@ export class TransfermarketService {
 
   }
   listarFilterObservable(playerFilter: PlayerFilter): Observable<Transfermarket[]> {
-    return Observable.of(this.listarFilter(playerFilter));
+    return Observable.of(this.listarFilter(playerFilter, 0));
   }
 
 
-  listarFilter(playerFilter: PlayerFilter): Transfermarket[] {
+  listarFilter(playerFilter: PlayerFilter, page : number): Transfermarket[] {
     let playerList: Player[] = [];
     let shops: Transfermarket[] = [];
 
 
-    this.playerService.listarFiltro(playerFilter)
+    this.playerService.listarFiltro(playerFilter, page)
       .subscribe((players) => {
         this.players = players;
         this.teamService.buscarPorIdUser(this.user.id)

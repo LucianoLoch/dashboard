@@ -10,4 +10,16 @@ import {MdDialog, MD_DIALOG_DATA} from '@angular/material';
 })
 export class TransfermarketAttributesComponent {
   constructor(@Inject(MD_DIALOG_DATA) public data: any) {}
+
+  getAttributeColor(attribute: number){
+    if (attribute >= 90){
+      return 'label-warning'
+    } else if (attribute >= 80) {
+      return 'label-info'
+    } else if (attribute >= 70) {
+      return 'label-primary'
+    } else if (attribute < 70) {
+      return 'label-danger'
+    } 
+  }
 }

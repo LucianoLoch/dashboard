@@ -17,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { AnonymousSubscription } from "rxjs/Subscription";
 import { PaginationInstance } from 'ngx-pagination';
+import { IPageChangeEvent } from '@covalent/core';
 
 
 
@@ -27,7 +28,7 @@ import {
   ITdDataTableColumn
 } from '@covalent/core';
 
-import { IPageChangeEvent } from '@covalent/core';
+
 
 @Component({
   selector: 'app-transfermarket-table',
@@ -54,7 +55,7 @@ export class TransfermarketTableComponent implements OnInit {
   searchTerm: string = '';
   fromRow: number = 1;
   currentPage: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 50;
   sortBy: string = 'name';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
@@ -96,7 +97,7 @@ export class TransfermarketTableComponent implements OnInit {
   ngOnInit() {
     this.bid = new Bidinfo();
     this.loading = true;
-    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
+    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter,0);
     this.refreshData(true);
     this.team = this.transfermarketService.getTeam();
   }
@@ -177,7 +178,7 @@ export class TransfermarketTableComponent implements OnInit {
   onRefresh() {
     this.bid = new Bidinfo();
     this.loading = true;
-    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter);
+    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter, 0);
     this.filter();
     this.loading = false;
   }
@@ -260,6 +261,11 @@ export class TransfermarketTableComponent implements OnInit {
       }
     });
   }
+
+  change(event: IPageChangeEvent): void {
+   // ...
+  }
+
 
 
 }

@@ -29,9 +29,9 @@ export class PlayerService {
       .catch(this.httpUtil.processarErros);
   }
 
-  listarFiltro(playerFilter: PlayerFilter): Observable<Player[]> {
+  listarFiltro(playerFilter: PlayerFilter, page: number): Observable<Player[]> {
     let params = JSON.parse(JSON.stringify(playerFilter || null));
-    return this.http.post(this.httpUtil.url('player/getPlayers'), params,
+    return this.http.post(this.httpUtil.url('player/getPlayers?page='+page), params,
       this.httpUtil.headers())
       .map(this.httpUtil.extrairDadosContent)
       .catch(this.httpUtil.processarErros);

@@ -33,13 +33,15 @@ export class UserCreateComponent {
                 this.authenticationService.login(user)
                     .subscribe((user) => {
                         let userLogged = user;
-                        if (userLogged && userLogged.keyAuth) {
-                            this.alertService.success('Usuário Logado com Sucesso');
+                        if (userLogged && userLogged.keyAuth) {                            
                             this.router.navigate(['/team/create']);
+                            this.alertService.success('Usuário Logado com Sucesso');
                             window.location.reload();
                         }
                     },
-                    error => this.alertService.error(error));                
+                    error => { 
+                        this.router.navigate(['/team/create']);
+                        this.alertService.error(error)});                
             },
             (err) => {
                 this.alertService.error(err);
