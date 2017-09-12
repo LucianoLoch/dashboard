@@ -17,8 +17,8 @@
 <div class="col-md-12">
   <div class="card">
     <md-divider></md-divider>
-    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [clickable]="true" [multiple]="multiple" [sortable]="true"
-      [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    <td-data-table #dataTable [data]="transfermarketRest.transfermarkets" [columns]="columns" [sortable]="true"
+      [(ngModel)]="selectedRows" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="hasBid" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <span *ngIf="value">Sim</span>
@@ -49,8 +49,8 @@
     <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>Nenhum jogador encontrado.</h3>
     </div>
-    <td-paging-bar #pagingBar [pageSizes]="[50]" [total]="filteredTotal" (change)="page($event)">
-      <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar.range}} <span hide-xs>de {{pagingBar.total}}</span>
+    <td-paging-bar #pagingBar [pageSizes]="[50]" [total]="transfermarketRest.totalElements" (change)="page($event)">
+      <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar.range}} <span hide-xs>de {{transfermarketRest.totalElements}}</span>
       <button md-button (click)="onRefresh()" rel="tooltip" title="Atualizar"><i class="fa fa-refresh"></i></button>
       <button md-raised-button routerLink="/transfermarket" class="text-left">Voltar</button>
     </td-paging-bar>

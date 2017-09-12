@@ -1,3 +1,4 @@
+import { BidinfoService } from './../../bidinfo/bidinfo.service';
 import { TransfermarketAttributesComponent } from './../transfermarket-attributes/transfermarket-attributes.component';
 import { PlayerAttributes } from './../../player/playerAttributes.model';
 import { MdDialog } from '@angular/material';
@@ -8,10 +9,9 @@ import { AlertService } from './../../util/alert.service';
 import { TransfermarketService } from './../transfermarket.service';
 import { Team } from './../../team/team.model';
 import { PlayerFilter } from './../playerFilter.model';
-import { BidinfoService } from './../../bidinfo/bidinfo.service';
 import { PlayerService } from './../../player/player.service';
 import { Bidinfo } from './../../bidinfo/bidinfo.model';
-import { Transfermarket } from './../transfermarket.model';
+import { Transfermarket, TransfermarketRest } from './../transfermarket.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
@@ -38,7 +38,7 @@ import {
 export class TransfermarketTableComponent implements OnInit {
   
   columns: ITdDataTableColumn[] = [
-    { name: 'name', label: 'Jogador', tooltip: '' },
+    { name: 'name', label: 'Jogador', tooltip: 'Nome do Jogador' },
     { name: 'rating', label: 'Rating' },   
     { name: 'position', label: 'Posição' },
     { name: 'bidValue', label: 'Lance', numeric: true, filter: true },
@@ -49,72 +49,53 @@ export class TransfermarketTableComponent implements OnInit {
     { name: 'bid', label: 'Lance'},
     
   ];
-  filteredData: any[]; ;
+
   filteredTotal: number; 
 
   searchTerm: string = '';
   fromRow: number = 1;
   currentPage: number = 1;
   pageSize: number = 50;
-  sortBy: string = 'name';
+  sortBy: string = 'rating';
   selectedRows: any[] = [];
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
-
-  public timerSubscription: AnonymousSubscription;
-  public playersSubscription: AnonymousSubscription;
-
-
-  public transfermarkets: Transfermarket[];
-  public idExcluir: number;
-  public pagina: number;
-  public totalRegistros: number;
   public playerService: PlayerService;
-  public bidinfoService: BidinfoService;
-  public playerId: number;
+
   public bid: Bidinfo;
   public playerFilter: PlayerFilter;
   public team: Team;
+  public transfermarketRest: TransfermarketRest;
   loading: boolean = true;
   color = 'primary';
   mode = 'indeterminate';
 
-
   constructor(public transfermarketService: TransfermarketService,
     public alertService: AlertService,
-    _playerService: PlayerService,
-    _bidinfoService: BidinfoService,
+    _playerService: PlayerService,   
     public route: ActivatedRoute,
     public _dataTableService: TdDataTableService,
-    public dialog: MdDialog) {
-    this.bidinfoService = _bidinfoService;
-
+    public dialog: MdDialog,
+    public bidinfoService: BidinfoService) {
     this.route.queryParams.subscribe(params => {
       this.playerFilter = params["playerFilter"];
     });
+    
   }
 
 
   ngOnInit() {
     this.bid = new Bidinfo();
     this.loading = true;
-    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter,0);
-    this.refreshData(true);
+    this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter,0);    
     this.team = this.transfermarketService.getTeam();
   }
 
-  public ngOnDestroy(): void {
-    if (this.playersSubscription) {
-      this.playersSubscription.unsubscribe();
-    }
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-    }
-  }
 
-  sort(sortEvent: ITdDataTableSortChangeEvent): void {  
+  sort(sortEvent: ITdDataTableSortChangeEvent): void { 
+    console.log(this.sortBy); 
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
-    this.filter();
+    this.filter();    
   }
 
   search(searchTerm: string): void {
@@ -126,59 +107,33 @@ export class TransfermarketTableComponent implements OnInit {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
-    this.filter();
+    this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter,this.currentPage-1);  
+
+    let sortEvent: ITdDataTableSortChangeEvent;
+    sortEvent.name = 'rating';
+    sortEvent.order = TdDataTableSortingOrder.Descending;
+    this.sort(sortEvent);
+    sortEvent.order = TdDataTableSortingOrder.Ascending;
+    this.sort(sortEvent);
+    
   }
 
   filter(): void {
-    let newData: any[] = this.transfermarkets;
-    let excludedColumns: string[] = this.columns
-      .filter((column: ITdDataTableColumn) => {
-        return ((column.filter === undefined && column.hidden === true) ||
-          (column.filter !== undefined && column.filter === false));
-      }).map((column: ITdDataTableColumn) => {
-        return column.name;
-      });
-    newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+    let newData: Transfermarket[] = this.transfermarketRest.transfermarkets;
+    if (this.searchTerm != ''){
+      newData = this._dataTableService.filterData(newData, this.searchTerm, true,);
+    }
     this.filteredTotal = newData.length;
-    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-    newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-    this.filteredData = newData;
+   // newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+   // newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.transfermarketRest.transfermarkets = newData;
   }
 
-  public subscribeToData(): void {
-    this.timerSubscription = Observable.timer(60000)
-      .subscribe(() => this.refreshData(false));
-  }
-
-  public refreshData(firtsTime : Boolean): void {
-    this.loading = true;
-
-    this.playersSubscription = this.transfermarketService.listarFilterObservable(this.playerFilter).
-      subscribe(
-      (data: Transfermarket[]) => { 
-        
-        this.loading = false;
-        this.team = this.transfermarketService.getTeam();
-        this.transfermarkets = data;
-        this.filter();
-        //this.filteredData = this.transfermarkets;
-        //this.filteredTotal = this.transfermarkets.length;
-        this.subscribeToData();
-        
-    },
-      function (error) {
-
-      },
-      function () {
-
-      }
-      );
-
-  }
+  
   onRefresh() {
     this.bid = new Bidinfo();
-    this.loading = true;
-    this.transfermarkets = this.transfermarketService.listarFilter(this.playerFilter, 0);
+    this.loading = true;    
+    this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter,0);
     this.filter();
     this.loading = false;
   }
@@ -248,8 +203,7 @@ export class TransfermarketTableComponent implements OnInit {
       });
   }
 
-  openDialog(transferMarket: Transfermarket) {
-    console.log(transferMarket);
+  openDialog(transferMarket: Transfermarket) {   
     this.dialog.open(TransfermarketAttributesComponent, {
      width: '600px',
      height: '400px',
@@ -261,11 +215,4 @@ export class TransfermarketTableComponent implements OnInit {
       }
     });
   }
-
-  change(event: IPageChangeEvent): void {
-   // ...
-  }
-
-
-
 }

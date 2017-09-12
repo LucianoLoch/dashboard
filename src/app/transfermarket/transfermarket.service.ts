@@ -1,3 +1,5 @@
+import { PlayerRest } from './../player/playerRest.model';
+
 import { PlayerAttributes } from './../player/playerAttributes.model';
 import { Bidinfo } from './../bidinfo/bidinfo.model';
 import { Team } from './../team/team.model';
@@ -7,7 +9,7 @@ import { PlayerService } from './../player/player.service';
 import { BidinfoService } from './../bidinfo/bidinfo.service';
 import { Player } from './../player/player.model';
 import { HttpUtilService } from './../util/http-util.service';
-import { Transfermarket } from './transfermarket.model';
+import { Transfermarket, TransfermarketRest } from './transfermarket.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { PlayerFilter } from './playerFilter.model';
@@ -95,7 +97,7 @@ export class TransfermarketService {
           shop.position = player.position;
           shop.rating = player.rating;
           shop.idPlayer = player.id;
-          
+
           this.bidinfoService.buscarPorIdPlayers(player.id)
             .subscribe((bidInfo) => {
               this.bidInfo = bidInfo;
@@ -126,11 +128,82 @@ export class TransfermarketService {
     return Observable.of(this.listarFilter(playerFilter, 0));
   }
 
+  listarFilterObservableRest(playerFilter: PlayerFilter): Observable<TransfermarketRest> {
+    return Observable.of(this.listarFilter2(playerFilter, 0));
+  }
 
-  listarFilter(playerFilter: PlayerFilter, page : number): Transfermarket[] {
+
+  listarFilterRest(playerFilter: PlayerFilter, page: number): TransfermarketRest {
+    let rest: TransfermarketRest;
+
+    this.playerService.listarFiltroRest(playerFilter, page)
+      .subscribe((playerRest) => {
+        this.players = playerRest.content;
+        rest.first = playerRest.first;
+        rest.last = playerRest.last;
+        rest.number = playerRest.number;
+        rest.numberOfElements = playerRest.numberOfElements;
+        rest.size = playerRest.size;
+        rest.sort = playerRest.sort;
+        rest.totalElements = playerRest.totalElements;
+        rest.totalPages = playerRest.totalPages;
+        this.teamService.buscarPorIdUser(this.user.id)
+          .subscribe((team) => {
+            this.team = team;
+            for (let player of this.players) {
+
+              let shop = new Transfermarket();
+              shop.name = player.name;
+              shop.position = player.position;
+              shop.rating = player.rating;
+              shop.idPlayer = player.id;
+              shop.team = this.team;
+              shop.attributes = player.attributes;
+              if (!player.hasBid) {
+                shop.idBid = 0;
+                shop.bidValue = this.bid(player.rating);
+                shop.originalValue = this.bid(player.rating);
+                shop.teamId = this.team.id;
+                shop.hasBid = false;
+                shop.bidAproved = false;
+                rest.transfermarkets.push(shop);
+              } else {
+
+                this.bidinfoService.buscarPorIdPlayers(player.id)
+                  .subscribe((bidInfo) => {
+                    this.bidInfo = bidInfo;
+                    let bid: Bidinfo = this.bidInfo;
+                    if (this.bidInfo) {
+                      shop.idBid = bid.id;
+                      shop.originalValue = bid.originalValue;
+                      shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
+                      shop.teamId = this.team.id;
+                      shop.hasBid = player.hasBid;
+                      shop.bidAproved = (bid.teamID === this.team.id);
+                    } else {
+                      shop.idBid = 0;
+                      shop.bidValue = this.bid(player.rating);
+                      shop.originalValue = this.bid(player.rating);
+                      shop.teamId = this.team.id;
+                      shop.hasBid = false;
+                      shop.bidAproved = false;
+                    }
+
+                    rest.transfermarkets.push(shop);
+                  });
+              }
+            }
+          })
+        return rest;
+      })
+    return rest;
+  }
+
+
+  listarFilter(playerFilter: PlayerFilter, page: number): Transfermarket[] {
     let playerList: Player[] = [];
     let shops: Transfermarket[] = [];
-
+    
 
     this.playerService.listarFiltro(playerFilter, page)
       .subscribe((players) => {
@@ -138,8 +211,82 @@ export class TransfermarketService {
         this.teamService.buscarPorIdUser(this.user.id)
           .subscribe((team) => {
             this.team = team
+            for (let player of this.players) {
+
+              let shop = new Transfermarket();
+              shop.name = player.name;
+              shop.position = player.position;
+              shop.rating = player.rating;
+              shop.idPlayer = player.id;
+              shop.team = this.team;
+              shop.attributes = player.attributes;
+              if (!player.hasBid) {
+                shop.idBid = 0;
+                shop.bidValue = this.bid(player.rating);
+                shop.originalValue = this.bid(player.rating);
+                shop.teamId = this.team.id;
+                shop.hasBid = false;
+                shop.bidAproved = false;
+                shops.push(shop);
+              } else {
+
+                this.bidinfoService.buscarPorIdPlayers(player.id)
+                  .subscribe((bidInfo) => {
+                    this.bidInfo = bidInfo;
+                    let bid: Bidinfo = this.bidInfo;
+                    if (this.bidInfo) {
+                      shop.idBid = bid.id;
+                      shop.originalValue = bid.originalValue;
+                      shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
+                      shop.teamId = this.team.id;
+                      shop.hasBid = player.hasBid;
+                      shop.bidAproved = (bid.teamID === this.team.id);
+                    } else {
+                      shop.idBid = 0;
+                      shop.bidValue = this.bid(player.rating);
+                      shop.originalValue = this.bid(player.rating);
+                      shop.teamId = this.team.id;
+                      shop.hasBid = false;
+                      shop.bidAproved = false;
+                    }
+
+                    shops.push(shop);
+                  });
+              }
+            }
+          }, error => this.msgErro = error);
 
 
+      },
+
+      error => this.msgErro = error);
+    return shops;
+
+
+  }
+
+
+  listarFilter2(playerFilter: PlayerFilter, page: number): TransfermarketRest {
+    let playerList: Player[] = [];
+    let shops: Transfermarket[] = [];
+    let rest = new TransfermarketRest();
+
+
+    this.playerService.listarFiltroRest(playerFilter, page)
+      .subscribe((players) => {
+        this.players = players.content;
+        rest.first = players.first;
+        rest.last = players.last;
+        rest.number = players.number;
+        rest.numberOfElements = players.numberOfElements;
+        rest.size = players.size;
+        rest.sort = players.sort;
+        rest.totalElements = players.totalElements;
+        rest.totalPages = players.totalPages;
+        this.teamService.buscarPorIdUser(this.user.id)
+          .subscribe((team) => {
+            this.team = team
+            console.log(this.players);
             for (let player of this.players) {
 
               let shop = new Transfermarket();
@@ -190,7 +337,8 @@ export class TransfermarketService {
 
       error => this.msgErro = error);
 
-    return shops;
+    rest.transfermarkets = shops;
+    return rest;
 
   }
 

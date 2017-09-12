@@ -1,6 +1,8 @@
 import { PlayerAttributes } from './../player/playerAttributes.model';
 import { Team } from './../team/team.model';
 
+
+
 export class Transfermarket {
 	constructor(
 		public idPlayer?: number,
@@ -15,5 +17,20 @@ export class Transfermarket {
 		public bidAproved?: boolean,
 		public hasBid?: boolean,
 		public team?: Team,
-		public attributes?: PlayerAttributes){}	
+		public attributes?: PlayerAttributes) { }
+}
+
+
+export class TransfermarketRest {
+	constructor(
+		public transfermarkets?: Transfermarket[],
+		public first?: boolean,
+		public last?: boolean,
+		public number?: number,
+		public numberOfElements?: number,
+		public size?: number,
+		public sort?: null,
+		public totalElements?: number,
+		public totalPages?: number) { }
+
 }

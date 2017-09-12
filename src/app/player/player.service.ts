@@ -9,7 +9,7 @@ import { PlayerFilter } from './../transfermarket/playerFilter.model';
 
 import { HttpUtilService } from './../util/http-util.service';
 
-import { Player } from './player.model';
+import { Player, PlayerRest } from './player.model';
 
 
 @Injectable()
@@ -34,6 +34,14 @@ export class PlayerService {
     return this.http.post(this.httpUtil.url('player/getPlayers?page='+page), params,
       this.httpUtil.headers())
       .map(this.httpUtil.extrairDadosContent)
+      .catch(this.httpUtil.processarErros);
+  }
+
+  listarFiltroRest(playerFilter: PlayerFilter, page: number): Observable<PlayerRest> {
+    let params = JSON.parse(JSON.stringify(playerFilter || null));
+    return this.http.post(this.httpUtil.url('player/getPlayers?page='+page), params,
+      this.httpUtil.headers())
+      .map(this.httpUtil.extrairDadosPlayer)
       .catch(this.httpUtil.processarErros);
   }
 

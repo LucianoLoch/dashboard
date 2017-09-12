@@ -37,6 +37,11 @@ export class HttpUtilService {
 		return data;
 	}
 
+	extrairDadosPlayer(response: Response) {
+		let data = response.json();
+		return data;
+	}
+
 	extrairDadosBid(response: Response) {
 		let data = response.json();
 		return data.bid;
