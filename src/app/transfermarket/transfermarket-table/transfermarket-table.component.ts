@@ -124,16 +124,28 @@ export class TransfermarketTableComponent implements OnInit {
       newData = this._dataTableService.filterData(newData, this.searchTerm, true,);
     }
     this.filteredTotal = newData.length;
-   // newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
    // newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.transfermarketRest.transfermarkets = newData;
+  }
+
+  getRatingColor(rating: number){
+    if (rating >= 90){
+      return 'label-warning'
+    } else if (rating >= 80) {
+      return 'label-info'
+    } else if (rating >= 70) {
+      return 'label-primary'
+    } else if (rating < 70) {
+      return 'label-danger'
+    } 
   }
 
   
   onRefresh() {
     this.bid = new Bidinfo();
     this.loading = true;    
-    this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter,0);
+    this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter,this.currentPage-1);
     this.filter();
     this.loading = false;
   }
@@ -172,6 +184,7 @@ export class TransfermarketTableComponent implements OnInit {
           (res) => {
             this.loading = false;
             this.alertService.success('Lance efetuado com sucesso!', true);
+            this.onRefresh();
           },
           (err) => {
             this.loading = false;
@@ -183,6 +196,7 @@ export class TransfermarketTableComponent implements OnInit {
           (res) => {
             this.loading = false;
             this.alertService.success('Lance efetuado com sucesso!', true);
+            this.onRefresh();
           },
           (err) => {
             this.loading = false;
