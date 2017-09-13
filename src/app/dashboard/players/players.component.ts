@@ -17,15 +17,13 @@ export class PlayersComponent {
   @Input() players: Player[];
 
 
-  getRatingColor(rating: number){
-    if (rating >= 90){
-      return 'label-warning'
-    } else if (rating >= 80) {
-      return 'label-info'
-    } else if (rating >= 70) {
-      return 'label-primary'
-    } else if (rating < 70) {
-      return 'label-danger'
+  getRatingColor(attribute: number){
+    if (attribute >= 75){
+      return 'rating-75-99'
+    } else if (attribute >= 65) {
+      return 'rating-65-74'
+    } else if (attribute < 65) {
+      return 'rating-1-64'
     } 
   }
 }

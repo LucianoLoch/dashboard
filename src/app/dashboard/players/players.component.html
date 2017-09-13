@@ -1,6 +1,6 @@
 <div  class="col-lg-6 col-md-12">
     <div class="card">
-        <div class="card-header" data-background-color="green">
+        <div class="card-header" data-background-color="gray-4">
             <h4 class="title">Seus Jogadores</h4>
             <p *ngIf="players?.length>0" class="category">{{players?.length}}</p>
             <p *ngIf="players?.length<=0" class="category">Você não possuí nenhum jogador no momento.</p>
@@ -8,7 +8,7 @@
         <div *ngIf="players?.length > 0" class="card-content table-responsive">
             <td-expansion-panel>
             <table class="table table-hover">
-                <thead class="text-success">
+                <thead class="text-gray">
                     <th>Jogador</th>
                     <th>Posição</th>
                     <th>Rating</th>
@@ -17,7 +17,7 @@
                     <tr *ngFor="let player of players">
                         <td>{{ player.name }}</td>
                         <td><span class="label label-warning">{{ player.position}}</span></td>
-                        <td><span [ngClass]="getRatingColor(player.rating)"class="label">{{ player.rating}}</span></td>
+                        <td><span [ngClass]="getRatingColor(player.rating)">{{ player.rating}}</span></td>
                     </tr>                   
                 </tbody>
             </table>

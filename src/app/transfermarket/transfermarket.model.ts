@@ -17,7 +17,8 @@ export class Transfermarket {
 		public bidAproved?: boolean,
 		public hasBid?: boolean,
 		public team?: Team,
-		public attributes?: PlayerAttributes) { }
+		public attributes?: PlayerAttributes,
+		public clubName?:string) { }
 }
 
 

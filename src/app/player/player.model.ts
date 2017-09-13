@@ -7,7 +7,8 @@ export class Player {
 		public baseId?: number,
 		public rating?: number,
 		public hasBid?:boolean,
-		public attributes?: PlayerAttributes[]){}
+		public attributes?: PlayerAttributes[],
+        public clubName?:string){}
 }
 
 

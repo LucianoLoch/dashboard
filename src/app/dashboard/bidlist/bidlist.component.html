@@ -1,6 +1,6 @@
 <div class="col-lg-6 col-md-12">
     <div class="card">
-        <div class="card-header" data-background-color="blue">
+        <div class="card-header" data-background-color="gray-4">
             <h4 class="title">Seus Lances</h4>
             <p *ngIf="bidinfos?.length > 0" class="category">{{bidinfos?.length}}</p>
             <p *ngIf="bidinfos?.length <= 0" class="category">Você não possuí nenhum lance no momento.</p>
@@ -9,7 +9,7 @@
         <div *ngIf="bidinfos?.length > 0" class="card-content table-responsive">
             <td-expansion-panel>
                 <table class="table table-hover">
-                    <thead class="text-primary">
+                    <thead class="text-gray">
                         <th>Jogador</th>
                         <th>Valor do Lance</th>
                         <th>Valor Inicial</th>

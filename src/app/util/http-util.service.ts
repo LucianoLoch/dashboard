@@ -60,8 +60,8 @@ export class HttpUtilService {
 	  
 
 	extrairDadosCadastro(response : Response){
-		let data = response;
-		return data.toString();
+		let data = response.json();
+		return data;
 	}
 
 	extrairDadosUser(response : Response){

@@ -21,7 +21,7 @@
       [(ngModel)]="selectedRows" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="rating" let-value="value" let-row="row" let-column="column">
         <div layout="row">
-            <span [ngClass]="getRatingColor(row.rating)" class="label">{{row.rating}}</span>         
+            <span [ngClass]="getRatingColor(row.rating)">{{row.rating}}</span>         
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="hasBid" let-value="value" let-row="row" let-column="column">
@@ -36,12 +36,12 @@
       </ng-template>
       <ng-template tdDataTableTemplate="attribute" let-value="value" let-row="row" let-column="column">
         <div layout="row">
-          <button md-raised-button color="warn" (click)="openDialog(row)"><i class="fa fa-blind" aria-hidden="true"></i></button>
+          <button class="background-gray-5" md-raised-button color="warn" (click)="openDialog(row)"><i class="fa fa-blind" aria-hidden="true"></i></button>
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="bid" let-value="value" let-row="row" let-column="column">
         <div layout="row">
-          <button md-raised-button color="primary" (click)="onBid(row)"><i class="fa fa-gavel" aria-hidden="true"></i></button>
+          <button class="background-gray-5" md-raised-button  (click)="onBid(row)"><i class="fa fa-gavel" aria-hidden="true"></i></button>
         </div>
       </ng-template>
     </td-data-table>

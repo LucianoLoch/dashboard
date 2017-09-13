@@ -74,56 +74,7 @@ export class TransfermarketService {
 
     return bidvalue;
   }
-
-
-
-  listarTodos(): Transfermarket[] {
-    let playerList: Player[] = [];
-    let shops: Transfermarket[] = [];
-
-
-    this.playerService.listarTodos()
-      .subscribe((players) => {
-        this.players = players
-
-        this.teamService.buscarPorIdUser(this.user.id)
-          .subscribe(team => this.team = team,
-          error => this.msgErro = error);
-
-        for (let player of this.players) {
-
-          let shop = new Transfermarket();
-          shop.name = player.name;
-          shop.position = player.position;
-          shop.rating = player.rating;
-          shop.idPlayer = player.id;
-
-          this.bidinfoService.buscarPorIdPlayers(player.id)
-            .subscribe((bidInfo) => {
-              this.bidInfo = bidInfo;
-              let bid: Bidinfo = this.bidInfo;
-              if (this.bidInfo) {
-                shop.idBid = bid.id;
-                shop.originalValue = bid.originalValue;
-                shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
-                shop.teamId = bid.teamID;
-              } else {
-                shop.idBid = 0;
-                shop.bidValue = this.bid(player.rating);
-                shop.originalValue = this.bid(player.rating);
-                shop.teamId = this.team.id;
-              }
-
-              shops.push(shop);
-            });
-        }
-      },
-
-      error => this.msgErro = error);
-
-    return shops;
-
-  }
+  
   listarFilterObservable(playerFilter: PlayerFilter): Observable<Transfermarket[]> {
     return Observable.of(this.listarFilter(playerFilter, 0));
   }
@@ -282,7 +233,7 @@ export class TransfermarketService {
         rest.size = players.size;
         rest.sort = players.sort;
         rest.totalElements = players.totalElements;
-        rest.totalPages = players.totalPages;
+        rest.totalPages = players.totalPages;        
         this.teamService.buscarPorIdUser(this.user.id)
           .subscribe((team) => {
             this.team = team
@@ -291,6 +242,7 @@ export class TransfermarketService {
 
               let shop = new Transfermarket();
               shop.name = player.name;
+              shop.clubName = player.clubName;
               shop.position = player.position;
               shop.rating = player.rating;
               shop.idPlayer = player.id;
@@ -344,36 +296,6 @@ export class TransfermarketService {
 
   getTeam() {
     return this.team;
-  }
-
-
-
-	/**
-	 * Cadastra um novo transfermarket.
-	 *
-	 * @param Transfermarket transfermarket
-	 */
-  cadastrar(transfermarket: Transfermarket): void {
-    var transfermarkets: Transfermarket[] = this.listarTodos();
-    transfermarkets.push(transfermarket);
-    sessionStorage['transfermarkets'] = JSON.stringify(transfermarkets);
-  }
-
-	/**
-	 * Retorna os dados de um transfermarket por id.
-	 *
-	 * @param number id
-	 * @return Usuario transfermarket
-	 */
-  buscarPorId(id: number): Transfermarket {
-    var transfermarkets: Transfermarket[] = this.listarTodos();
-    for (let transfermarket of transfermarkets) {
-      if (transfermarket.idPlayer == id) {
-        return transfermarket;
-      }
-    }
-
-    return new Transfermarket();
   }
 
 

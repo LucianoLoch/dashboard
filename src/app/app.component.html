@@ -2,12 +2,10 @@
     <app-sidebar [team]="team" [currentUser]="currentUser"></app-sidebar>
     <div class="main-panel">
         <app-navbar [team]="team" [currentUser]="currentUser"></app-navbar>
-
         <div class="content">
             <div class="container-fluid">
                 <router-outlet></router-outlet>
-
-                <footer class="footer">
+                <footer *ngIf="currentUser" class="footer">
                     <div class="container-fluid">
                         <p class="copyright pull-right">
                             &copy;
@@ -24,7 +22,7 @@
         <div class="content">
             <div class="container-fluid">
                 <router-outlet></router-outlet>
-                <footer class="footer">
+                <footer *ngIf="currentUser" class="footer">
                     <div class="container-fluid">
                         <p class="copyright pull-right">
                             &copy;

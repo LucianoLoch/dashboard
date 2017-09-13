@@ -1,21 +1,23 @@
 <h1 md-dialog-title class="primary-color">Habilidades</h1>
 <md-dialog-content class="accent-color">
     <table class="table">
-        <thead class="text-danger">
+        <thead class="text-gray">
             <th>Nome</th>
             <th>Posição</th>
             <th>Rating</th>
+            <th>Clube</th>
         </thead>
         <tbody>
             <tr>
                 <td>{{ data.name }}</td>
                 <td>{{ data.position }}</td>
-                <td><span [ngClass]="getAttributeColor(data.rating)"class="label">{{ data.rating }}</span></td>  
+                <td><span [ngClass]="getRatingColor(data.rating)">{{ data.rating }}</span></td>  
+                <td>{{ data.clubName }}</td>
             </tr>
         </tbody>
     </table>   
     <table class="table">
-        <thead class="text-primary">
+        <thead class="text-gray">
             <th>Atributo</th>
             <th>Valor</th>
 
@@ -23,7 +25,7 @@
         <tbody>
             <tr *ngFor="let attribute of data.attributes">
                 <td>{{ attribute.name }}</td>
-                <td><span [ngClass]="getAttributeColor(attribute.value)"class="label">{{ attribute.value}}</span></td>               
+                <td><span [ngClass]="getAttributeColor(attribute.value)">{{ attribute.value}}</span></td>               
             </tr>
         </tbody>
     </table>   
