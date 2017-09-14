@@ -1,3 +1,4 @@
+import { PlayerRest } from './playerRest.model';
 
 import { Injectable } from '@angular/core';
 
@@ -9,7 +10,7 @@ import { PlayerFilter } from './../transfermarket/playerFilter.model';
 
 import { HttpUtilService } from './../util/http-util.service';
 
-import { Player, PlayerRest } from './player.model';
+import { Player } from './player.model';
 
 
 @Injectable()
@@ -45,14 +46,18 @@ export class PlayerService {
       .catch(this.httpUtil.processarErros);
   }
 
-  cadastrar(player: Player): Observable<Player> {
-    let params = JSON.stringify(player);
-
-    return this.http.post(this.httpUtil.url(this.path), params,
-      this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
-      .catch(this.httpUtil.processarErros);
+  listarPlayers(playerFilter: PlayerFilter, page: number): Promise<PlayerRest>{
+    let params = JSON.parse(JSON.stringify(playerFilter || null));
+    return this.http.post(this.httpUtil.url('player/getPlayers?page='+page), params)
+      .toPromise()
+      .then(response => response.json().data as PlayerRest)
+      .catch(this.handleError);
+    
   }
+
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
+}  
 
 
   buscarPorId(id: number): Observable<Player> {
@@ -61,6 +66,8 @@ export class PlayerService {
       .map(this.httpUtil.extrairDados)
       .catch(this.httpUtil.processarErros);
   }
+
+  
 
 
 }

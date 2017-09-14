@@ -31,6 +31,9 @@ import {
 } from '@covalent/core';
 
 
+const NUMBER_FORMAT: (v: any) => any = (v: number) => v;
+const DECIMAL_FORMAT: (v: any) => any = (v: number) => v.toFixed(2);
+
 @Component({
     selector: 'app-transfermarket-table',
     templateUrl: './transfermarket-table.component.html',
@@ -51,9 +54,9 @@ export class TransfermarketTableComponent implements OnInit {
 
     ];
 
-    data: Transfermarket[] = [];
-    filteredData: Transfermarket[] = this.data;
-    filteredTotal: number = this.data.length;
+
+    filteredTotal: number;
+
     searchTerm: string = '';
     fromRow: number = 1;
     currentPage: number = 1;
@@ -61,62 +64,54 @@ export class TransfermarketTableComponent implements OnInit {
     sortBy: string = 'rating';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+    public playerService: PlayerService;
 
     public bid: Bidinfo;
     public playerFilter: PlayerFilter;
     public team: Team;
-    public transfermarketRest: TransfermarketRest = {};
+    public transfermarketRest: TransfermarketRest;
+    loading: boolean = true;
+    color = 'primary';
+    mode = 'indeterminate';
 
-    constructor(
-        public _dataTableService: TdDataTableService,
-        public transfermarketService: TransfermarketService,
+    constructor(public transfermarketService: TransfermarketService,
         public alertService: AlertService,
-        public playerService: PlayerService,
+        _playerService: PlayerService,
         public route: ActivatedRoute,
+        public _dataTableService: TdDataTableService,
         public dialog: MdDialog,
         public bidinfoService: BidinfoService) {
-
-            this.transfermarketRest.transfermarkets = [];
-
         this.route.queryParams.subscribe(params => {
             this.playerFilter = params["playerFilter"];
         });
 
     }
 
-    getTransfermarket() {
-       // this.data = this.transfermarketService.listarFilter2(this.playerFilter, this.currentPage - 1).transfermarkets;
+    
+
+    
+
+    filteredData: any[];
+
+    @ViewChild(TdDataTableComponent) dataTable: TdDataTableComponent;
+    @ViewChild(MdSlideToggle) slide: MdSlideToggle;
+
+    carregarJogadores() {
+        
     }
+    
+    
 
     ngOnInit() {
         this.bid = new Bidinfo();
-        let promise = this.transfermarketService.listarFilter2(this.playerFilter, 0);
-        
-        promise.then((transferMarket) => {
-            console.log(transferMarket);
-            this.transfermarketRest = transferMarket;
-            this.data = this.transfermarketRest.transfermarkets;
-            this.filter();            
-        })
-		// this.transfermarketService.listarFilterObservableRest(this.playerFilter, 0)
-		// 	.subscribe(
-		// 	  (data: TransfermarketRest) => {
-		// 		this.data = data.transfermarkets;
-		// 		this.filter();
-		// 		this.team = this.transfermarketService.getTeam();
-		// 	  },
-		// 	  function (error) {
-
-		// 	  },
-		// 	  function () {
-
-		// 	  }
-		// 	  );
-       
-       
+        this.loading = true;
+        this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter, 0);
+        this.filteredData = this.transfermarketRest.transfermarkets;
+        this.slide._onChangeEvent;
+                
+        this.filter();
+        this.team = this.transfermarketService.getTeam();
     }
-
-    /* Table Functions */
 
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -127,8 +122,6 @@ export class TransfermarketTableComponent implements OnInit {
 
     search(searchTerm: string): void {
         this.searchTerm = searchTerm;
-        this.fromRow = 1;
-        this.currentPage = 1;
         this.filter();
     }
 
@@ -136,17 +129,18 @@ export class TransfermarketTableComponent implements OnInit {
         this.fromRow = pagingEvent.fromRow;
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
-        this.getTransfermarket();
+        this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter, this.currentPage - 1);
         this.filter();
     }
 
     filter(): void {
-        let newData: any[] = this.data;
+        let newData: any[] = this.transfermarketRest.transfermarkets;        
         newData = this._dataTableService.filterData(newData, this.searchTerm, true);
-        this.filteredTotal = newData ? newData.length : 0;
+        this.filteredTotal = newData.length;
         newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
         newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
+        this.dataTable.refresh();
     }
 
     getRatingColor(attribute: number) {
@@ -162,8 +156,10 @@ export class TransfermarketTableComponent implements OnInit {
 
     onRefresh() {
         this.bid = new Bidinfo();
-        this.getTransfermarket();
+        this.loading = true;
+        this.transfermarketRest = this.transfermarketService.listarFilter2(this.playerFilter, this.currentPage - 1);
         this.filter();
+        this.loading = false;
     }
 
     check(transferMarket: Transfermarket): boolean {
@@ -185,29 +181,37 @@ export class TransfermarketTableComponent implements OnInit {
 
     onBid(transferMarket: Transfermarket) {
         let bidInfo = new Bidinfo();
+
+
         bidInfo.bidValue = transferMarket.bidValue;
         bidInfo.originalValue = transferMarket.originalValue;
         bidInfo.teamID = transferMarket.teamId;
         bidInfo.playerID = transferMarket.idPlayer;
+
         if (this.check(transferMarket)) {
+            this.loading = true;
             if (transferMarket.bidValue === this.transfermarketService.bid(transferMarket.rating)) {
                 this.bidinfoService.initialBid(bidInfo)
                     .subscribe(
                     (res) => {
+                        this.loading = false;
                         this.alertService.success('Lance efetuado com sucesso!', true);
                         this.onRefresh();
                     },
                     (err) => {
+                        this.loading = false;
                         this.alertService.error(err);
                     });
             } else {
                 this.bidinfoService.placeBid(bidInfo)
                     .subscribe(
                     (res) => {
+                        this.loading = false;
                         this.alertService.success('Lance efetuado com sucesso!', true);
                         this.onRefresh();
                     },
                     (err) => {
+                        this.loading = false;
                         this.alertService.error(err);
                     });
             }
