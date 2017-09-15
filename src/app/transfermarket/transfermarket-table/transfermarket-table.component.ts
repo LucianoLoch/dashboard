@@ -27,7 +27,8 @@ import {
     TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent,
     ITdDataTableColumn,
-    TdDataTableComponent
+    TdDataTableComponent,
+    TdLoadingService
 } from '@covalent/core';
 
 
@@ -57,10 +58,11 @@ export class TransfermarketTableComponent implements OnInit {
     searchTerm: string = '';
     fromRow: number = 1;
     currentPage: number = 1;
-    pageSize: number = 50;
+    pageSize: number = 20;
     sortBy: string = 'rating';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+    overlayStarSyntax: boolean = false;
 
     public bid: Bidinfo;
     public playerFilter: PlayerFilter;
@@ -74,7 +76,8 @@ export class TransfermarketTableComponent implements OnInit {
         public playerService: PlayerService,
         public route: ActivatedRoute,
         public dialog: MdDialog,
-        public bidinfoService: BidinfoService) {
+        public bidinfoService: BidinfoService,
+        public _loadingService: TdLoadingService) {
 
             this.transfermarketRest.transfermarkets = [];
 
@@ -85,35 +88,22 @@ export class TransfermarketTableComponent implements OnInit {
     }
 
     getTransfermarket() {
-       // this.data = this.transfermarketService.listarFilter2(this.playerFilter, this.currentPage - 1).transfermarkets;
-    }
-
-    ngOnInit() {
-        this.bid = new Bidinfo();
-        let promise = this.transfermarketService.listarFilter2(this.playerFilter, 0);
+        this._loadingService.register('overlayStarSyntax');
+        console.log(this.currentPage);
+        let promise = this.transfermarketService.listarFilter2(this.playerFilter, this.currentPage-1);
         
         promise.then((transferMarket) => {
             console.log(transferMarket);
             this.transfermarketRest = transferMarket;
             this.data = this.transfermarketRest.transfermarkets;
-            this.filter();            
+            this.filter(); 
+            this._loadingService.resolve('overlayStarSyntax');          
         })
-		// this.transfermarketService.listarFilterObservableRest(this.playerFilter, 0)
-		// 	.subscribe(
-		// 	  (data: TransfermarketRest) => {
-		// 		this.data = data.transfermarkets;
-		// 		this.filter();
-		// 		this.team = this.transfermarketService.getTeam();
-		// 	  },
-		// 	  function (error) {
+    }
 
-		// 	  },
-		// 	  function () {
-
-		// 	  }
-		// 	  );
-       
-       
+    ngOnInit() {
+        this.bid = new Bidinfo();
+        this.getTransfermarket();
     }
 
     /* Table Functions */
@@ -137,7 +127,6 @@ export class TransfermarketTableComponent implements OnInit {
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.getTransfermarket();
-        this.filter();
     }
 
     filter(): void {
@@ -145,7 +134,6 @@ export class TransfermarketTableComponent implements OnInit {
         newData = this._dataTableService.filterData(newData, this.searchTerm, true);
         this.filteredTotal = newData ? newData.length : 0;
         newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-        newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
     }
 

@@ -1,4 +1,4 @@
-<nav *ngIf="team" class="navbar navbar-transparent navbar-absolute">
+<nav class="navbar navbar-transparent navbar-absolute">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse">
@@ -10,7 +10,8 @@
     </div>
     <div *ngIf="currentUser" class="collapse navbar-collapse">
       <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
-        <li class="dropdown">
+        <li *ngIf="team"><a routerLink="/team/create">Cadastrar Time</a><li>
+        <li *ngIf="team" class="dropdown">
           <a *ngIf="notifications?.length > 0" href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="material-icons">notifications</i>
             <span class="notification">{{notifications?.length}}</span>

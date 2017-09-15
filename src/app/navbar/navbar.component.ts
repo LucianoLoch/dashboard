@@ -28,7 +28,9 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.team = JSON.parse(localStorage.getItem('team'));
-    this.refreshData();    
+    if (this.team){
+      this.refreshData();
+    }    
   }
 
   public ngOnDestroy(): void {

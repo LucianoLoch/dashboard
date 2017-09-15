@@ -18,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { TdLoadingService } from '@covalent/core';
 import {
   CovalentCommonModule,
   CovalentDataTableModule,
@@ -26,7 +27,8 @@ import {
   CovalentNotificationsModule,
   CovalentPagingModule,
   CovalentSearchModule,
-  CovalentStepsModule
+  CovalentStepsModule,
+  CovalentLoadingModule
 } from '@covalent/core';
 import {
   MdAutocompleteModule,
@@ -105,6 +107,7 @@ import {
     CovalentPagingModule,
     CovalentNotificationsModule,
     CovalentCommonModule,
+    CovalentLoadingModule 
     
   ],
   entryComponents:[
@@ -123,7 +126,8 @@ import {
     BidinfoService, 
     AlertService, 
     TeamService,
-    LeagueService
+    LeagueService,
+    TdLoadingService
   ]
   
 })

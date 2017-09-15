@@ -40,8 +40,8 @@ export class UserCreateComponent {
                         }
                     },
                     error => { 
-                        this.router.navigate(['/team/create']);
-                        this.alertService.error(error)});                
+                        this.router.navigate(['/login']);                      
+                        });                
             },
             (err) => {
                 this.alertService.error(err);

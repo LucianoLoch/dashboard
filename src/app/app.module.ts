@@ -61,7 +61,14 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
     CovalentExpansionPanelModule  
   ],
     declarations: [ 
-    AppComponent, SidebarComponent, NavbarComponent, DashboardComponent, TeamComponent, PlayersComponent, BidlistComponent, NotificationComponent    
+    AppComponent, 
+    SidebarComponent, 
+    NavbarComponent, 
+    DashboardComponent, 
+    TeamComponent, 
+    PlayersComponent, 
+    BidlistComponent, 
+    NotificationComponent,    
   ],
   providers: [
     HttpUtilService,

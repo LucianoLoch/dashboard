@@ -28,6 +28,7 @@ export class TransfermarketService {
   public user: User;
   public team: Team;
   public bidInfo: Bidinfo;
+  public playerRest: PlayerRest;
 
 
   constructor(_bidinfoService: BidinfoService,
@@ -39,17 +40,8 @@ export class TransfermarketService {
     this.playerService = _playerService;
     this.teamService = _teamService;
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-
-
-
+    this.team = JSON.parse(localStorage.getItem('team'));
   }
-
-	/**
-	 * Retorna listagem de todos os transfermarkets.
-	 *
-	 * @return Transfermarket[] transfermarkets
-	 */
-
 
   bid(rating: number): number {
 
@@ -70,142 +62,68 @@ export class TransfermarketService {
     } else {
       bidvalue = 200;
     }
-
-
     return bidvalue;
   }
-  
+
   listarFilterObservable(playerFilter: PlayerFilter): Observable<Transfermarket[]> {
     return Observable.of(this.listarFilter(playerFilter, 0));
   }
 
-  listarFilterObservableRest(playerFilter: PlayerFilter): Observable<TransfermarketRest> {
-    return Observable.of(this.listarFilter2(playerFilter, 0));
+  listarFilterObservableRest(playerFilter: PlayerFilter, page: number): Observable<TransfermarketRest> {
+    return Observable.of(this.listarFilter2(playerFilter, page));
   }
-
-
-  listarFilterRest(playerFilter: PlayerFilter, page: number): TransfermarketRest {
-    let rest: TransfermarketRest;
-
-    this.playerService.listarFiltroRest(playerFilter, page)
-      .subscribe((playerRest) => {
-        this.players = playerRest.content;
-        rest.first = playerRest.first;
-        rest.last = playerRest.last;
-        rest.number = playerRest.number;
-        rest.numberOfElements = playerRest.numberOfElements;
-        rest.size = playerRest.size;
-        rest.sort = playerRest.sort;
-        rest.totalElements = playerRest.totalElements;
-        rest.totalPages = playerRest.totalPages;
-        this.teamService.buscarPorIdUser(this.user.id)
-          .subscribe((team) => {
-            this.team = team;
-            for (let player of this.players) {
-
-              let shop = new Transfermarket();
-              shop.name = player.name;
-              shop.position = player.position;
-              shop.rating = player.rating;
-              shop.idPlayer = player.id;
-              shop.team = this.team;
-              shop.attributes = player.attributes;
-              if (!player.hasBid) {
-                shop.idBid = 0;
-                shop.bidValue = this.bid(player.rating);
-                shop.originalValue = this.bid(player.rating);
-                shop.teamId = this.team.id;
-                shop.hasBid = false;
-                shop.bidAproved = false;
-                rest.transfermarkets.push(shop);
-              } else {
-
-                this.bidinfoService.buscarPorIdPlayers(player.id)
-                  .subscribe((bidInfo) => {
-                    this.bidInfo = bidInfo;
-                    let bid: Bidinfo = this.bidInfo;
-                    if (this.bidInfo) {
-                      shop.idBid = bid.id;
-                      shop.originalValue = bid.originalValue;
-                      shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = player.hasBid;
-                      shop.bidAproved = (bid.teamID === this.team.id);
-                    } else {
-                      shop.idBid = 0;
-                      shop.bidValue = this.bid(player.rating);
-                      shop.originalValue = this.bid(player.rating);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = false;
-                      shop.bidAproved = false;
-                    }
-
-                    rest.transfermarkets.push(shop);
-                  });
-              }
-            }
-          })
-        return rest;
-      })
-    return rest;
-  }
-
-
   listarFilter(playerFilter: PlayerFilter, page: number): Transfermarket[] {
     let playerList: Player[] = [];
     let shops: Transfermarket[] = [];
-    
+
 
     this.playerService.listarFiltro(playerFilter, page)
       .subscribe((players) => {
         this.players = players;
-        this.teamService.buscarPorIdUser(this.user.id)
-          .subscribe((team) => {
-            this.team = team
-            for (let player of this.players) {
+        for (let player of this.players) {
 
-              let shop = new Transfermarket();
-              shop.name = player.name;
-              shop.position = player.position;
-              shop.rating = player.rating;
-              shop.idPlayer = player.id;
-              shop.team = this.team;
-              shop.attributes = player.attributes;
-              if (!player.hasBid) {
-                shop.idBid = 0;
-                shop.bidValue = this.bid(player.rating);
-                shop.originalValue = this.bid(player.rating);
-                shop.teamId = this.team.id;
-                shop.hasBid = false;
-                shop.bidAproved = false;
+          let shop = new Transfermarket();
+          shop.name = player.name;
+          shop.position = player.position;
+          shop.rating = player.rating;
+          shop.idPlayer = player.id;
+          shop.team = this.team;
+          shop.attributes = player.attributes;
+          if (!player.hasBid) {
+            shop.idBid = 0;
+            shop.bidValue = this.bid(player.rating);
+            shop.originalValue = this.bid(player.rating);
+            shop.teamId = this.team.id;
+            shop.hasBid = false;
+            shop.bidAproved = false;
+            shops.push(shop);
+          } else {
+
+            this.bidinfoService.buscarPorIdPlayers(player.id)
+              .subscribe((bidInfo) => {
+                this.bidInfo = bidInfo;
+                let bid: Bidinfo = this.bidInfo;
+                if (this.bidInfo) {
+                  shop.idBid = bid.id;
+                  shop.originalValue = bid.originalValue;
+                  shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
+                  shop.teamId = this.team.id;
+                  shop.hasBid = player.hasBid;
+                  shop.bidAproved = (bid.teamID === this.team.id);
+                } else {
+                  shop.idBid = 0;
+                  shop.bidValue = this.bid(player.rating);
+                  shop.originalValue = this.bid(player.rating);
+                  shop.teamId = this.team.id;
+                  shop.hasBid = false;
+                  shop.bidAproved = false;
+                }
+
                 shops.push(shop);
-              } else {
+              });
+          }
+        }
 
-                this.bidinfoService.buscarPorIdPlayers(player.id)
-                  .subscribe((bidInfo) => {
-                    this.bidInfo = bidInfo;
-                    let bid: Bidinfo = this.bidInfo;
-                    if (this.bidInfo) {
-                      shop.idBid = bid.id;
-                      shop.originalValue = bid.originalValue;
-                      shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = player.hasBid;
-                      shop.bidAproved = (bid.teamID === this.team.id);
-                    } else {
-                      shop.idBid = 0;
-                      shop.bidValue = this.bid(player.rating);
-                      shop.originalValue = this.bid(player.rating);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = false;
-                      shop.bidAproved = false;
-                    }
-
-                    shops.push(shop);
-                  });
-              }
-            }
-          }, error => this.msgErro = error);
 
 
       },
@@ -216,82 +134,100 @@ export class TransfermarketService {
 
   }
 
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
+  }
 
-  listarFilter2(playerFilter: PlayerFilter, page: number): TransfermarketRest {
-    let playerList: Player[] = [];
-    let shops: Transfermarket[] = [];
-    let rest = new TransfermarketRest();
+  carregarPlayerRest(playerFilter: PlayerFilter, page: number) {
+    let params = JSON.parse(JSON.stringify(playerFilter || null));
+    this.http.post(this.httpUtil.url('player/getPlayers?page=' + page), params)
+      .toPromise().then(response => {
+        return JSON.stringify(response.json()) as PlayerRest;
+      }).catch(this.handleError).then(playerParam => {
+        this.playerRest = playerParam;
+      }).catch(this.handleError);
+
+    console.log(this.playerRest);
+  }
+
+  carregarTime(id: number) {
+    this.http.get(this.httpUtil.url('team/getByUser/' + id)).toPromise().then(response => {
+      return response.json() as Team;
+    }).catch(this.handleError).then(timesParam => {
+      this.team = timesParam;
+      console.log(this.team);
+    }).catch(this.handleError);
+  }
 
 
-    this.playerService.listarFiltroRest(playerFilter, page)
-      .subscribe((players) => {
-        this.players = players.content;
-        rest.first = players.first;
-        rest.last = players.last;
-        rest.number = players.number;
-        rest.numberOfElements = players.numberOfElements;
-        rest.size = players.size;
-        rest.sort = players.sort;
-        rest.totalElements = players.totalElements;
-        rest.totalPages = players.totalPages;        
-        this.teamService.buscarPorIdUser(this.user.id)
-          .subscribe((team) => {
-            this.team = team
-            console.log(this.players);
-            for (let player of this.players) {
+  listarFilter2(playerFilter: PlayerFilter, page: number): Promise<TransfermarketRest> {
+    return new Promise((resolve, reject) => {
+      let playerList: Player[] = [];
+      let shops: Transfermarket[] = [];
+      let rest = new TransfermarketRest();
+      let playerRest = new PlayerRest();
 
-              let shop = new Transfermarket();
-              shop.name = player.name;
-              shop.clubName = player.clubName;
-              shop.position = player.position;
-              shop.rating = player.rating;
-              shop.idPlayer = player.id;
-              shop.team = this.team;
-              shop.attributes = player.attributes;
-              if (!player.hasBid) {
-                shop.idBid = 0;
-                shop.bidValue = this.bid(player.rating);
-                shop.originalValue = this.bid(player.rating);
-                shop.teamId = this.team.id;
-                shop.hasBid = false;
-                shop.bidAproved = false;
-                shops.push(shop);
-              } else {
+      this.playerService.listarFiltroRest(playerFilter, page)
+        .subscribe((players) => {
+          this.players = players.content;
+          rest.first = players.first;
+          rest.last = players.last;
+          rest.number = players.number;
+          rest.numberOfElements = players.numberOfElements;
+          rest.size = players.size;
+          rest.sort = players.sort;
+          rest.totalElements = players.totalElements;
+          rest.totalPages = players.totalPages;
 
-                this.bidinfoService.buscarPorIdPlayers(player.id)
-                  .subscribe((bidInfo) => {
-                    this.bidInfo = bidInfo;
-                    let bid: Bidinfo = this.bidInfo;
-                    if (this.bidInfo) {
-                      shop.idBid = bid.id;
-                      shop.originalValue = bid.originalValue;
-                      shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = player.hasBid;
-                      shop.bidAproved = (bid.teamID === this.team.id);
-                    } else {
-                      shop.idBid = 0;
-                      shop.bidValue = this.bid(player.rating);
-                      shop.originalValue = this.bid(player.rating);
-                      shop.teamId = this.team.id;
-                      shop.hasBid = false;
-                      shop.bidAproved = false;
-                    }
+          let array: Array<any> = [];
 
-                    shops.push(shop);
-                  });
-              }
+          for (let player of this.players) {
+            let shop = new Transfermarket();
+            shop.name = player.name;
+            shop.clubName = player.clubName;
+            shop.position = player.position;
+            shop.rating = player.rating;
+            shop.idPlayer = player.id;
+            shop.team = this.team;
+            shop.attributes = player.attributes;
+            if (!player.hasBid) {
+              shop.idBid = 0;
+              shop.bidValue = this.bid(player.rating);
+              shop.originalValue = this.bid(player.rating);
+              shop.teamId = this.team.id;
+              shop.hasBid = false;
+              shop.bidAproved = false;
+            } else {
+              this.bidinfoService.buscarPorIdPlayers(player.id)
+                .subscribe((bidInfo) => {
+                  this.bidInfo = bidInfo;
+                  let bid: Bidinfo = this.bidInfo;
+                  if (this.bidInfo) {
+                    shop.idBid = bid.id;
+                    shop.originalValue = bid.originalValue;
+                    shop.bidValue = bid.bidValue + (bid.originalValue * 0.05);
+                    shop.teamId = this.team.id;
+                    shop.hasBid = player.hasBid;
+                    shop.bidAproved = (bid.teamID === this.team.id);
+                  } else {
+                    shop.idBid = 0;
+                    shop.bidValue = this.bid(player.rating);
+                    shop.originalValue = this.bid(player.rating);
+                    shop.teamId = this.team.id;
+                    shop.hasBid = false;
+                    shop.bidAproved = false;
+                  }
+                });
             }
-          }, error => this.msgErro = error);
+            array.push(shop);
+          }
+          shops = array;
+          rest.transfermarkets = shops;
+          resolve(rest);
+        },
 
-
-      },
-
-      error => this.msgErro = error);
-
-    rest.transfermarkets = shops;
-    return rest;
-
+        error => this.msgErro = error);
+    });
   }
 
   getTeam() {

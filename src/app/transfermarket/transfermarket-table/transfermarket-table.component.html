@@ -1,5 +1,12 @@
+<div class="col-md-12 text-left">
+    <div layout="row" layout-align="start left" class="push-left-sm">
+        <button md-raised-button color="blue" routerLink="/transfermarket" class="background-gray-3">Voltar</button>
+    </div>
+</div>
+
 <div class="col-md-12">
     <div class="card">
+
         <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
             <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
     <span class="md-title">Jogadores</span>
@@ -17,11 +24,11 @@
 <div class="col-md-12">
     <div class="card">
         <md-divider></md-divider>
-        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [(ngModel)]="selectedRows"
-            (sortChange)="sort($event)">
+
+        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [(ngModel)]="selectedRows" (sortChange)="sort($event)">
             <ng-template tdDataTableTemplate="rating" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
-                    <span [ngClass]="getRatingColor(row.rating)" class="label">{{row.rating}}</span>
+                    <span [ngClass]="getRatingColor(row.rating)">{{row.rating}}</span>
                 </div>
             </ng-template>
             <ng-template tdDataTableTemplate="hasBid" let-value="value" let-row="row" let-column="column">
@@ -36,30 +43,33 @@
             </ng-template>
             <ng-template tdDataTableTemplate="attribute" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
-                    <button md-raised-button color="warn" (click)="openDialog(row)"><i class="fa fa-blind" aria-hidden="true"></i></button>
+                    <button md-raised-button class="background-gray-4" (click)="openDialog(row)"><i class="fa fa-blind" aria-hidden="true"></i></button>
                 </div>
             </ng-template>
             <ng-template tdDataTableTemplate="bid" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
-                    <button md-raised-button color="primary" (click)="onBid(row)"><i class="fa fa-gavel" aria-hidden="true"></i></button>
+                    <button md-raised-button color="blue" class="background-gray-3" (click)="onBid(row)"><i class="fa fa-gavel" aria-hidden="true"></i></button>
                 </div>
             </ng-template>
+
         </td-data-table>
+
     </div>
-</div>
-<div class="col-md-12">
-    <div class="card">
-        <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-            <h3>Nenhum jogador encontrado.</h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div *tdLoading="'overlayStarSyntax'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'primary'">
+            </div>
         </div>
-        <td-paging-bar #pagingBar [pageSizes]="[50]" [total]="transfermarketRest.totalElements" (change)="page($event)">
-            <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar.range}} <span hide-xs>de {{transfermarketRest.totalElements}}</span>
-            <button md-button (click)="onRefresh()" rel="tooltip" title="Atualizar"><i class="fa fa-refresh"></i></button>
-            <button md-raised-button routerLink="/transfermarket" class="text-left">Voltar</button>
-        </td-paging-bar>
-        
-        <md-slide-toggle type="hidden" #slide color="accent" [(ngModel)]="columns[2].hidden" (ngModelChange)="dataTable.refresh()">Atualizar</md-slide-toggle>
+        <div class="card">
+            <td-paging-bar #pagingBar2 [pageSizes]="[20]" [total]="transfermarketRest.totalElements" (change)="page($event)">
+                <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{transfermarketRest.totalElements}}</span>
+                <button md-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar"><i class="fa fa-refresh"></i></button>
+            </td-paging-bar>
+        </div>
     </div>
+
+
+
+
+
 </div>
-
-

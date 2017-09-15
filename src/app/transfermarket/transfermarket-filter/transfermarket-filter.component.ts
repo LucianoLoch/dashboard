@@ -22,6 +22,7 @@ export class TransfermarketFilterComponent implements OnInit {
   public players: Array<Player> = [];
   public leagues: Array<League> = [];
   public playerFilter: PlayerFilter = new PlayerFilter();
+  public leagueName: String;
   public value: any = {};
   selectedValue: string;
 
@@ -88,7 +89,7 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.name = '';
     this.playerFilter.position = '';
     this.playerFilter.rating = 0;
-    this.playerFilter.league = '';
+    this.playerFilter.league = 0;
 
   }
 
@@ -120,19 +121,23 @@ export class TransfermarketFilterComponent implements OnInit {
   }
   check(filter: PlayerFilter): boolean {
 
+
     if ((filter.name.length === 0) &&
       (filter.position.length === 0) &&
       (filter.rating === 0) &&
-      (filter.league.length === 0)) {
+      (filter.league === 0)) {
       return false;
-    } else {
-      if ((filter.rating > 0) && 
-         (filter.position.length === 0)) {
-           return false;
-         } else {
-           return true;
-         }
     }
+    return true;
+  }
+
+  findIdLeague(): number {
+    let league : League;
+    console.log(this.leagues);
+    console.log(this.leagueName)
+    league = this.leagues.filter(leagues => leagues.name === this.leagueName)[0];
+    console.log(league);
+    return league.id;
   }
 
   filter(filterPlayer: PlayerFilter): NavigationExtras {
@@ -144,16 +149,15 @@ export class TransfermarketFilterComponent implements OnInit {
   }
 
   onFilter(filterPlayer: PlayerFilter) {
+    if (this.leagueName != ''){
+      filterPlayer.league = this.findIdLeague();
+      console.log('Liga id: '+filterPlayer.league);
+    }
+
     if (this.check(filterPlayer)) {
       this.router.navigate(['/transfermarket/table'], this.filter(filterPlayer));
     } else {
-     if ((filterPlayer.rating > 0) && 
-         (filterPlayer.position.length === 0)){
-           this.alertService.error('Ao informar um Rating é necessário informar uma Posição!')
-         } else {      
-           this.alertService.error('Informe pelo menos um filtro!');
-         }
+      this.alertService.error('Informe pelo menos um filtro!');
     }
-
   }
 }
