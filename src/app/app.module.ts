@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
 import { TransfermarketFilterComponent } from './transfermarket/transfermarket-filter/transfermarket-filter.component';
-import { TransfermarketListComponent } from './transfermarket/transfermarket-list/transfermarket-list.component';
+
 
 import { MdSelectModule, MdOptionModule, MdAutocompleteModule} from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';

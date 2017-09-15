@@ -3,5 +3,6 @@ export class League {
 		public id?: number,
 		public name?: string,
 		public abbrName?: string, 
-		public imgUrl?: string){}
+		public imgUrl?: string,
+		public originalId?: number){}
 }

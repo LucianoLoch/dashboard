@@ -6,6 +6,9 @@
             <div class="container-fluid">
                 <router-outlet></router-outlet>
             </div>
+            <div *ngIf="!team" class="text-left">
+                <a class="btn btn-large background-gray3" routerLink="team/create">Cadastrar Time</a>
+            </div>
             <footer *ngIf="currentUser" class="footer">
                 <div class="container-fluid">
                     <p class="copyright pull-right">

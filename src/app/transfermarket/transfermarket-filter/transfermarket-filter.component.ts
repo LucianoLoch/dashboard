@@ -22,7 +22,7 @@ export class TransfermarketFilterComponent implements OnInit {
   public players: Array<Player> = [];
   public leagues: Array<League> = [];
   public playerFilter: PlayerFilter = new PlayerFilter();
-  public leagueName: String;
+  public leagueName: String = '';
   public value: any = {};
   selectedValue: string;
 
@@ -133,11 +133,8 @@ export class TransfermarketFilterComponent implements OnInit {
 
   findIdLeague(): number {
     let league : League;
-    console.log(this.leagues);
-    console.log(this.leagueName)
     league = this.leagues.filter(leagues => leagues.name === this.leagueName)[0];
-    console.log(league);
-    return league.id;
+    return league.originalId;
   }
 
   filter(filterPlayer: PlayerFilter): NavigationExtras {
@@ -149,9 +146,8 @@ export class TransfermarketFilterComponent implements OnInit {
   }
 
   onFilter(filterPlayer: PlayerFilter) {
-    if (this.leagueName != ''){
+    if (this.leagueName.length > 0){
       filterPlayer.league = this.findIdLeague();
-      console.log('Liga id: '+filterPlayer.league);
     }
 
     if (this.check(filterPlayer)) {

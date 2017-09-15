@@ -12,7 +12,6 @@ import { MdOptionModule, MaterialModule, MdNativeDateModule, MdTableModule } fro
 import { TeamModule } from './../team/team.module';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { RouterModule } from '@angular/router';
-import { TransfermarketListComponent } from './transfermarket-list/transfermarket-list.component';
 import { TransfermarketFilterComponent } from './transfermarket-filter/transfermarket-filter.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -114,8 +113,7 @@ import {
     TransfermarketAttributesComponent
   ],
   declarations: [
- //   TransfermarketFilterComponent, 
-    TransfermarketListComponent, 
+    TransfermarketFilterComponent, 
     TransfermarketNameFilter,
     TransfermarketTableComponent,
     TransfermarketAttributesComponent

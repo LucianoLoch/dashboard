@@ -151,12 +151,7 @@ export class TransfermarketService {
   }
 
   carregarTime(id: number) {
-    this.http.get(this.httpUtil.url('team/getByUser/' + id)).toPromise().then(response => {
-      return response.json() as Team;
-    }).catch(this.handleError).then(timesParam => {
-      this.team = timesParam;
-      console.log(this.team);
-    }).catch(this.handleError);
+
   }
 
 
@@ -181,7 +176,20 @@ export class TransfermarketService {
 
           let array: Array<any> = [];
 
-          for (let player of this.players) {
+      
+
+          let arrayDePromises: Array<Promise<any>> = [];
+          arrayDePromises.push(new Promise((resolve, reject) => {
+            this.http.get(this.httpUtil.url('team/getByUser/' + this.team.id)).toPromise().then(response => {
+              return response.json() as Team;
+            }).catch(this.handleError).then(timesParam => {
+              this.team = timesParam;
+              resolve();
+              console.log(this.team);
+            }).catch(this.handleError);
+          }));
+         
+          this.players.map(player => {
             let shop = new Transfermarket();
             shop.name = player.name;
             shop.clubName = player.clubName;
@@ -197,9 +205,11 @@ export class TransfermarketService {
               shop.teamId = this.team.id;
               shop.hasBid = false;
               shop.bidAproved = false;
+              array.push(shop);
             } else {
-              this.bidinfoService.buscarPorIdPlayers(player.id)
-                .subscribe((bidInfo) => {
+              arrayDePromises.push(new Promise((resolve, reject) => {
+                this.bidinfoService.buscarPorIdPlayers(player.id).subscribe((bidInfo) => {
+                  console.log('abc');
                   this.bidInfo = bidInfo;
                   let bid: Bidinfo = this.bidInfo;
                   if (this.bidInfo) {
@@ -217,13 +227,19 @@ export class TransfermarketService {
                     shop.hasBid = false;
                     shop.bidAproved = false;
                   }
+                  array.push(shop);
+                  resolve();
                 });
+              }));
             }
-            array.push(shop);
-          }
-          shops = array;
-          rest.transfermarkets = shops;
-          resolve(rest);
+          });
+          
+
+          Promise.all(arrayDePromises).then(() => {
+            shops = array;
+            rest.transfermarkets = shops;
+            resolve(rest);
+          });
         },
 
         error => this.msgErro = error);

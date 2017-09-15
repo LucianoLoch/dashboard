@@ -1,4 +1,3 @@
-import { TransfermarketFilterComponent } from './../transfermarket/transfermarket-filter/transfermarket-filter.component';
 import { BidinfoListComponent } from './../bidinfo/bidinfo-list/bidinfo-list.component';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,8 +30,7 @@ import {MdTableModule} from '@angular/material';
     TeamCreateComponent, 
     TeamEditComponent, 
     TeamListComponent, 
-    TeamViewComponent,
-    TransfermarketFilterComponent,
+    TeamViewComponent,    
     BidinfoListComponent
   
   ],
