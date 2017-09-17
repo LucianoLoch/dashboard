@@ -146,8 +146,7 @@ export class TransfermarketService {
       }).catch(this.handleError).then(playerParam => {
         this.playerRest = playerParam;
       }).catch(this.handleError);
-
-    console.log(this.playerRest);
+    
   }
 
   carregarTime(id: number) {
@@ -184,8 +183,7 @@ export class TransfermarketService {
               return response.json() as Team;
             }).catch(this.handleError).then(timesParam => {
               this.team = timesParam;
-              resolve();
-              console.log(this.team);
+              resolve();              
             }).catch(this.handleError);
           }));
          
@@ -209,7 +207,6 @@ export class TransfermarketService {
             } else {
               arrayDePromises.push(new Promise((resolve, reject) => {
                 this.bidinfoService.buscarPorIdPlayers(player.id).subscribe((bidInfo) => {
-                  console.log('abc');
                   this.bidInfo = bidInfo;
                   let bid: Bidinfo = this.bidInfo;
                   if (this.bidInfo) {

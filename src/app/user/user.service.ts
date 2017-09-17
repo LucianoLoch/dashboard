@@ -1,3 +1,4 @@
+import { Team } from './../team/team.model';
 import { HttpUtilService } from './../util/http-util.service';
 import { Observable } from 'rxjs/Observable';
 import { User } from './user.model';
@@ -25,7 +26,7 @@ export class UserService {
     }
  
     create(user: User) : Observable<User> {
-        let params = JSON.parse(JSON.stringify(user || null));
+        let params = JSON.parse(JSON.stringify(user || null)); 
         return this.http.post(this.httpUtil.url(this.path + '/register'), params,
                         this.httpUtil.headers())
                     .map(this.httpUtil.extrairDadosCadastro)
