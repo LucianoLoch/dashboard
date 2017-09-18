@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="card">
-            <td-paging-bar #pagingBar2 [pageSizes]="[20]" [total]="transfermarketRest.totalElements" (change)="page($event)">
+            <td-paging-bar #pagingBar2 [total]="transfermarketRest.totalElements" (change)="page($event)">
                 <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{transfermarketRest.totalElements}}</span>
                 <button md-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar"><i class="fa fa-refresh"></i></button>
             </td-paging-bar>
