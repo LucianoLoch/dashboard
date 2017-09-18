@@ -13,8 +13,7 @@
                             <md-option (input)="onInputPlayer(player.name)" *ngFor="let player of filteredPlayers | async" [value]="player.name">
                                 {{player.name}}
                             </md-option>
-                        </md-autocomplete>
-                        <h3 class="title">{{ team?.manager }}</h3>
+                        </md-autocomplete>                        
                     </div>
                 </div>
             </div>
@@ -52,8 +51,7 @@
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Rating <i class="fa fa-star" aria-hidden="true"></i></h3>
-                        <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1" [thumb-label]="thumbLabel"
-                            [value]="defaultvalue">
+                        <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1">
                         </md-slider>
                         {{playerFilter.rating}}
                     </div>
