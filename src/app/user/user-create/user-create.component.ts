@@ -58,7 +58,9 @@ export class UserCreateComponent implements OnInit {
             this.userService.create(this.user)
                 .subscribe(
                 (res) => {
-                    this.arrayDePromises.push(this.loginUser());                    
+                    this.user = res;
+                    //this.arrayDePromises.push(this.loginUser());      
+                    this.arrayDePromises.push(this.registerTeam());              
                     this.result.result = 'Registro Efetuado com Sucesso';
                     this.result.type = "sucess";
                     this.result.redirecTo = "/dashboard";
@@ -97,7 +99,7 @@ export class UserCreateComponent implements OnInit {
             this.authenticationService.login(this.user)
                 .subscribe((user) => {                    
                     this.user = user;
-                    this.arrayDePromises.push(this.registerTeam());
+                    
                     this.user = user;
                     if (this.user && this.user.keyAuth) {
                         this.result.result =  'Usuário Logado com Sucesso';

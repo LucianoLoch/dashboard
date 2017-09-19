@@ -1,4 +1,4 @@
-import { Player } from './Player.model';
+import { Player } from './player.model';
 export class PlayerRest {
 	constructor(
        public content?: Player[],
