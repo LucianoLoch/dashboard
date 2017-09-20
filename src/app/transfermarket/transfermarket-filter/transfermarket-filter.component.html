@@ -1,7 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
@@ -13,7 +12,7 @@
                             <md-option (input)="onInputPlayer(player.name)" *ngFor="let player of filteredPlayers | async" [value]="player.name">
                                 {{player.name}}
                             </md-option>
-                        </md-autocomplete>                        
+                        </md-autocomplete>
                     </div>
                 </div>
             </div>
@@ -56,6 +55,51 @@
                         {{playerFilter.rating}}
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <td-expansion-panel>
+                    <ng-template td-expansion-panel-header>
+                        <md-toolbar>
+                            <span>Atributos Jogador</span>
+                        </md-toolbar>
+                    </ng-template>
+
+                    <div *ngFor="let att of playerAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-footer">
+                                <h3 class="category">{{att.name}} </h3>
+                            </div>
+                            <div class="card-footer">
+                                <md-slider (input)="onInputAttribute($event,att.name)"
+                                    [max]="99" [min]="0" [step]="1">
+                                </md-slider>
+                                {{att.value}}
+                            </div>
+                        </div>
+                    </div>
+                </td-expansion-panel>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <td-expansion-panel>
+                    <ng-template td-expansion-panel-header>
+                        <md-toolbar>
+                            <span>Atributos Goleiros</span>
+                        </md-toolbar>
+                    </ng-template>
+
+                    <div *ngFor="let attGk of gkAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-footer">
+                                <h3 class="category">{{attGk.name}}</h3>
+                             </div>
+                            <div class="card-footer">                            
+                                <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1">
+                                </md-slider>
+                                {{attGk.value}}
+                            </div>
+                        </div>
+                    </div>
+                </td-expansion-panel>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <button md-raised-button class="background-gray" (click)="onFilter(playerFilter)">Filtrar</button>

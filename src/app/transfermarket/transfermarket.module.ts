@@ -27,7 +27,8 @@ import {
   CovalentPagingModule,
   CovalentSearchModule,
   CovalentStepsModule,
-  CovalentLoadingModule
+  CovalentLoadingModule,
+  CovalentExpansionPanelModule
 } from '@covalent/core';
 import {
   MdAutocompleteModule,
@@ -55,7 +56,7 @@ import {
   MdToolbarModule,
   MdTooltipModule,
   OverlayModule,
-  PortalModule
+  PortalModule,
 } from '@angular/material';
 
 @NgModule({
@@ -106,8 +107,8 @@ import {
     CovalentPagingModule,
     CovalentNotificationsModule,
     CovalentCommonModule,
-    CovalentLoadingModule 
-    
+    CovalentLoadingModule,
+    CovalentExpansionPanelModule
   ],
   entryComponents:[
     TransfermarketAttributesComponent
