@@ -13,7 +13,7 @@
                             <md-option (input)="onInputPlayer(player.name)" *ngFor="let player of filteredPlayers | async" [value]="player.name">
                                 {{player.name}}
                             </md-option>
-                        </md-autocomplete>                        
+                        </md-autocomplete>
                     </div>
                 </div>
             </div>
@@ -56,6 +56,46 @@
                         {{playerFilter.rating}}
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <td-expansion-panel>
+                    <ng-template td-expansion-panel-header>
+                        <md-toolbar>
+                            <span>Atributos Jogador</span>
+                        </md-toolbar>
+                    </ng-template>
+                    <div *ngFor="let att of playerAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-content">
+                                <h3 class="category">{{att.name}} </h3>
+                                <md-input-container>
+                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="attGk.value" [(ngModel)]="att.attributes">
+                                </md-input-container>
+                            </div>                            
+                        </div>
+                    </div>
+                    
+                </td-expansion-panel>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <td-expansion-panel>
+                    <ng-template td-expansion-panel-header>
+                        <md-toolbar>
+                            <span>Atributos Goleiros</span>
+                        </md-toolbar>
+                    </ng-template>
+
+                    <div *ngFor="let attGk of gkAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="card card-stats">
+                            <div class="card-content">
+                                <h3 class="category">{{attGk.name}} </h3>
+                                <md-input-container>
+                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="attGk.value" [(ngModel)]="attGk.attributes">
+                                </md-input-container>
+                            </div>                            
+                        </div>
+                    </div>
+                </td-expansion-panel>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <button md-raised-button class="background-gray" (click)="onFilter(playerFilter)">Filtrar</button>
