@@ -11,5 +11,4 @@ export class SidebarComponent {
 
   @Input() currentUser: User;
   @Input() team : Team;
-  
 }

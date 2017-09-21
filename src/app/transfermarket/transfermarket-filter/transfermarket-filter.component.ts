@@ -23,20 +23,20 @@ export class TransfermarketFilterComponent implements OnInit {
   public leagues: Array<League> = [];
   public playerFilter: PlayerFilter = new PlayerFilter();
   public playerAttributes = [
-    { "name": 'Defending', "icon": "fa fa-star", attribute: 'attributes.defending', "value": "0" },
-    { "name": 'Dribbling', "icon": "fa fa-star", attribute: 'attributes.dribbling', "value": "0" },
-    { "name": 'Pace', "icon": "fa fa-star", attribute: 'attributes.pace', "value": "0" },
-    { "name": 'Passing', "icon": "fa fa-star", attribute: 'attributes.passing', "value": "0" },
-    { "name": 'Physical', "icon": "fa fa-star", attribute: 'attributes.physical', "value": "0" },
-    { "name": 'Shooting', "icon": "fa fa-star", attribute: 'attributes.shooting', "value": "0" }
+    { "name": 'Defending', "icon": "fa fa-star", attribute: 'attributes.defending', 'value': 0 },
+    { "name": 'Dribbling', "icon": "fa fa-star", attribute: 'attributes.dribbling', "value": 0 },
+    { "name": 'Pace', "icon": "fa fa-star", attribute: 'attributes.pace', "value": 0 },
+    { "name": 'Passing', "icon": "fa fa-star", attribute: 'attributes.passing', "value": 0 },
+    { "name": 'Physical', "icon": "fa fa-star", attribute: 'attributes.physical', "value": 0 },
+    { "name": 'Shooting', "icon": "fa fa-star", attribute: 'attributes.shooting', "value": 0 }
   ];
   public gkAttributes = [
-    { "name": 'Kicking', "icon": "fa fa-star", attribute: 'attributes.kicking' },
-    { "name": 'Speed ', "icon": "fa fa-star", attribute: 'attributes.speed' },
-    { "name": 'Handling', "icon": "fa fa-star", attribute: 'attributes.handling' },
-    { "name": 'Positioning', "icon": "fa fa-star", attribute: 'attributes.positioning' },
-    { "name": 'Reflexes', "icon": "fa fa-star", attribute: 'attributes.reflexes' },
-    { "name": 'Diving', "icon": "fa fa-star", attribute: 'attributes.diving' }
+    { "name": 'Kicking', "icon": "fa fa-star", attribute: 'attributes.kicking', "value": 0 },
+    { "name": 'Speed ', "icon": "fa fa-star", attribute: 'attributes.speed', "value": 0 },
+    { "name": 'Handling', "icon": "fa fa-star", attribute: 'attributes.handling', "value": 0 },
+    { "name": 'Positioning', "icon": "fa fa-star", attribute: 'attributes.positioning', "value": 0 },
+    { "name": 'Reflexes', "icon": "fa fa-star", attribute: 'attributes.reflexes', "value": 0 },
+    { "name": 'Diving', "icon": "fa fa-star", attribute: 'attributes.diving', "value": 0 }
 
   ]
   public leagueName: String = '';
@@ -44,6 +44,8 @@ export class TransfermarketFilterComponent implements OnInit {
   selectedValue: string;
 
 
+
+  
 
   public startPrice: number = 0;
   public endPrice: number = 0;
@@ -58,14 +60,25 @@ export class TransfermarketFilterComponent implements OnInit {
   leaguesCtrl: FormControl;
   filteredLeagues: any;
   positions = ['CAM', 'CB', 'CDM', 'CF', 'CM', 'GK', 'LB', 'LM', 'LW', 'LWB', 'RB', 'RM', 'RW', 'RWB', 'ST'];
-  public attributes = new PlayerFilterAttributes();
 
-	/**
-	 * Construtor.
-	 *
-	 * @param Router router
-	 * @param TransfermarketService transfermarketService
-	 */
+  filteredObjects: string[];
+  objects: any[] = [
+    {id: 1,name:'Nome', value: 0},
+    {id: 2,name:'Posição', value: 1},
+    {id: 3,name:'Rating', value: 2},
+    {id: 4,name:'Tem Lance', value: 3}    
+  ];
+/*
+  objects: any[] = [
+    {id: 1, city: 'San Diego', population: '4M'},
+    {id: 2, city: 'San Franscisco', population: '6M'},
+    {id: 3, city: 'Los Angeles', population: '5M'},
+    {id: 4, city: 'Austin', population: '3M'},
+    {id: 5, city: 'New York City', population: '10M'},
+  ];*/
+
+  objectsModel: string[] = this.objects;
+
   constructor(
     public router: Router,
     public transfermarketService: TransfermarketService,
@@ -91,9 +104,6 @@ export class TransfermarketFilterComponent implements OnInit {
 
   }
 
-	/**
-	 * Método executado logo após a criação do componente.
-	 */
   ngOnInit() {
     this.transfermarket = new Transfermarket();
     this.playerService.listarTodos()
@@ -108,19 +118,38 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.position = '';
     this.playerFilter.rating = 0;
     this.playerFilter.league = 0;
-    this.attributes.defending = 0;
-    this.attributes.dribbling = 0;
-    this.attributes.pace = 0;
-    this.attributes.passing = 0;
-    this.attributes.physical = 0;
-    this.attributes.shooting = 0;
-    this.attributes.kicking = 0;
-    this.attributes.speed = 0;
-    this.attributes.handling = 0;
-    this.attributes.positioning = 0;
-    this.attributes.reflexes = 0;
-    this.attributes.diving = 0;
+    this.playerFilter.attributes = new PlayerFilterAttributes();
+    this.playerFilter.attributes.defending = 0;
+    this.playerFilter.attributes.dribbling = 0;
+    this.playerFilter.attributes.pace = 0;
+    this.playerFilter.attributes.passing = 0;
+    this.playerFilter.attributes.physical = 0;
+    this.playerFilter.attributes.shooting = 0;
+    this.playerFilter.attributes.kicking = 0;
+    this.playerFilter.attributes.speed = 0;
+    this.playerFilter.attributes.handling = 0;
+    this.playerFilter.attributes.positioning = 0;
+    this.playerFilter.attributes.reflexes = 0;
+    this.playerFilter.attributes.diving = 0;
+    this.playerFilter.ordType = [];
+    this.filterObjects('');
+  }
 
+
+
+
+
+
+  filterObjects(value: string): void {
+    this.filteredObjects = this.objects.filter((obj: any) => {
+      if (value) {
+        return obj.name.toLowerCase().indexOf(value.toLowerCase()) > -1;
+      } else {
+        return false;
+      }
+    }).filter((filteredObj: any) => {
+      return this.objectsModel ? this.objectsModel.indexOf(filteredObj) < 0 : true;
+    });
   }
 
   filterPlayers(val: string) {
@@ -139,106 +168,42 @@ export class TransfermarketFilterComponent implements OnInit {
   }
 
   onInputStartPrice(event: any) {
-    this.playerFilter.startValue = event.value;
+    this.playerFilter.startValue = event;
   }
 
   onInputEndPrice(event: any) {
-    this.playerFilter.endValue = event.value;
+    this.playerFilter.endValue = event;
   }
 
   onInputRating(event: any) {
     this.playerFilter.rating = event.value;
   }
 
-  onInputDefending(event: any) {
-    this.attributes.defending = event.value;
-  }
-  onInputDribbling(event: any) {
-    this.attributes.dribbling = event.value;
-  }
-  onInputPace(event: any) {
-    this.attributes.pace = event.value;
-  }
-  onInputPassing(event: any) {
-    this.attributes.passing = event.value;
-  }
-  onInputPhysical(event: any) {
-    this.attributes.physical = event.value;
-  }
-  onInputShooting(event: any) {
-    this.attributes.shooting = event.value;
-  }
-  onInputKicking(event: any) {
-    this.attributes.kicking = event.value;
-  }
-  onInputSpeed(event: any) {
-    this.attributes.speed = event.value;
-  }
-  onInputHandling(event: any) {
-    this.attributes.handling = event.value;
-  }
-  onInputPositioning(event: any) {
-    this.attributes.positioning = event.value;
-  }
-  onInputReflexes(event: any) {
-    this.attributes.reflexes = event.value;
-  }
-  onInputDiving(event: any) {
-    this.attributes.diving = event.value;
-  }
-
-  onInputAttribute(event: any, name: string) {
-    if (name === "Defending") {
-      this.onInputDefending(event);
-      this.updateAttribute(name, event.value, 0)
-
-    } else if (name = "Dribbling") {
-      this.onInputDribbling(event);
-      this.updateAttribute(name, event.value, 1)
-
-    } else if (name === "Pace") {
-      this.onInputPace(event);
-      this.updateAttribute(name, event.value, 2)
-
-    } else if (name = "Passing") {
-      this.onInputPassing(event);
-      this.updateAttribute(name, event.value, 3)
-
-    } else if (name === "Physical") {
-      this.onInputPhysical(event);
-      this.updateAttribute(name, event.value, 4)
-
-    } else if (name = "Shooting") {
-      this.onInputShooting(event);
-      this.updateAttribute(name, event.value, 5)
-    }
-
-
-  }
-
-  updateAttribute(name: string, value: number, i: number) {
-    console.log(name);
-    let att: any;
-    att = this.playerAttributes.find(pl => pl.name === name);
-    console.log(att);
-    att.value = value;
-    this.playerAttributes[i] = att;
-  }
-
   check(filter: PlayerFilter): boolean {
-
 
     if ((filter.name.length === 0) &&
       (filter.position.length === 0) &&
       (filter.rating === 0) &&
-      (filter.league === 0)) {
+      (filter.league === 0) &&
+      (filter.attributes.defending === 0) && 
+      (filter.attributes.dribbling === 0) &&
+      (filter.attributes.pace === 0) &&
+      (filter.attributes.passing === 0) &&
+      (filter.attributes.physical === 0) &&
+      (filter.attributes.shooting === 0) &&
+      (filter.attributes.kicking === 0) && 
+      (filter.attributes.speed === 0) && 
+      (filter.attributes.handling === 0) && 
+      (filter.attributes.positioning === 0) && 
+      (filter.attributes.reflexes === 0) && 
+      (filter.attributes.diving === 0)) {
       return false;
     }
     return true;
   }
 
   findIdLeague(): number {
-    let league : League;
+    let league: League;
     league = this.leagues.filter(leagues => leagues.name === this.leagueName)[0];
     return league.originalId;
   }
@@ -251,8 +216,43 @@ export class TransfermarketFilterComponent implements OnInit {
 
   }
 
+ /* getOrder(): Array<number>{
+    let order = new Array<number>();
+
+    for (let i=this.objectsModel.length-1; i>=0; i--){
+      let obj = this.objectsModel[i];
+      
+      order.push(this.objectsModel[i])
+
+    } 
+    //(let ord of this.objectsModel){
+
+    }
+    return 
+
+  }*/
+
+  getAttributes(filter: PlayerFilter): PlayerFilter {
+    filter.attributes.defending = this.playerAttributes[0].value;
+    filter.attributes.dribbling = this.playerAttributes[1].value;
+    filter.attributes.pace = this.playerAttributes[2].value;
+    filter.attributes.passing = this.playerAttributes[3].value;
+    filter.attributes.physical = this.playerAttributes[4].value;
+    filter.attributes.shooting = this.playerAttributes[5].value;
+
+    filter.attributes.kicking = this.gkAttributes[0].value;
+    filter.attributes.speed = this.gkAttributes[1].value;
+    filter.attributes.handling = this.gkAttributes[2].value;
+    filter.attributes.positioning = this.gkAttributes[3].value;
+    filter.attributes.reflexes = this.gkAttributes[4].value;
+    filter.attributes.diving = this.gkAttributes[5].value;
+    return filter;
+  }
+
+
   onFilter(filterPlayer: PlayerFilter) {
-    if (this.leagueName.length > 0){
+    this.getAttributes(filterPlayer);
+    if (this.leagueName.length > 0) {
       filterPlayer.league = this.findIdLeague();
     }
 

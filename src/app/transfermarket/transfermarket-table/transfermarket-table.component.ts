@@ -192,6 +192,7 @@ export class TransfermarketTableComponent implements OnInit {
 
         promise.then((check) => {
             console.log(check);
+            this._loadingService.register('replaceTemplateSyntax');
 
             if (check.length === 0) {
                 if (transferMarket.bidValue === this.transfermarketService.bid(transferMarket.rating)) {
@@ -199,9 +200,11 @@ export class TransfermarketTableComponent implements OnInit {
                         .subscribe(
                         (res) => {
                             this.alertService.success('Lance efetuado com sucesso!', true);
+                            this._loadingService.resolve('replaceTemplateSyntax');
                             this.onRefresh();
                         },
                         (err) => {
+                            this._loadingService.resolve('replaceTemplateSyntax');
                             this.alertService.error(err);
                         });
                 } else {
@@ -209,10 +212,13 @@ export class TransfermarketTableComponent implements OnInit {
                         .subscribe(
                         (res) => {
                             this.alertService.success('Lance efetuado com sucesso!', true);
+                            this._loadingService.resolve('replaceTemplateSyntax');
                             this.onRefresh();
                         },
                         (err) => {
+                            this._loadingService.resolve('replaceTemplateSyntax');
                             this.alertService.error(err);
+
                         });
                 }
 

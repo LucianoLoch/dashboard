@@ -43,6 +43,8 @@
 <div class="col-md-12">
     <div class="card">
         <md-divider></md-divider>
+        <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace" tdLoadingColor="warn">            
+        </ng-template>
 
         <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [(ngModel)]="selectedRows" (sortChange)="sort($event)">
             <ng-template tdDataTableTemplate="rating" let-value="value" let-row="row" let-column="column">

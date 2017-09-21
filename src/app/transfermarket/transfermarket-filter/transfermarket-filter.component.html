@@ -57,6 +57,28 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-12 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-content">
+                        <h3 class="category">Ordenação: <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></h3>
+                        <td-chips color="primary"
+                                    [items]="filteredObjects"
+                                    [(ngModel)]="objectsModel"
+                                    placeholder="Digite a Ordenação..."
+                                    (inputChange)="filterObjects($event)"
+                                    requireMatch>
+                            <ng-template td-chip let-chip="chip">
+                            {{chip.name}}
+                            </ng-template>
+                            <ng-template td-autocomplete-option let-option="option">
+                            <div layout="row" layout-align="start center">
+                                {{option.name}}
+                            </div>
+                            </ng-template>
+                        </td-chips>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <td-expansion-panel>
                     <ng-template td-expansion-panel-header>
@@ -64,17 +86,18 @@
                             <span>Atributos Jogador</span>
                         </md-toolbar>
                     </ng-template>
-                    <div *ngFor="let att of playerAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                    <div *ngFor="let att of playerAttributes" class="col-lg-2 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
                                 <h3 class="category">{{att.name}} </h3>
                                 <md-input-container>
-                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="attGk.value" [(ngModel)]="att.attributes">
+                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="att.value"
+                                        [(ngModel)]="att.value">
                                 </md-input-container>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
-                    
+
                 </td-expansion-panel>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -85,14 +108,15 @@
                         </md-toolbar>
                     </ng-template>
 
-                    <div *ngFor="let attGk of gkAttributes" class="col-lg-4 col-md-6 col-sm-6">
+                    <div *ngFor="let attGk of gkAttributes" class="col-lg-2 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
                                 <h3 class="category">{{attGk.name}} </h3>
                                 <md-input-container>
-                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="attGk.value" [(ngModel)]="attGk.attributes">
+                                    <input mdInput placeholder="0 - 99" pattern="[0-9]" max="99" [max]="99" [min]="0" type="text" maxlength="2" value="attGk.value"
+                                        [(ngModel)]="attGk.value">
                                 </md-input-container>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </td-expansion-panel>

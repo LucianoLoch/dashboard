@@ -16,6 +16,7 @@ export class PlayerFilterAttributes {
 	){}
 }
 
+
 export class PlayerFilter {
 	constructor(
 		public name?: string,
@@ -23,5 +24,9 @@ export class PlayerFilter {
 		public rating?: number,
 		public endValue?: number,
 		public startValue?: number,
-		public league?: number){}	
+		public league?: number){}
+		public attributes?: PlayerFilterAttributes
+		public ordType?: Array<string>	
 }
+
+

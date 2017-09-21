@@ -10,7 +10,6 @@
     </div>
     <div *ngIf="currentUser" class="collapse navbar-collapse">
       <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
-        <li *ngIf="!team"><a routerLink="/team/create">Cadastrar Time</a><li>
         <li *ngIf="team" class="dropdown">
           <a *ngIf="notifications?.length > 0" href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="material-icons">notifications</i>
@@ -38,3 +37,4 @@
     </div>
   </div>
 </nav>
+

@@ -28,7 +28,8 @@ import {
   CovalentSearchModule,
   CovalentStepsModule,
   CovalentLoadingModule,
-  CovalentExpansionPanelModule
+  CovalentExpansionPanelModule,
+  CovalentChipsModule 
 } from '@covalent/core';
 import {
   MdAutocompleteModule,
@@ -108,7 +109,8 @@ import {
     CovalentNotificationsModule,
     CovalentCommonModule,
     CovalentLoadingModule,
-    CovalentExpansionPanelModule
+    CovalentExpansionPanelModule,
+    CovalentChipsModule 
     
   ],
   entryComponents:[
