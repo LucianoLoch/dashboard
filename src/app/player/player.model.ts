@@ -8,7 +8,13 @@ export class Player {
 		public rating?: number,
 		public hasBid?:boolean,
 		public attributes?: PlayerAttributes[],
-        public clubName?:string){}
+        public clubName?:string,
+        public height?: number,
+        public weight?: number,
+        public age?:number,
+        public foot?:string,
+        public atkWorkRate?: string,
+        public defWorkRate?: string){}
 }
 
 

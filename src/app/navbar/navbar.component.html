@@ -17,10 +17,14 @@
             <p class="hidden-lg hidden-md">Notificações</p>
           </a>
           <ul class="dropdown-menu">
-            <li *ngFor="let not of notifications">
-              <a href="#">{{ not.notification }}</a>
-            </li>
-
+                <li *ngFor="let not of notifications">
+                  <a href="#">{{ not.notification }}</a>
+                </li>
+                <li><hr></li>  
+                <li>
+                  <a routerLink="/notification/list">Ver todas as Notificações</a>
+                </li>              
+          
           </ul>
         </li>
         <li class="dropdown">
@@ -37,4 +41,3 @@
     </div>
   </div>
 </nav>
-

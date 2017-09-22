@@ -1,5 +1,6 @@
-import { Notification } from './../../transfermarket/notification.model';
-import { NotificationService } from './../../transfermarket/notification.service';
+import { NotificationService } from './../../notification/notification.service';
+import { Notification } from './../../notification/notification.model';
+
 import { Bidinfo } from './../../bidinfo/bidinfo.model';
 import { PlayerService } from './../../player/player.service';
 import { BidinfoService } from './../../bidinfo/bidinfo.service';
@@ -22,16 +23,18 @@ export class NotificationComponent implements OnInit {
   @Input() team: Team;
   public notifications : Notification[];
   public msgErro: String;
+  public lengthNotification: number;
   
 
   constructor(public notificationService :NotificationService){    
   }
 
   ngOnInit() {
-    this.team = JSON.parse(localStorage.getItem('team'));
-    this.notificationService.buscarPorId(this.team.id)
+    this.team = JSON.parse(sessionStorage.getItem('team'));
+    this.notificationService.getLastNotifications(this.team.id)
       .subscribe((notifications) => {
-        this.notifications = notifications;
+        this.notifications = notifications.content;
+        this.lengthNotification = notifications.totalElements;
       }, error => this.msgErro = error);   
 
   }

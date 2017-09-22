@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header" data-background-color="gray-4">
             <h4 class="title">Suas Notificações</h4>
-            <p *ngIf="notifications?.length > 0" class="category">{{notifications?.length}}</p>
+            <p *ngIf="notifications?.length > 0" class="category">{{lengthNotification}}</p>
             <p *ngIf="notifications?.length <= 0" class="category">Você não possuí nenhuma notificação no momento.</p>
         </div>
 
@@ -20,7 +20,11 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="card-footer">
+                    <button md-raised-button routerLink="/notification/list" class="background-gray-4" title="Atualizar">Ver Todas</button>
+                </div>
             </td-expansion-panel>
         </div>
+
     </div>
 </div>

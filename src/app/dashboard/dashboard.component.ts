@@ -26,12 +26,12 @@ export class DashboardComponent implements OnInit {
     public route: ActivatedRoute,
     public teamService: TeamService,
     public router: Router) {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   ngOnInit() {
     this.loading = true;
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.id = +this.route.snapshot.params['id'];    
 
     this.teamService.buscarPorIdUser(this.user.id)
@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
         this.team = team;        
         if (this.team){
           this.loading = false;
-          localStorage.setItem('team', JSON.stringify(this.team));					
+          sessionStorage.setItem('team', JSON.stringify(this.team));					
         }else {
           this.router.navigate(['/team/create']);
         }

@@ -30,8 +30,7 @@ import {MdTableModule} from '@angular/material';
     TeamCreateComponent, 
     TeamEditComponent, 
     TeamListComponent, 
-    TeamViewComponent,    
-    BidinfoListComponent
+    TeamViewComponent   
   
   ],
   	providers: [

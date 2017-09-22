@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     constructor(public userService: UserService, 
                 public teamService : TeamService,
                 public router: Router) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 
         if (this.currentUser){
             this.teamService.buscarPorIdUser(this.currentUser.id)

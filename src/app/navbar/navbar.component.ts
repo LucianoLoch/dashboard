@@ -27,7 +27,7 @@ export class NavbarComponent {
   }
 
   ngOnInit() {
-    this.team = JSON.parse(localStorage.getItem('team'));
+    this.team = JSON.parse(sessionStorage.getItem('team'));
     if (this.team){
       this.refreshData();
     }    

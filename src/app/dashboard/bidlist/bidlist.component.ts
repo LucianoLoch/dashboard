@@ -28,13 +28,14 @@ export class BidlistComponent implements OnInit {
   color = 'primary';
   mode = 'indeterminate';
   @Input() team: Team;
+  public lengthBid: number;
 
 
   constructor(public bidinfoService: BidinfoService,
     public teamService: TeamService,
     public playerService: PlayerService,
     public route: ActivatedRoute) {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
 
@@ -44,9 +45,10 @@ export class BidlistComponent implements OnInit {
     this.teamService.buscarPorIdUser(this.user.id)
       .subscribe((team) => {
         this.team = team
-        this.bidinfoService.buscarPorTeam(this.team.id)
+        this.bidinfoService.buscarPorTeam(this.team.id, 0)
           .subscribe((bidinfo) => {
-            this.bidinfos = bidinfo;
+            this.bidinfos = bidinfo.content;
+            this.lengthBid = bidinfo.totalElements;
             this.loading = false;
 
           }, error => this.msgErro = error);

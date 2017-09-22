@@ -10,7 +10,8 @@ import { Observable } from 'rxjs/Observable';
 export class HttpUtilService {
 
 	//public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
-	public API_URL: string = 'https://pojetoluxa.herokuapp.com/';
+	//public API_URL: string = 'https://pojetoluxa.herokuapp.com/';
+	public API_URL: string = 'http://localhost:9191/';
 	
 
 	//http://nbbnu006609:9191/player/get/5
@@ -21,10 +22,6 @@ export class HttpUtilService {
 
 	headers() {
 		let headersParams = { 'Content-Type': 'application/json' };
-	//	if (localStorage['token']) {
-	//		headersParams['Authorization'] = localStorage['token'];
-	//	}
-		
 		let headers = new Headers(headersParams);
 		headers.append('Access-Control-Allow-Origin','*');
 		headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -67,8 +64,8 @@ export class HttpUtilService {
 	extrairDadosUser(response : Response){
 		let user = response.json();	
 		if (user && user.keyAuth){
-			localStorage.setItem('currentUser', JSON.stringify(user));
-			localStorage.setItem('keyAuth', JSON.stringify(user.keyAuth));	
+			sessionStorage.setItem('currentUser', JSON.stringify(user));
+			sessionStorage.setItem('keyAuth', JSON.stringify(user.keyAuth));	
 			
 		}
 		return user;

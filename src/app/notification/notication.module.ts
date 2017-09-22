@@ -1,11 +1,15 @@
+import { NotificationService } from './notification.service';
+import { NotificationListComponent } from './notification-list/notification-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BidinfoService } from './bidinfo.service';
-import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule, MdTableModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { UserService } from './../user/user.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BidinfoListComponent } from './bidinfo-list/bidinfo-list.component';
-import {MdProgressSpinnerModule} from '@angular/material';
+
+
+import { FormsModule } from '@angular/forms';
+import {MdTableModule} from '@angular/material';
 
 import {
   CovalentCommonModule,
@@ -25,6 +29,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule,
 		MdOptionModule,
 		MdSelectModule,
@@ -45,12 +50,14 @@ import {
     CovalentChipsModule 
   ],
   declarations: [
-    BidinfoListComponent
+    NotificationListComponent
+  
   ],
   	providers: [
-		BidinfoService,
+		NotificationService, 
+    UserService,
     TdLoadingService
-
-	]
+	],
+  
 })
-export class BidinfoModule { } 
+export class NotificationModule { }

@@ -18,7 +18,13 @@
 
 <div class="col-md-12">
     <div class="card">
-        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [(ngModel)]="selectedRows">
+        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [(ngModel)]="selectedRows" (rowSelect)="isRead($event)"
+            [style.height.px]="200">
+            <ng-template tdDataTableTemplate="read" let-value="value" let-row="row" let-column="column">
+                <div layout="row">
+                    <span><md-checkbox color="primary" [checked]="false" (change)="isRead(row.id)" [align]="center" class="text-center"></md-checkbox></span>
+                </div>
+            </ng-template>
         </td-data-table>
     </div>
 </div>
@@ -30,8 +36,8 @@
 </div>
 <div class="col-md-12">
     <div class="card">
-        <td-paging-bar #pagingBar2 [total]="bidinfoRest.totalElements" [pageSize]="pageSize" (change)="page($event)">
-            <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{bidinfoRest.totalElements}}</span>
+        <td-paging-bar #pagingBar2 [total]="notificationRest.totalElements" [pageSize]="pageSize" (change)="page($event)">
+            <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{notificationRest.totalElements}}</span>
             <button md-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar"><i class="fa fa-refresh"></i></button>
         </td-paging-bar>
     </div>

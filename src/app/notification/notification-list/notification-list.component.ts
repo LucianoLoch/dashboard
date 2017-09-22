@@ -1,36 +1,44 @@
-import { TdLoadingService, TdDataTableService, IPageChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import { Notification, NotificationrRest } from './../notification.model';
 import { AlertService } from './../../util/alert.service';
-import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from './../notification.service';
+import { Bidinfo } from './../../bidinfo/bidinfo.model';
 import { PlayerService } from './../../player/player.service';
+import { BidinfoService } from './../../bidinfo/bidinfo.service';
 import { TeamService } from './../../team/team.service';
-import { BidinfoService } from './../bidinfo.service';
 import { Player } from './../../player/player.model';
 import { User } from './../../user/user.model';
 import { Team } from './../../team/team.model';
-import { Bidinfo, BidInfoRest } from './../bidinfo.model';
-import { Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { TdDataTableService, 
+         TdDataTableSortingOrder, 
+         ITdDataTableSortChangeEvent, 
+         ITdDataTableColumn,
+         IPageChangeEvent,
+         TdLoadingService } from '@covalent/core';
 
-const DECIMAL_FORMAT: (v: any) => any = (v: number) => v.toFixed(2);
 @Component({
-  selector: 'app-bidinfo-list',
-  templateUrl: './bidinfo-list.component.html',
-  styleUrls: ['./bidinfo-list.component.css']
+  selector: 'app-notification-list',
+  templateUrl: './notification-list.component.html',
+  styleUrls: ['./notification-list.component.css']
 })
-export class BidinfoListComponent implements OnInit {
 
+export class NotificationListComponent implements OnInit {
 
-  public bidinfos : Bidinfo[];
+  @Input() team: Team;
+  public notifications : Notification[];
   public msgErro: String;
 
   public columns: ITdDataTableColumn[] = [
 
     { name: 'id',  label: '#', hidden: true},
     { name: 'playerName',  label: 'Jogador', filter: true},
-    { name: 'bidValue', label: 'Valor do Lance', filter: true, format: DECIMAL_FORMAT },
-    { name: 'originalValue', label: 'Valor Original', filter: true, format: DECIMAL_FORMAT },
+    { name: 'notification', label: 'Notificação', filter: true },
+    { name: 'read', label: 'Marcar como Lida', filter: true },
+    
   ];
-  public data: Bidinfo[] = [];
+  public data: Notification[] = [];
   public filteredData: any[] = this.data;
   public filteredTotal: number = this.data.length;
   public searchTerm: string = '';
@@ -38,10 +46,9 @@ export class BidinfoListComponent implements OnInit {
   public fromRow: number = 1;
   public currentPage: number = 1;
   public pageSize: number = 20;
-  public bidinfoRest: BidInfoRest = {};
-  public team = new Team();
+  public notificationRest: NotificationrRest = {};
   
-  constructor(public bidinfoService: BidinfoService,
+  constructor(public notificationService :NotificationService,
               public alertService: AlertService,
               public _loadingService: TdLoadingService,
               public _dataTableService: TdDataTableService){    
@@ -49,21 +56,31 @@ export class BidinfoListComponent implements OnInit {
 
   ngOnInit() {
     this.team = JSON.parse(sessionStorage.getItem('team'));
-    this.getBidInfos();
+    this.getNotifications();
+
+
   }
 
-  getBidInfos(){
+  getNotifications(){
     this._loadingService.register('overlayStarSyntax');
-    this.bidinfoService.buscarPorTeam(this.team.id,this.currentPage-1)
-      .subscribe((bifinfos) => {
-        this.bidinfoRest = bifinfos;
-        this.data = this.bidinfoRest.content;        
+    this.notificationService.buscarPorId(this.team.id,this.currentPage-1)
+      .subscribe((notifications) => {
+        this.notificationRest = notifications;
+        this.data = this.notificationRest.content;        
         this._loadingService.resolve('overlayStarSyntax');
         this.filter();
       }, error => this.msgErro = error);   
   }
 
-  
+  isRead(id: number){
+    console.log(id);
+    this.notificationService.isRead(id)
+      .subscribe((data) => {
+        this.alertService.success("Notificação atualizada com sucesso");
+        this.getNotifications();
+      });
+
+  }
   filter(): void {
     let newData: any[] = this.data;
     
@@ -81,11 +98,11 @@ export class BidinfoListComponent implements OnInit {
     this.fromRow = pagingEvent.fromRow;
     this.currentPage = pagingEvent.page;
     this.pageSize = pagingEvent.pageSize;
-    this.getBidInfos();
+    this.getNotifications();
   }
 
   onRefresh() {
-    this.getBidInfos();
+    this.getNotifications();
   }
 
  

@@ -8,3 +8,17 @@ export class Bidinfo {
 		public playerName?: string,
 		public bidAproved?: boolean){}
 }
+
+
+export class BidInfoRest {
+	constructor(
+       public content?: Bidinfo[],
+       public first?: boolean,
+       public last?: boolean,
+       public number?: number,
+       public numberOfElements?: number,
+       public size?: number,
+       public sort?: null,
+       public totalElements?: number,
+       public totalPages?: number){}
+}

@@ -6,19 +6,19 @@
 
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-stats text-center">
-           <div class="card-footer">
+            <div class="card-footer">
                 <p class="category">Dinheiro Disponível <i class="material-icons">attach_money</i></p>
                 <h3 class="title">R$ {{ team?.budget }},00</h3>
-                
+
             </div>
             <div class="card-footer">
                 <div class="">
-                    <button routerLink="/transfermarket" class="btn btn-button background-gray-3">Voltar</button>                   
+                    <button routerLink="/transfermarket" class="btn btn-button background-gray-3">Voltar</button>
                 </div>
             </div>
         </div>
     </div>
-        <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="col-lg-4 col-md-6 col-sm-6">
         <div>
         </div>
     </div>
@@ -43,7 +43,8 @@
 <div class="col-md-12">
     <div class="card">
         <md-divider></md-divider>
-        <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace" tdLoadingColor="warn">            
+        <ng-template tdLoading="replaceTemplateSyntax" tdLoadingMode="determinate" tdLoadingType="linear" tdLoadingStrategy="replace"
+            tdLoadingColor="warn">
         </ng-template>
 
         <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [(ngModel)]="selectedRows" (sortChange)="sort($event)">
@@ -79,6 +80,9 @@
     <div class="col-md-12">
         <div class="card">
             <div *tdLoading="'overlayStarSyntax'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'primary'">
+            </div>
+            <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+                <h3>Nenhuma notificação encontrada.</h3>
             </div>
         </div>
         <div class="card">

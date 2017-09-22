@@ -1,5 +1,9 @@
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { NotificationModule } from './notification/notication.module';
+import { NotificationService } from './notification/notification.service';
 import { NotificationComponent } from './dashboard/notification/notification.component';
-import { NotificationService } from './transfermarket/notification.service';
 import { AuthGuards } from './auth-guards/auth-guards';
 import { AlertService } from './util/alert.service';
 import { UserService } from './user/user.service';
@@ -28,12 +32,7 @@ import { MdSelectModule, MdOptionModule, MdAutocompleteModule} from '@angular/ma
 import { ToastrModule } from 'ngx-toastr';
 
 import 'hammerjs';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TeamComponent } from './dashboard/team/team.component';
-import { PlayersComponent } from './dashboard/players/players.component';
-import { BidlistComponent } from './dashboard/bidlist/bidlist.component';
+
 
 import { TdDataTableService } from '@covalent/core';
 import { CovalentExpansionPanelModule } from '@covalent/core';
@@ -51,24 +50,19 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
     AppRoutingModule,
     TeamModule,
     TransfermarketModule,
-  //  BidinfoModule,
     UserModule,
     HttpModule,
- //   PaginationModule.forRoot(),
-//		TabsModule.forRoot(),
+    NotificationModule,
     FormsModule,
     ToastrModule.forRoot(),
+    DashboardModule,
     CovalentExpansionPanelModule  
   ],
     declarations: [ 
-    AppComponent, 
+    AppComponent,
     SidebarComponent, 
     NavbarComponent, 
-    DashboardComponent, 
-    TeamComponent, 
-    PlayersComponent, 
-    BidlistComponent, 
-    NotificationComponent,    
+ 
   ],
   providers: [
     HttpUtilService,
@@ -76,8 +70,7 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
     AuthenticationService,
     UserService,
     AlertService,   
-    TdDataTableService,
-    NotificationService 
+    TdDataTableService 
     
   ],
   bootstrap: [AppComponent]

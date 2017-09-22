@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Injectable } from '@angular/core';
 
-import { Bidinfo } from './bidinfo.model';
+import { Bidinfo, BidInfoRest } from './bidinfo.model';
 
 import { Http, Response } from '@angular/http';
 
@@ -72,11 +72,11 @@ export class BidinfoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
-	buscarPorTeam(id: number): Observable<Bidinfo[]> {
+	buscarPorTeam(id: number, page: number): Observable<BidInfoRest> {
 		let bidinfoPath = '/market/team/getBid';
-		return this.http.get(this.httpUtil.url(bidinfoPath + '/' + id),
+		return this.http.get(this.httpUtil.url(bidinfoPath + '/' + id + '?page='+page),
 			this.httpUtil.headers())
-			.map(this.httpUtil.extrairDadosContent)
+			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
 

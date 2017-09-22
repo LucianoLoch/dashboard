@@ -42,7 +42,7 @@ export class TeamCreateComponent implements OnInit {
 	ngOnInit() {
 		this.team = new Team();
 		this.team.budget = this.budgetValue;
-		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+		this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 		this.team.idUser = this.currentUser.id;		
 	}
 

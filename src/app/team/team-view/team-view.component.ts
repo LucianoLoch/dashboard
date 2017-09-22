@@ -30,7 +30,7 @@ export class TeamViewComponent implements OnInit {
   constructor(
     public route: ActivatedRoute,
     public teamService: TeamService) {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
 
 
   }
@@ -41,7 +41,7 @@ export class TeamViewComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     console.log(this.user);
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.id = +this.route.snapshot.params['id'];
     let idUser = 0;
     if (this.id === 0) {

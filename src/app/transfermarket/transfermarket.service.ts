@@ -39,8 +39,8 @@ export class TransfermarketService {
     this.bidinfoService = _bidinfoService;
     this.playerService = _playerService;
     this.teamService = _teamService;
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
-    this.team = JSON.parse(localStorage.getItem('team'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.team = JSON.parse(sessionStorage.getItem('team'));
   }
 
   bid(rating: number): number {
