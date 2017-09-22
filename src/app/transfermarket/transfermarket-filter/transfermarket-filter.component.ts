@@ -77,7 +77,7 @@ export class TransfermarketFilterComponent implements OnInit {
     {id: 5, city: 'New York City', population: '10M'},
   ];*/
 
-  objectsModel: string[] = this.objects;
+  objectsModel: string[] = this.objects.slice(0,2);
 
   constructor(
     public router: Router,

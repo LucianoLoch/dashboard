@@ -1,8 +1,30 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
 
-            <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="row">
+            <div class="col-lg-12 col-md-6 col-sm-6">
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="category">Ordenação: <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></h3>
+                    </div>
+                    <div class="card-footer">
+                        <td-chips color="primary" [items]="filteredObjects" [(ngModel)]="objectsModel" placeholder="Digite a Ordenação..." (inputChange)="filterObjects($event)"
+                            requireMatch>
+                            <ng-template td-chip let-chip="chip">
+                                {{chip.name}}
+                            </ng-template>
+                            <ng-template td-autocomplete-option let-option="option">
+                                <div layout="row" layout-align="start center">
+                                    {{option.name}}
+                                </div>
+                            </ng-template>
+                        </td-chips>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Jogador <i class="fa fa-user" aria-hidden="true"></i></h3>
@@ -17,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Posição <i class="fa fa-street-view" aria-hidden="true"></i></h3>
@@ -32,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Liga <i class="fa fa-flag" aria-hidden="true"></i></h3>
@@ -47,46 +69,28 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Rating <i class="fa fa-star" aria-hidden="true"></i></h3>
+                    </div>
+                    <div class="card-footer">
                         <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1">
                         </md-slider>
                         {{playerFilter.rating}}
                     </div>
+
                 </div>
             </div>
-            <div class="col-lg-12 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-content">
-                        <h3 class="category">Ordenação: <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></h3>
-                        <td-chips color="primary"
-                                    [items]="filteredObjects"
-                                    [(ngModel)]="objectsModel"
-                                    placeholder="Digite a Ordenação..."
-                                    (inputChange)="filterObjects($event)"
-                                    requireMatch>
-                            <ng-template td-chip let-chip="chip">
-                            {{chip.name}}
-                            </ng-template>
-                            <ng-template td-autocomplete-option let-option="option">
-                            <div layout="row" layout-align="start center">
-                                {{option.name}}
-                            </div>
-                            </ng-template>
-                        </td-chips>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <td-expansion-panel>
                     <ng-template td-expansion-panel-header>
                         <md-toolbar>
                             <span>Atributos Jogador</span>
                         </md-toolbar>
                     </ng-template>
-                    <div *ngFor="let att of playerAttributes" class="col-lg-2 col-md-6 col-sm-6">
+                    <div *ngFor="let att of playerAttributes" class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
                                 <h3 class="category">{{att.name}} </h3>
@@ -100,7 +104,7 @@
 
                 </td-expansion-panel>
             </div>
-            <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-6 col-md-12 col-sm-12">
                 <td-expansion-panel>
                     <ng-template td-expansion-panel-header>
                         <md-toolbar>
@@ -108,7 +112,7 @@
                         </md-toolbar>
                     </ng-template>
 
-                    <div *ngFor="let attGk of gkAttributes" class="col-lg-2 col-md-6 col-sm-6">
+                    <div *ngFor="let attGk of gkAttributes" class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
                                 <h3 class="category">{{attGk.name}} </h3>
@@ -121,6 +125,7 @@
                     </div>
                 </td-expansion-panel>
             </div>
+            <md-divider></md-divider>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <button md-raised-button class="background-gray" (click)="onFilter(playerFilter)">Filtrar</button>
             </div>
