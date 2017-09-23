@@ -44,8 +44,8 @@ export class NotificationListComponent implements OnInit {
   public searchTerm: string = '';
   public selectedRows: any[] = [];
   public fromRow: number = 1;
-  public currentPage: number = 1;
-  public pageSize: number = 20;
+  currentPage: number = 1;
+  pageSize: number = 20;
   public notificationRest: NotificationrRest = {};
   
   constructor(public notificationService :NotificationService,

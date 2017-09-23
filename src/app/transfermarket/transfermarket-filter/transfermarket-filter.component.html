@@ -84,12 +84,10 @@
             </div>
 
             <div class="col-lg-6 col-md-12 col-sm-12">
-                <td-expansion-panel>
-                    <ng-template td-expansion-panel-header>
-                        <md-toolbar>
-                            <span>Atributos Jogador</span>
-                        </md-toolbar>
-                    </ng-template>
+                <md-expansion-panel class="background-gray-6">
+                    <md-expansion-panel-header>
+                        <md-panel-title>Atributos Jogador</md-panel-title>                       
+                    </md-expansion-panel-header>
                     <div *ngFor="let att of playerAttributes" class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
@@ -101,17 +99,13 @@
                             </div>
                         </div>
                     </div>
-
-                </td-expansion-panel>
+                </md-expansion-panel>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
-                <td-expansion-panel>
-                    <ng-template td-expansion-panel-header>
-                        <md-toolbar>
-                            <span>Atributos Goleiros</span>
-                        </md-toolbar>
-                    </ng-template>
-
+                <md-expansion-panel class="background-gray-6">
+                    <md-expansion-panel-header>
+                        <md-panel-title>Atributos Goleiros</md-panel-title>                       
+                    </md-expansion-panel-header>
                     <div *ngFor="let attGk of gkAttributes" class="col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
                             <div class="card-content">
@@ -123,9 +117,9 @@
                             </div>
                         </div>
                     </div>
-                </td-expansion-panel>
+                </md-expansion-panel>
             </div>
-            <md-divider></md-divider>
+            <hr>
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <button md-raised-button class="background-gray" (click)="onFilter(playerFilter)">Filtrar</button>
             </div>

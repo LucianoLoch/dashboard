@@ -1,21 +1,10 @@
-export class PlayerFilterAttributes {
-	constructor(
-		public defending?: number,
-		public dribbling?: number,
-		public pace?: number,
-		public passing?: number,
-		public physical?: number,
-		public shooting?: number,
-		// GK 
-		public kicking?: number,
-		public speed?: number,
-		public handling?: number,
-		public positioning?: number,
-		public reflexes?: number,
-		public diving?: number
-	){}
-}
+import { PlayerAttributes } from './../player/playerAttributes.model';
 
+export enum OrdType {
+	NAME = 0,
+	POSITION = 1,
+	RATING = 2
+}
 
 export class PlayerFilter {
 	constructor(
@@ -25,8 +14,8 @@ export class PlayerFilter {
 		public endValue?: number,
 		public startValue?: number,
 		public league?: number){}
-		public attributes?: PlayerFilterAttributes
-		public ordType?: Array<string>	
+		public attributes?: Array<PlayerAttributes>
+		public ordenation?: Array<OrdType>	
 }
 
 

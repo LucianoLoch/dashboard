@@ -1,32 +1,41 @@
 <h1 md-dialog-title class="primary-color">Habilidades</h1>
 <md-dialog-content class="accent-color">
-    <table class="table">
-        <thead class="text-gray">
-            <th>Nome</th>
-            <th>Posição</th>
-            <th>Rating</th>
-            <th>Clube</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ data.name }}</td>
-                <td>{{ data.position }}</td>
-                <td><span [ngClass]="getRatingColor(data.rating)">{{ data.rating }}</span></td>  
-                <td>{{ data.clubName }}</td>
-            </tr>
-        </tbody>
-    </table>   
-    <table class="table">
-        <thead class="text-gray">
-            <th>Atributo</th>
-            <th>Valor</th>
 
-        </thead>
-        <tbody>
-            <tr *ngFor="let attribute of data.attributes">
-                <td>{{ attribute.name }}</td>
-                <td><span [ngClass]="getAttributeColor(attribute.value)">{{ attribute.value}}</span></td>               
-            </tr>
-        </tbody>
-    </table>   
+    <md-card>
+        <md-card-header>
+            <img md-card-avatar src="{{data.player.headshotImgUrl}}">            
+            <md-card-title>{{ data.player.name }} <span [ngClass]="getRatingColor(data.player.rating)">{{ data.player.rating }}</span></md-card-title>
+            <md-card-subtitle>{{ data.player.position }} - {{ data.player.clubName }}</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>
+        <table class="table">
+            <thead class="text-gray">
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Idade</th>
+                <th>Pé Bom</th>
+                <th>WR</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data.player.height }}</td>
+                    <td>{{ data.player.weight }}</td>
+                    <td>{{ data.player.age }}</td>                    
+                    <td>{{ data.player.foot }}</td>
+                    <td>{{ data.player.atkWorkRate | truncate: 1 }} \ {{ data.player.defWorkRate | truncate : 1 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <thead class="text-gray">
+                <th *ngFor="let attribute of data.player.attributes">{{ attribute.name }}</th>              
+            </thead>
+            <tbody>
+                <tr>
+                    <td *ngFor="let att of data.player.attributes" ><span [ngClass]="getAttributeColor(att.value)">{{ att.value }}</span></td>
+                </tr>
+            </tbody>
+        </table>
+        </md-card-content>
+    </md-card>
 </md-dialog-content>

@@ -1,3 +1,4 @@
+import { Player } from './../player/player.model';
 import { PlayerAttributes } from './../player/playerAttributes.model';
 import { Team } from './../team/team.model';
 
@@ -5,6 +6,7 @@ import { Team } from './../team/team.model';
 
 export class Transfermarket {
 	constructor(
+		public player?: Player,
 		public idPlayer?: number,
 		public name?: string,
 		public position?: string,

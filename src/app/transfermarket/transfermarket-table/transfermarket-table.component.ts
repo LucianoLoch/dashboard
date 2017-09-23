@@ -99,7 +99,7 @@ export class TransfermarketTableComponent implements OnInit {
             this.data = this.transfermarketRest.transfermarkets;
             this.team = this.transfermarketService.getTeam();
             this.filter();
-            this._loadingService.resolve('overlayStarSyntax');
+     //       this._loadingService.resolve('overlayStarSyntax');
         })
     }
 
@@ -245,11 +245,7 @@ export class TransfermarketTableComponent implements OnInit {
             width: '600px',
             height: '400px',
             data: {
-                attributes: transferMarket.attributes,
-                name: transferMarket.name,
-                rating: transferMarket.rating,
-                position: transferMarket.position,
-                clubName: transferMarket.clubName
+                player: transferMarket.player,
             }
         });
     }

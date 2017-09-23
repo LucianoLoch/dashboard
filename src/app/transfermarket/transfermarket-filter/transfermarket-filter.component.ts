@@ -1,3 +1,4 @@
+import { PlayerAttributes } from './../../player/playerAttributes.model';
 import { LeagueService } from './../league.service';
 import { AlertService } from './../../util/alert.service';
 import { PlayerService } from './../../player/player.service';
@@ -5,7 +6,7 @@ import { TransfermarketService } from './../transfermarket.service';
 import { League } from './../league.model';
 import { Player } from './../../player/player.model';
 import { Transfermarket } from './../transfermarket.model';
-import { PlayerFilter, PlayerFilterAttributes } from './../playerFilter.model';
+import { PlayerFilter } from './../playerFilter.model';
 import { Component, ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
@@ -23,29 +24,25 @@ export class TransfermarketFilterComponent implements OnInit {
   public leagues: Array<League> = [];
   public playerFilter: PlayerFilter = new PlayerFilter();
   public playerAttributes = [
-    { "name": 'Defending', "icon": "fa fa-star", attribute: 'attributes.defending', 'value': 0 },
-    { "name": 'Dribbling', "icon": "fa fa-star", attribute: 'attributes.dribbling', "value": 0 },
-    { "name": 'Pace', "icon": "fa fa-star", attribute: 'attributes.pace', "value": 0 },
-    { "name": 'Passing', "icon": "fa fa-star", attribute: 'attributes.passing', "value": 0 },
-    { "name": 'Physical', "icon": "fa fa-star", attribute: 'attributes.physical', "value": 0 },
-    { "name": 'Shooting', "icon": "fa fa-star", attribute: 'attributes.shooting', "value": 0 }
+    { "name": 'Defending', "icon": "fa fa-star", attribute: 'DEF', 'value': 0 },
+    { "name": 'Dribbling', "icon": "fa fa-star", attribute: 'DRI', "value": 0 },
+    { "name": 'Pace', "icon": "fa fa-star", attribute: 'PAC', "value": 0 },
+    { "name": 'Passing', "icon": "fa fa-star", attribute: 'PAS', "value": 0 },
+    { "name": 'Physical', "icon": "fa fa-star", attribute: 'PHY', "value": 0 },
+    { "name": 'Shooting', "icon": "fa fa-star", attribute: 'SHO', "value": 0 }
   ];
   public gkAttributes = [
-    { "name": 'Kicking', "icon": "fa fa-star", attribute: 'attributes.kicking', "value": 0 },
-    { "name": 'Speed ', "icon": "fa fa-star", attribute: 'attributes.speed', "value": 0 },
-    { "name": 'Handling', "icon": "fa fa-star", attribute: 'attributes.handling', "value": 0 },
-    { "name": 'Positioning', "icon": "fa fa-star", attribute: 'attributes.positioning', "value": 0 },
-    { "name": 'Reflexes', "icon": "fa fa-star", attribute: 'attributes.reflexes', "value": 0 },
-    { "name": 'Diving', "icon": "fa fa-star", attribute: 'attributes.diving', "value": 0 }
+    { "name": 'Kicking', "icon": "fa fa-star", attribute: 'KIC', "value": 0 },
+    { "name": 'Speed ', "icon": "fa fa-star", attribute: 'SPD', "value": 0 },
+    { "name": 'Handling', "icon": "fa fa-star", attribute: 'HAN', "value": 0 },
+    { "name": 'Positioning', "icon": "fa fa-star", attribute: 'POS', "value": 0 },
+    { "name": 'Reflexes', "icon": "fa fa-star", attribute: 'REF', "value": 0 },
+    { "name": 'Diving', "icon": "fa fa-star", attribute: 'DIV', "value": 0 }
 
   ]
   public leagueName: String = '';
   public value: any = {};
-  selectedValue: string;
-
-
-
-  
+  selectedValue: string; 
 
   public startPrice: number = 0;
   public endPrice: number = 0;
@@ -61,23 +58,15 @@ export class TransfermarketFilterComponent implements OnInit {
   filteredLeagues: any;
   positions = ['CAM', 'CB', 'CDM', 'CF', 'CM', 'GK', 'LB', 'LM', 'LW', 'LWB', 'RB', 'RM', 'RW', 'RWB', 'ST'];
 
-  filteredObjects: string[];
-  objects: any[] = [
+  filteredObjects: PlayerAttributes[];
+  objects: Array<PlayerAttributes> = [
     {id: 1,name:'Nome', value: 0},
     {id: 2,name:'Posição', value: 1},
     {id: 3,name:'Rating', value: 2},
     {id: 4,name:'Tem Lance', value: 3}    
   ];
-/*
-  objects: any[] = [
-    {id: 1, city: 'San Diego', population: '4M'},
-    {id: 2, city: 'San Franscisco', population: '6M'},
-    {id: 3, city: 'Los Angeles', population: '5M'},
-    {id: 4, city: 'Austin', population: '3M'},
-    {id: 5, city: 'New York City', population: '10M'},
-  ];*/
 
-  objectsModel: string[] = this.objects.slice(0,2);
+  objectsModel: PlayerAttributes[] = this.objects.slice(0,2);
 
   constructor(
     public router: Router,
@@ -118,30 +107,12 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.position = '';
     this.playerFilter.rating = 0;
     this.playerFilter.league = 0;
-    this.playerFilter.attributes = new PlayerFilterAttributes();
-    this.playerFilter.attributes.defending = 0;
-    this.playerFilter.attributes.dribbling = 0;
-    this.playerFilter.attributes.pace = 0;
-    this.playerFilter.attributes.passing = 0;
-    this.playerFilter.attributes.physical = 0;
-    this.playerFilter.attributes.shooting = 0;
-    this.playerFilter.attributes.kicking = 0;
-    this.playerFilter.attributes.speed = 0;
-    this.playerFilter.attributes.handling = 0;
-    this.playerFilter.attributes.positioning = 0;
-    this.playerFilter.attributes.reflexes = 0;
-    this.playerFilter.attributes.diving = 0;
-    this.playerFilter.ordType = [];
+    this.playerFilter.ordenation = [];
     this.filterObjects('');
   }
 
-
-
-
-
-
   filterObjects(value: string): void {
-    this.filteredObjects = this.objects.filter((obj: any) => {
+    this.filteredObjects = this.objects.filter((obj: PlayerAttributes) => {
       if (value) {
         return obj.name.toLowerCase().indexOf(value.toLowerCase()) > -1;
       } else {
@@ -179,24 +150,31 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.rating = event.value;
   }
 
+  checkAttributes(): boolean{
+    if ((this.playerAttributes[0].value === 0) &&
+        (this.playerAttributes[1].value === 0) &&
+        (this.playerAttributes[2].value === 0) &&
+        (this.playerAttributes[3].value === 0) &&
+        (this.playerAttributes[4].value === 0) &&
+        (this.playerAttributes[5].value === 0) &&
+        (this.gkAttributes[0].value === 0) &&
+        (this.gkAttributes[1].value === 0) &&
+        (this.gkAttributes[2].value === 0) &&
+        (this.gkAttributes[3].value === 0) &&
+        (this.gkAttributes[4].value === 0) &&
+        (this.gkAttributes[5].value === 0)){
+      return false;
+    }
+    return true;
+  }
+
   check(filter: PlayerFilter): boolean {
 
     if ((filter.name.length === 0) &&
       (filter.position.length === 0) &&
       (filter.rating === 0) &&
       (filter.league === 0) &&
-      (filter.attributes.defending === 0) && 
-      (filter.attributes.dribbling === 0) &&
-      (filter.attributes.pace === 0) &&
-      (filter.attributes.passing === 0) &&
-      (filter.attributes.physical === 0) &&
-      (filter.attributes.shooting === 0) &&
-      (filter.attributes.kicking === 0) && 
-      (filter.attributes.speed === 0) && 
-      (filter.attributes.handling === 0) && 
-      (filter.attributes.positioning === 0) && 
-      (filter.attributes.reflexes === 0) && 
-      (filter.attributes.diving === 0)) {
+      (!this.checkAttributes)) {
       return false;
     }
     return true;
@@ -216,42 +194,40 @@ export class TransfermarketFilterComponent implements OnInit {
 
   }
 
- /* getOrder(): Array<number>{
+  getOrder(): Array<number>{
     let order = new Array<number>();
-
-    for (let i=this.objectsModel.length-1; i>=0; i--){
-      let obj = this.objectsModel[i];
-      
-      order.push(this.objectsModel[i])
-
-    } 
-    //(let ord of this.objectsModel){
-
+    for (var index = this.objectsModel.length-1; index >= 0; index--) {
+      order.push(this.objectsModel[index].value);
     }
-    return 
 
-  }*/
+    return order;
+
+
+  }
 
   getAttributes(filter: PlayerFilter): PlayerFilter {
-    filter.attributes.defending = this.playerAttributes[0].value;
-    filter.attributes.dribbling = this.playerAttributes[1].value;
-    filter.attributes.pace = this.playerAttributes[2].value;
-    filter.attributes.passing = this.playerAttributes[3].value;
-    filter.attributes.physical = this.playerAttributes[4].value;
-    filter.attributes.shooting = this.playerAttributes[5].value;
+    let attributes: Array<PlayerAttributes> = [];
+    for (var index = 0; index < this.playerAttributes.length; index++) {
+      if (this.playerAttributes[index].value != 0){
+        attributes.push(new PlayerAttributes(0,this.playerAttributes[index].attribute, this.playerAttributes[index].value))
+      }      
+    }
 
-    filter.attributes.kicking = this.gkAttributes[0].value;
-    filter.attributes.speed = this.gkAttributes[1].value;
-    filter.attributes.handling = this.gkAttributes[2].value;
-    filter.attributes.positioning = this.gkAttributes[3].value;
-    filter.attributes.reflexes = this.gkAttributes[4].value;
-    filter.attributes.diving = this.gkAttributes[5].value;
+    for (var index = 0; index < this.playerAttributes.length; index++) {
+      if (this.gkAttributes[index].value != 0){
+        attributes.push(new PlayerAttributes(0,this.gkAttributes[index].attribute, this.gkAttributes[index].value))
+      }      
+    }
+    filter.attributes = attributes;
     return filter;
+    
   }
 
 
   onFilter(filterPlayer: PlayerFilter) {
     this.getAttributes(filterPlayer);
+    filterPlayer.ordenation = this.getOrder();
+    console.log(filterPlayer);
     if (this.leagueName.length > 0) {
       filterPlayer.league = this.findIdLeague();
     }

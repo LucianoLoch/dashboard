@@ -36,9 +36,8 @@
 </div>
 <div class="col-md-12">
     <div class="card">
-        <td-paging-bar #pagingBar2 [total]="notificationRest.totalElements" [pageSize]="pageSize" (change)="page($event)">
-            <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{notificationRest.totalElements}}</span>
-            <button md-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar"><i class="fa fa-refresh"></i></button>
+        <td-paging-bar #pagingBar [total]="notificationRest.totalElements" [pageSize]="20" (change)="page($event)">
+            {{pagingBar.range}} <span hide-xs>de {{notificationRest.totalElements}}</span>
         </td-paging-bar>
     </div>
 </div>

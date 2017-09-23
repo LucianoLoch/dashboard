@@ -14,7 +14,8 @@ export class Player {
         public age?:number,
         public foot?:string,
         public atkWorkRate?: string,
-        public defWorkRate?: string){}
+        public defWorkRate?: string,
+        public headshotImgUrl?:string){}
 }
 
 

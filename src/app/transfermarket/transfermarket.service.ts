@@ -190,6 +190,7 @@ export class TransfermarketService {
           this.players.map(player => {
             let shop = new Transfermarket();
             shop.name = player.name;
+            shop.player = player;
             shop.clubName = player.clubName;
             shop.position = player.position;
             shop.rating = player.rating;
