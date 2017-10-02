@@ -30,7 +30,6 @@ export class UserLoginComponent {
 
     ngOnInit() {
         this.authenticationService.logout();
-
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }

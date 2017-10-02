@@ -13,12 +13,12 @@
                 <th>Altura</th>
                 <th>Peso</th>
                 <th>Idade</th>
-                <th>Pé Bom</th>
+                <th>Perna Boa</th>
                 <th>WR</th>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ data.player.height }}</td>
+                    <td>{{ data.player.height }} cm</td>
                     <td>{{ data.player.weight }}</td>
                     <td>{{ data.player.age }}</td>                    
                     <td>{{ data.player.foot }}</td>
@@ -28,7 +28,7 @@
         </table>
         <table class="table">
             <thead class="text-gray">
-                <th *ngFor="let attribute of data.player.attributes">{{ attribute.name }}</th>              
+                <th *ngFor="let attribute of attributesName">{{ attribute }}</th>              
             </thead>
             <tbody>
                 <tr>

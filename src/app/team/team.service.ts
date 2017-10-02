@@ -23,15 +23,13 @@ export class TeamService {
   listarTodos(): Observable<Team[]> {
 
     return this.http.get(this.httpUtil.url(this.path + '/list'), this.httpUtil.headers())
-      .map(this.httpUtil.extrairDados)
+      .map(this.httpUtil.extrairDadosContent)
       .catch(this.httpUtil.processarErros);
   }
 
 
   register(team: Team): Observable<Team> {
-    let params = JSON.parse(JSON.stringify(team || null));
-
-    return this.http.post(this.httpUtil.url(this.path + '/register'), params,
+    return this.http.post(this.httpUtil.url(this.path + '/register'), team,
       this.httpUtil.headers())
       .map(this.httpUtil.extrairDadosCadastro)
       .catch(this.httpUtil.processarErros);

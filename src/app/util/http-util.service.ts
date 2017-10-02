@@ -11,6 +11,7 @@ export class HttpUtilService {
 
 	//public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
 	//public API_URL: string = 'https://pojetoluxa.herokuapp.com/';
+	//public API_URL: string = 'http://nbbnu006609:9191/';
 	public API_URL: string = 'http://localhost:9191/';
 	
 

@@ -99,7 +99,7 @@ export class TransfermarketTableComponent implements OnInit {
             this.data = this.transfermarketRest.transfermarkets;
             this.team = this.transfermarketService.getTeam();
             this.filter();
-     //       this._loadingService.resolve('overlayStarSyntax');
+            this._loadingService.resolve('overlayStarSyntax');
         })
     }
 

@@ -17,6 +17,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MdTableModule} from '@angular/material';
 import { CovalentExpansionPanelModule } from '@covalent/core';
+import { AdminComponent } from './admin/admin.component';
+import { ListTeamComponent } from './admin/list-team/list-team.component';
+import { ListUserComponent } from './admin/list-user/list-user.component';
+import { ListBidComponent } from './admin/list-bid/list-bid.component';
 
 @NgModule({
   imports: [
@@ -36,7 +40,7 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
     TeamComponent, 
     PlayersComponent, 
     BidlistComponent, 
-    NotificationComponent,  
+    NotificationComponent, AdminComponent, ListTeamComponent, ListUserComponent, ListBidComponent,  
   ],
   	providers: [
 		TeamService, 

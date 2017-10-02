@@ -1,0 +1,33 @@
+<div class="col-lg-6 col-md-12">
+  <div class="card">
+      <div class="card-header" data-background-color="gray-4">
+          <h4 class="title">Usuários Cadastrados</h4>
+          <p *ngIf="users?.length > 0" class="category">{{users?.length}}</p>
+          <p *ngIf="users?.length <= 0" class="category">Nenhum usuário cadastrado até o momento.</p>
+      </div>
+
+      <div *ngIf="users?.length > 0" class="card-content table-responsive">
+          <td-expansion-panel>
+              <table class="table table-hover">
+                  <thead class="text-gray">
+                      <th>Usuário</th>
+                      <th>Nome</th>
+                      <th>Sobrenome</th>
+                      <th>Email</th>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let user of users">
+                          <td>{{ user.login }}</td>
+                          <td>{{ user.nome }}</td>
+                          <td>{{ user.sobrenome }}</td>
+                          <td>{{ user.email }}</td>                         
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="card-footer">
+                  <button md-raised-button routerLink="/bid/list" class="background-gray-4" title="Atualizar">Ver Todos</button>
+              </div>
+          </td-expansion-panel>
+      </div>
+  </div>
+</div>

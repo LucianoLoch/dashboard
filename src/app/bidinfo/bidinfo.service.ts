@@ -31,7 +31,7 @@ export class BidinfoService {
 	listarTodosBids(): Observable<Bidinfo[]> {
 
 		return this.http.get(this.httpUtil.url(this.pathApi + '/list'), this.httpUtil.headers())
-			.map(this.httpUtil.extrairDados)
+			.map(this.httpUtil.extrairDadosContent)
 			.catch(this.httpUtil.processarErros);
 	}
 
