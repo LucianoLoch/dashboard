@@ -28,7 +28,7 @@ export class BidinfoService {
  *
  * @return Bidinfo[] Bidinfo
  */
-	listarTodosBids(): Observable<Bidinfo[]> {
+	listarTodosBids(): Observable<BidInfoRest[]> {
 
 		return this.http.get(this.httpUtil.url(this.pathApi + '/list'), this.httpUtil.headers())
 			.map(this.httpUtil.extrairDadosContent)
@@ -69,6 +69,22 @@ export class BidinfoService {
 		return this.http.post(this.httpUtil.url(bidinfoPath),
 			this.httpUtil.headers())
 			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	openMarket(): Observable<Bidinfo> {
+		let bidinfoPath = 'market/open';
+		return this.http.get(this.httpUtil.url(bidinfoPath),
+			this.httpUtil.headers())
+			.map(this.httpUtil.extrairDadosMarket)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	isOpen(): Observable<Boolean> {
+		let bidinfoPath = 'market/isopen';
+		return this.http.get(this.httpUtil.url(bidinfoPath),
+			this.httpUtil.headers())
+			.map(this.httpUtil.extractBoolean)
 			.catch(this.httpUtil.processarErros);
 	}
 

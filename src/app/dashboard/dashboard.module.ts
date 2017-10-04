@@ -1,3 +1,4 @@
+import { TransfermarketService } from './../transfermarket/transfermarket.service';
 import { NotificationService } from './../transfermarket/notification.service';
 import { BidinfoService } from './../bidinfo/bidinfo.service';
 import { TeamService } from './../team/team.service';
@@ -40,14 +41,18 @@ import { ListBidComponent } from './admin/list-bid/list-bid.component';
     TeamComponent, 
     PlayersComponent, 
     BidlistComponent, 
-    NotificationComponent, AdminComponent, ListTeamComponent, ListUserComponent, ListBidComponent,  
+    NotificationComponent, 
+    AdminComponent, 
+    ListTeamComponent, 
+    ListUserComponent, 
+    ListBidComponent,  
   ],
   	providers: [
 		TeamService, 
     UserService,     
     BidinfoService,
-    NotificationService
-    
+    NotificationService,
+    TransfermarketService   
 	],
   
 })

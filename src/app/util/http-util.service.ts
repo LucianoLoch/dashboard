@@ -12,7 +12,7 @@ export class HttpUtilService {
 	//public API_URL: string = 'http://10.1.40.145:8585/pofexo/rest/';
 	//public API_URL: string = 'https://pojetoluxa.herokuapp.com/';
 	//public API_URL: string = 'http://nbbnu006609:9191/';
-	public API_URL: string = 'http://localhost:9191/';
+	public API_URL: string = 'http://pcbnu006303:9191/';
 	
 
 	//http://nbbnu006609:9191/player/get/5
@@ -32,6 +32,16 @@ export class HttpUtilService {
 
 	extrairDados(response: Response) {
 		let data = response.json();
+		return data;
+	}
+
+	extrairDadosMarket(response: Response){
+		let data = response.toString
+		return data;
+	}
+
+	extractBoolean(response: Response){
+		let data = response;
 		return data;
 	}
 

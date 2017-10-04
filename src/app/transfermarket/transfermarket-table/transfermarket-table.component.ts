@@ -188,6 +188,7 @@ export class TransfermarketTableComponent implements OnInit {
         bidInfo.originalValue = transferMarket.originalValue;
         bidInfo.teamID = transferMarket.teamId;
         bidInfo.playerID = transferMarket.idPlayer;
+        bidInfo.position = transferMarket.position;
         let promise = this.check(transferMarket);
 
         promise.then((check) => {

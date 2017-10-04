@@ -1,3 +1,4 @@
+import { AdminComponent } from './dashboard/admin/admin.component';
 import { NotificationRoutes } from './notification/notification-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TransfermarketRoutes } from './transfermarket/transfermarket-routing.module';
@@ -18,6 +19,7 @@ export const routes: Routes = [
   ...TransfermarketRoutes,
   ...NotificationRoutes,
   { path: 'dashboard', component: DashboardComponent, canActivate : [AuthGuards]},
+  { path: 'admin', component: AdminComponent, canActivate : [AuthGuards]},  
   { path: '', component: DashboardComponent, canActivate: [AuthGuards]},
   { path: 'login', component: UserLoginComponent },
   { path: 'register', component: UserCreateComponent },

@@ -6,7 +6,9 @@ export class Bidinfo {
 		public originalValue?: number,
 		public playerID?: number,
 		public playerName?: string,
-		public bidAproved?: boolean){}
+        public bidAproved?: boolean,
+        public position?: string,
+        public bidTime?: Date){}
 }
 
 

@@ -27,6 +27,7 @@ export class BidinfoListComponent implements OnInit {
 
     { name: 'id',  label: '#', hidden: true},
     { name: 'playerName',  label: 'Jogador', filter: true},
+    { name: 'position',  label: 'Posição', filter: true},    
     { name: 'bidValue', label: 'Valor do Lance', filter: true, format: DECIMAL_FORMAT },
     { name: 'originalValue', label: 'Valor Original', filter: true, format: DECIMAL_FORMAT },
   ];

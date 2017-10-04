@@ -1,5 +1,5 @@
+import { Bidinfo } from './../../../bidinfo/bidinfo.model';
 import { BidinfoService } from './../../../bidinfo/bidinfo.service';
-import { BidInfo } from './../../../bidinfo/bid-info';
 import { TeamService } from './../../../team/team.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,16 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListBidComponent implements OnInit {
 
-  public bids : Array<BidInfo> = []; 
+  public bids : Array<Bidinfo> = []; 
   public msgErro : string;
+  public bidsValue : number;
 
   constructor(public bidinfoService : BidinfoService) { }
 
   ngOnInit() {
     this.bidinfoService.listarTodosBids()
       .subscribe((bids) => {
-        this.bids = bids
+        this.bids = bids;
+        this.getValues();
       }, error => this.msgErro = error);
 
+  }
+
+  getValues(){
+    for (let bid of this.bids) {
+      this.bidsValue = this.bidsValue + bid.bidValue;      
+    }
   }
 }
