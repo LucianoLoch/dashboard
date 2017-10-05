@@ -8,7 +8,7 @@ import { PlayerService } from './../player/player.service';
 import { TransfermarketService } from './transfermarket.service';
 import { TransfermarketNameFilter } from './transfermarket.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MaterialModule, MdNativeDateModule, MdTableModule } from '@angular/material';
+import { MdOptionModule,  MdNativeDateModule, MdTableModule } from '@angular/material';
 import { TeamModule } from './../team/team.module';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { RouterModule } from '@angular/router';
@@ -69,7 +69,7 @@ import {
 		TeamModule,
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdSlideToggleModule,

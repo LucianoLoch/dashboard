@@ -17,18 +17,24 @@ export class NavbarComponent {
 
   public msgErro : string;
   public timerSubscription: AnonymousSubscription;
+  public timerTeamSubscription: AnonymousSubscription;
   public notificationSubscription: AnonymousSubscription;
+  public teamSubscription: AnonymousSubscription;
+  
 
   @Input() currentUser: User;
   @Input() team : Team;
   public notifications : Notification[];
 
-  constructor(public notificationService :NotificationService){    
+  constructor(public notificationService :NotificationService,
+              public teamService: TeamService){    
   }
 
   ngOnInit() {
     this.team = JSON.parse(sessionStorage.getItem('team'));
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     if (this.team){
+      this.getTeam();
       this.refreshData();
     }    
   }
@@ -40,6 +46,13 @@ export class NavbarComponent {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+    if (this.teamSubscription) {
+      this.teamSubscription.unsubscribe();
+    }
+        if (this.timerTeamSubscription) {
+      this.timerTeamSubscription.unsubscribe();
+    }
+
   }
 
   public refreshData(): void {
@@ -50,10 +63,24 @@ export class NavbarComponent {
       }, error => this.msgErro = error);
   }
 
+  public getTeam(): void {
+    this.teamSubscription = this.teamService.buscarPorIdUser(this.currentUser.id)
+      .subscribe((team) => {
+        this.team = team;
+        this.subscribeTeamToData();
+      }, error => this.msgErro = error);
+  }
+
   public subscribeToData(): void {
 
     this.timerSubscription = Observable.timer(1500)
       .subscribe(() => this.refreshData());
+  }
+
+    public subscribeTeamToData(): void {
+
+    this.timerTeamSubscription = Observable.timer(1500)
+      .subscribe(() => this.getTeam());
   }
 
 }

@@ -1,6 +1,6 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { BidinfoService } from './bidinfo.service';
-import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule, MdTableModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdTableModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,7 @@ import {
     RouterModule,
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdTableModule,

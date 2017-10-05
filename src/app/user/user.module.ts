@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule, MdOptionModule, MdSelectModule, MdNativeDateModule } from '@angular/material';
+import {  MdOptionModule, MdSelectModule, MdNativeDateModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -14,10 +14,10 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     RouterModule,
-		MaterialModule,
+		
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
   ],

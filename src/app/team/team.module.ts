@@ -1,7 +1,7 @@
 import { BidinfoListComponent } from './../bidinfo/bidinfo-list/bidinfo-list.component';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule,  MdNativeDateModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { UserService } from './../user/user.service';
 import { TeamService } from './team.service';
@@ -21,7 +21,7 @@ import {MdTableModule} from '@angular/material';
     RouterModule,
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdTableModule,

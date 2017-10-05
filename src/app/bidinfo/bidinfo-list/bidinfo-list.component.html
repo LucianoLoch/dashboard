@@ -18,7 +18,7 @@
 
 <div class="col-md-12">
     <div class="card">
-        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [(ngModel)]="selectedRows">
+        <td-data-table #dataTable [data]="filteredData" [sortable]="true" [columns]="columns" (sortChange)="sort($event)" [(ngModel)]="selectedRows">
         </td-data-table>
     </div>
 </div>

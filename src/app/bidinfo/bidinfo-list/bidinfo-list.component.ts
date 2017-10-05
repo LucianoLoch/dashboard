@@ -1,4 +1,4 @@
-import { TdLoadingService, TdDataTableService, IPageChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import { TdLoadingService, TdDataTableService, IPageChangeEvent, ITdDataTableColumn, ITdDataTableSortChangeEvent, TdDataTableSortingOrder } from '@covalent/core';
 import { AlertService } from './../../util/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from './../../player/player.service';
@@ -41,6 +41,8 @@ export class BidinfoListComponent implements OnInit {
   public pageSize: number = 20;
   public bidinfoRest: BidInfoRest = {};
   public team = new Team();
+  public sortBy: string = 'position';
+  public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
   
   constructor(public bidinfoService: BidinfoService,
               public alertService: AlertService,
@@ -69,8 +71,10 @@ export class BidinfoListComponent implements OnInit {
     let newData: any[] = this.data;
     
     newData = this._dataTableService.filterData(newData, this.searchTerm, true);
-    this.filteredTotal = newData.length;
+    this.filteredTotal = newData ? newData.length : 0;
+    newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
     this.filteredData = newData;
+    this.filteredTotal = newData.length;    
   }
 
   search(searchTerm: string): void {
@@ -84,6 +88,12 @@ export class BidinfoListComponent implements OnInit {
     this.pageSize = pagingEvent.pageSize;
     this.getBidInfos();
   }
+
+    sort(sortEvent: ITdDataTableSortChangeEvent): void {
+        this.sortBy = sortEvent.name;
+        this.sortOrder = sortEvent.order;
+        this.filter();
+    }
 
   onRefresh() {
     this.getBidInfos();

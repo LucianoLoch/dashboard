@@ -1,7 +1,8 @@
 import { NotificationService } from './notification.service';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule, MdPaginatorModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdPaginatorModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material';
 
 import { RouterModule } from '@angular/router';
 import { UserService } from './../user/user.service';
@@ -34,11 +35,12 @@ import {
     RouterModule,
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdTableModule,
     MdPaginatorModule,
+    MatCheckboxModule,
     CovalentMediaModule,
     CovalentFileModule,
     CovalentStepsModule,

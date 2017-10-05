@@ -10,7 +10,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule, MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule,  MdNativeDateModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { UserService } from './../user/user.service';
 import { NgModule } from '@angular/core';
@@ -30,7 +30,7 @@ import { ListBidComponent } from './admin/list-bid/list-bid.component';
     RouterModule,
 		MdOptionModule,
 		MdSelectModule,
-		MaterialModule,
+		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdTableModule,
