@@ -17,6 +17,10 @@
 <md-divider></md-divider>
 
 <div class="col-md-12">
+    <button md-raised-button (click)="isReadAll(team.id)" class="background-gray-4" title="Excluir Todas">Excluir Todas</button>
+</div>
+
+<div class="col-md-12">
     <div class="card">
         <td-data-table #dataTable [data]="filteredData" [columns]="columns" [(ngModel)]="selectedRows" (rowSelect)="isRead($event)"
             [style.height.px]="200">
@@ -41,3 +45,4 @@
         </td-paging-bar>
     </div>
 </div>
+

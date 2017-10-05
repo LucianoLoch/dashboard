@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Posição <i class="fa fa-street-view" aria-hidden="true"></i></h3>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
                         <h3 class="category">Liga <i class="fa fa-flag" aria-hidden="true"></i></h3>
@@ -69,15 +69,28 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-content">
-                        <h3 class="category">Rating <i class="fa fa-star" aria-hidden="true"></i></h3>
+                        <h3 class="category">Rating Inicial <i class="fa fa-star" aria-hidden="true"></i></h3>
                     </div>
                     <div class="card-footer">
                         <md-slider (input)="onInputRating($event)" class="example-margin" [max]="99" [min]="0" [step]="1">
                         </md-slider>
                         {{playerFilter.rating}}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-content">
+                        <h3 class="category">Rating Final <i class="fa fa-star" aria-hidden="true"></i></h3>
+                    </div>
+                    <div class="card-footer">
+                        <md-slider (input)="onInputRatingEnd($event)" class="example-margin" [max]="99" [min]="0" [step]="1">
+                        </md-slider>
+                        {{playerFilter.ratingend}}
                     </div>
 
                 </div>

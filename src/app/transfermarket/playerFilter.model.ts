@@ -11,6 +11,7 @@ export class PlayerFilter {
 		public name?: string,
 		public position?: string,
 		public rating?: number,
+		public ratingend?: number,
 		public endValue?: number,
 		public startValue?: number,
 		public league?: number){}

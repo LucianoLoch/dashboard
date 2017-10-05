@@ -47,6 +47,7 @@ export class TransfermarketFilterComponent implements OnInit {
   public startPrice: number = 0;
   public endPrice: number = 0;
   public rating: number = 0;
+  public ratingend: number = 0;
 
   playerCtrl: FormControl;
   filteredPlayers: any;
@@ -106,6 +107,7 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.name = '';
     this.playerFilter.position = '';
     this.playerFilter.rating = 0;
+    this.playerFilter.ratingend = 0;
     this.playerFilter.league = 0;
     this.playerFilter.ordenation = [];
     this.filterObjects('');
@@ -150,6 +152,10 @@ export class TransfermarketFilterComponent implements OnInit {
     this.playerFilter.rating = event.value;
   }
 
+  onInputRatingEnd(event: any) {
+    this.playerFilter.ratingend = event.value;
+  }
+
   checkAttributes(): boolean{
     if ((this.playerAttributes[0].value === 0) &&
         (this.playerAttributes[1].value === 0) &&
@@ -173,6 +179,7 @@ export class TransfermarketFilterComponent implements OnInit {
     if ((filter.name.length === 0) &&
       (filter.position.length === 0) &&
       (filter.rating === 0) &&
+      (filter.ratingend === 0) &&
       (filter.league === 0) &&
       (!this.checkAttributes)) {
       return false;

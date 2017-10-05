@@ -105,5 +105,15 @@ export class NotificationListComponent implements OnInit {
     this.getNotifications();
   }
 
+  isReadAll(id: number){
+    console.log(id);
+    this.notificationService.isReadAll(id)
+      .subscribe((data) => {
+        this.alertService.success("Notificações atualizadas com sucesso.");
+        this.getNotifications();
+      });
+
+  }
+
  
 }

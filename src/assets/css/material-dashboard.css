@@ -1850,7 +1850,7 @@ padding: 4px;
 .stats-90-99 {
     padding: 4px;
     border-radius: 3px;
-    background: #c8790a;
+    background: #1C8502;
     color: #fff;
     webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
@@ -3044,7 +3044,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   padding-top: 15px;
   padding-bottom: 15px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 18px;
   text-transform: uppercase;
   border-radius: 3px;
 }

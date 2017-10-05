@@ -43,6 +43,14 @@ export class NotificationService {
             .catch(this.httpUtil.processarErros);
     } 
 
+    isReadAll(id: number): Observable<Notification>{
+        return this.http.get(this.httpUtil.url('notification/markAllAsRead/' + id),
+            this.httpUtil.headers())
+            .map(this.httpUtil.extrairDadosContent)
+            .catch(this.httpUtil.processarErros);
+    } 
+
+
     
 
 }

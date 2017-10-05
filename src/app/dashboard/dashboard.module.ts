@@ -10,7 +10,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule,  MdNativeDateModule } from '@angular/material';
+import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdButtonModule} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { UserService } from './../user/user.service';
 import { NgModule } from '@angular/core';
@@ -22,6 +22,7 @@ import { AdminComponent } from './admin/admin.component';
 import { ListTeamComponent } from './admin/list-team/list-team.component';
 import { ListUserComponent } from './admin/list-user/list-user.component';
 import { ListBidComponent } from './admin/list-bid/list-bid.component';
+import { GraphComponent } from './admin/graph/graph.component';
 
 @NgModule({
   imports: [
@@ -29,8 +30,8 @@ import { ListBidComponent } from './admin/list-bid/list-bid.component';
     FormsModule,
     RouterModule,
 		MdOptionModule,
-		MdSelectModule,
-		
+    MdSelectModule,
+    MdButtonModule,		
     MdNativeDateModule,
     ReactiveFormsModule,
     MdTableModule,
@@ -45,7 +46,7 @@ import { ListBidComponent } from './admin/list-bid/list-bid.component';
     AdminComponent, 
     ListTeamComponent, 
     ListUserComponent, 
-    ListBidComponent,  
+    ListBidComponent, GraphComponent,  
   ],
   	providers: [
 		TeamService, 
