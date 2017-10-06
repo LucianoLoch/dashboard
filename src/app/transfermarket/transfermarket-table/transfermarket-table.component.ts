@@ -3,7 +3,6 @@ import { BidinfoService } from './../../bidinfo/bidinfo.service';
 import { TransfermarketAttributesComponent } from './../transfermarket-attributes/transfermarket-attributes.component';
 import { PlayerAttributes } from './../../player/playerAttributes.model';
 import { MdDialog } from '@angular/material';
-import { BidInfo } from './../../bidinfo/bid-info';
 import { TransfermarketNameFilter } from './../transfermarket.pipe';
 import { Player } from './../../player/player.model';
 import { AlertService } from './../../util/alert.service';

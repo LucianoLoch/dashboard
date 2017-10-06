@@ -1,3 +1,5 @@
+import { Bidinfo } from './../bidinfo/bidinfo.model';
+import { BidInfoStatus } from './../bidinfo/bid-info';
 import { User } from './../user/user.model';
 import { Team } from './../team/team.model';
 import { Injectable } from '@angular/core';
@@ -13,7 +15,7 @@ export class HttpUtilService {
 	//public API_URL: string = 'https://pojetoluxa.herokuapp.com/';
 	//public API_URL: string = 'http://nbbnu006609:9191/';
 	//public API_URL: string = 'http://pcbnu006303:9191/';
-	public API_URL: string = 'http://localhost:9191/';
+	public API_URL: string = 'http://pcbnu006303:9191/';
 	
 
 	//http://nbbnu006609:9191/player/get/5
@@ -85,8 +87,19 @@ export class HttpUtilService {
 
 	extrairDadosBidInfo(response : Response){
 		let bidInfo = response.json();
+		let bidstatus = new BidInfoStatus();
+		bidstatus = bidInfo;
+
+		console.log(bidstatus);
+
+		
+		
+		if(bidstatus.status === 'MARKET_CLOSE'){
+			throw new Error('Mercado Fechado');
+		}
+
 		if(bidInfo){
-			if (bidInfo.bidAproved == false){
+			if (bidInfo == false){
 				throw new Error('Seu Lance já foi superado! Tente Novamente!');
 			}else{
 				return bidInfo || {};
