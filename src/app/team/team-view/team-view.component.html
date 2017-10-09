@@ -8,7 +8,7 @@
                     <h4 class="title">Time</h4>
                 </div>
 
-                <md-card-content>
+                <mat-card-content>
                     <div class="table-responsive">
                         <table class="table table-condensed">
                             <tr>
@@ -31,7 +31,7 @@
                             </tr>
                         </table>
                     </div>
-                </md-card-content>
+                </mat-card-content>
             </div>
 
         </div>
@@ -45,7 +45,7 @@
                     </div>
 
 
-                    <md-card-content style="padding-bottom: 20px; padding-top: 5px">
+                    <mat-card-content style="padding-bottom: 20px; padding-top: 5px">
                         <div class="table-responsive">
                             <table class="table table-condensed">
                                 <thead>
@@ -68,14 +68,14 @@
                                 </tbody>
                             </table>
                         </div>
-                    </md-card-content>
+                    </mat-card-content>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div *ngIf="!team" class="col-md-8 col-md-offset-2">
-    <md-card *ngIf="!team" class="text-center">
+    <mat-card *ngIf="!team" class="text-center">
         <a class="btn btn-danger" routerLink="/team/create">Cadastrar Time</a>
-    </md-card>
+    </mat-card>
 </div>

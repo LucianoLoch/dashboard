@@ -32,11 +32,11 @@ import {
 
 
 @Component({
-    selector: 'app-transfermarket-table',
-    templateUrl: './transfermarket-table.component.html',
-    styleUrls: ['./transfermarket-table.component.css']
+    selector: 'app-transfermarket-panel',
+    templateUrl: './transfermarket-panel.component.html',
+    styleUrls: ['./transfermarket-panel.component.css']
 })
-export class TransfermarketTableComponent implements OnInit {
+export class TransfermarketPanelComponent implements OnInit {
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Jogador', tooltip: 'Nome do Jogador' },
@@ -67,6 +67,7 @@ export class TransfermarketTableComponent implements OnInit {
     public playerFilter: PlayerFilter;
     public team: Team;
     public transfermarketRest: TransfermarketRest = {};
+    public attributesName: Array<string> = [];
 
     constructor(
         public _dataTableService: TdDataTableService,
@@ -107,8 +108,7 @@ export class TransfermarketTableComponent implements OnInit {
         this.getTransfermarket();
     }
 
-    /* Table Functions */
-
+   
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
@@ -136,16 +136,6 @@ export class TransfermarketTableComponent implements OnInit {
         this.filteredTotal = newData ? newData.length : 0;
         newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
         this.filteredData = newData;
-    }
-
-    getRatingColor(attribute: number) {
-        if (attribute >= 75) {
-            return 'rating-75-99'
-        } else if (attribute >= 65) {
-            return 'rating-65-74'
-        } else if (attribute < 65) {
-            return 'rating-1-64'
-        }
     }
 
 
@@ -249,4 +239,77 @@ export class TransfermarketTableComponent implements OnInit {
             }
         });
     }
+
+    /*getAttributesName(){
+        for (let att of this.filteredData.player.attributes){
+          this.attributesName.push(this.getName(att.name));
+        }
+      }*/
+    
+      getAttributeColor(attribute: number) {
+        if (attribute >= 90) {
+          return 'stats-90-99'
+        } else if (attribute >= 80) {
+          return 'stats-80-89'
+        } else if (attribute >= 70) {
+          return 'stats-70-79'
+        } else if (attribute >= 50) {
+          return 'stats-50-69'
+        } else if (attribute < 50) {
+          return 'stats-1-49'
+        }
+      }
+    
+      getRatingColor(attribute: number) {
+        if (attribute >= 75) {
+          return 'rating-75-99'
+        } else if (attribute >= 65) {
+          return 'rating-65-74'
+        } else if (attribute < 65) {
+          return 'rating-1-64'
+        }
+      }
+    
+      getName(attribute: string): string {
+    
+        let retorno : string;
+    
+        switch (attribute) {
+          case 'PAS': {
+            retorno = 'Passes';
+            break;
+          }
+          case 'SHO': {
+            retorno = 'Finalização';
+            break;
+    
+          }
+          case 'DRI': {
+            retorno = 'Drible';
+            break;
+    
+          }
+          case 'DEF': {
+            retorno = 'Defesa';
+            break;
+    
+          }
+          case 'PHY': {
+            retorno = 'Físico';
+            break;
+    
+          }
+          case 'PAC': {
+            retorno = 'Ritmo';
+            break;
+          }
+    
+          default: {
+            retorno = attribute;
+            break;
+          }
+        }
+        return retorno;
+    
+      }
 }

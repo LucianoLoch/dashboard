@@ -1,11 +1,11 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { BidinfoService } from './bidinfo.service';
-import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdTableModule, MdButtonModule } from '@angular/material';
+import { MatOptionModule, MatSelectModule,  MatNativeDateModule, MatTableModule, MatButtonModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BidinfoListComponent } from './bidinfo-list/bidinfo-list.component';
-import {MdProgressSpinnerModule} from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material';
 
 import {
   CovalentCommonModule,
@@ -26,12 +26,12 @@ import {
   imports: [
     CommonModule,
     RouterModule,
-		MdOptionModule,
-		MdSelectModule,
-		MdButtonModule,
-    MdNativeDateModule,
+		MatOptionModule,
+		MatSelectModule,
+		MatButtonModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
-    MdTableModule,
+    MatTableModule,
     CovalentMediaModule,
     CovalentFileModule,
     CovalentStepsModule,

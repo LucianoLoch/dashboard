@@ -1,29 +1,18 @@
-import { Transfermarket } from './../transfermarket.model';
-import { Player } from './../../player/player.model';
-import { PlayerAttributes } from './../../player/playerAttributes.model';
-import { OnInit, Input } from '@angular/core';
-import { Component, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { Player } from './../../../player/player.model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-transfermarket-attributes',
-  templateUrl: './transfermarket-attributes.component.html',
-  styleUrls: ['./transfermarket-attributes.component.css']
+  selector: 'app-attributes-item',
+  templateUrl: './attributes-item.component.html',
+  styleUrls: ['./attributes-item.component.css']
 })
-export class TransfermarketAttributesComponent implements OnInit {
+export class AttributesItemComponent implements OnInit {
 
-  public attributesName: Array<string> = [];
-  constructor( @Inject(MAT_DIALOG_DATA) public data: Transfermarket) { }
+  @Input() player : Player;
 
+  constructor() { }
 
-  ngOnInit(){
-    this.getAttributesName();
-  }
-
-  getAttributesName(){
-    for (let att of this.data.player.attributes){
-      this.attributesName.push(this.getName(att.name));
-    }
+  ngOnInit() {
   }
 
   getAttributeColor(attribute: number) {
@@ -92,6 +81,5 @@ export class TransfermarketAttributesComponent implements OnInit {
     return retorno;
 
   }
-
 
 }

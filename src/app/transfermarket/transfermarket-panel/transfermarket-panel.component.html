@@ -43,42 +43,46 @@
 <div class="col-md-12">
     <div class="card">
         <mat-divider></mat-divider>
-        <td-data-table #dataTable [data]="filteredData" [columns]="columns" [sortable]="true" [(ngModel)]="selectedRows" (sortChange)="sort($event)">
-            <ng-template tdDataTableTemplate="rating" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                    <span [ngClass]="getRatingColor(row.rating)">{{row.rating}}</span>
-                </div>
-            </ng-template>
-            <ng-template tdDataTableTemplate="hasBid" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                    <span><mat-checkbox [checked]="value" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span>
-                </div>
-            </ng-template>
-            <ng-template tdDataTableTemplate="bidAproved" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                    <span><mat-checkbox [checked]="value" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span>
-                </div>
-            </ng-template>
-            <ng-template tdDataTableTemplate="attribute" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                    <button mat-raised-button class="background-gray-4" (click)="openDialog(row)"><i class="fa fa-blind" aria-hidden="true"></i></button>
-                </div>
-            </ng-template>
-            <ng-template tdDataTableTemplate="bid" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                    <button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(row)"><i class="fa fa-gavel" aria-hidden="true"></i></button>
-                </div>
-            </ng-template>
 
-        </td-data-table>
+        <mat-toolbar class="text-center">
+            <div class="col-md-2">Jogador</div>
+            <div class="col-md-1">Rating</div>
+            <div class="col-md-1">Posição</div>
+            <div class="col-md-1">Lance Atual</div>
+            <div class="col-md-1">Lance Inicial</div>
+            <div class="col-md-1">Tem Lance</div>
+            <div class="col-md-1">Aprovado</div>
+            <div class="col-md-1">Lance</div>
+            <div class="col-md-1">Atributos</div>
+        </mat-toolbar>
+
+        <hr>
+
+        <div *ngFor="let shop of filteredData">
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <div class="col-md-2">{{shop.name}}</div>
+                    <div class="col-md-1"><span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span></div>
+                    <div class="col-md-1">{{shop.position}}</div>
+                    <div class="col-md-1">R$ {{shop.bidValue}},00</div>
+                    <div class="col-md-1">R$ {{shop.originalValue}},00</div>
+                    <div class="col-md-1"> <span><mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
+                    <div class="col-md-1"> <span><mat-checkbox [checked]="shop.bidAproved" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
+                    <div class="col-md-1"><button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)"><i class="fa fa-gavel" aria-hidden="true"></i></button></div>
+                <hr>
+                </mat-expansion-panel-header>
+                <app-attributes-item [player]="shop.player"></app-attributes-item>
+            </mat-expansion-panel>
+
+        </div>
+
+
+
 
     </div>
     <div class="col-md-12">
         <div class="card">
             <div *tdLoading="'overlayStarSyntax'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'primary'">
-            </div>
-            <div class="mat-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-                <h3>Nenhuma notificação encontrada.</h3>
             </div>
         </div>
         <div class="card">

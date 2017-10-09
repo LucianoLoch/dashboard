@@ -1,13 +1,13 @@
-<h1 md-dialog-title class="primary-color">Habilidades</h1>
-<md-dialog-content class="accent-color">
+<h1 mat-dialog-title class="primary-color">Habilidades</h1>
+<mat-dialog-content class="accent-color">
 
-    <md-card>
-        <md-card-header>
-            <img md-card-avatar src="{{data.player.headshotImgUrl}}">            
-            <md-card-title>{{ data.player.name }} <span [ngClass]="getRatingColor(data.player.rating)">{{ data.player.rating }}</span></md-card-title>
-            <md-card-subtitle>{{ data.player.position }} - {{ data.player.clubName }}</md-card-subtitle>
-        </md-card-header>
-        <md-card-content>
+    <mat-card>
+        <mat-card-header>
+            <img mat-card-avatar src="{{data.player.headshotImgUrl}}">            
+            <mat-card-title>{{ data.player.name }} <span [ngClass]="getRatingColor(data.player.rating)">{{ data.player.rating }}</span></mat-card-title>
+            <mat-card-subtitle>{{ data.player.position }} - {{ data.player.clubName }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
         <table class="table">
             <thead class="text-gray">
                 <th>Altura</th>
@@ -36,6 +36,6 @@
                 </tr>
             </tbody>
         </table>
-        </md-card-content>
-    </md-card>
-</md-dialog-content>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>

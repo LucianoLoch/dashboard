@@ -1,3 +1,4 @@
+import { TransfermarketPanelComponent } from './transfermarket-panel/transfermarket-panel.component';
 import { TransfermarketAttributesComponent } from './transfermarket-attributes/transfermarket-attributes.component';
 import { TransfermarketTableComponent } from './transfermarket-table/transfermarket-table.component';
 import { LeagueService } from './league.service';
@@ -8,7 +9,7 @@ import { PlayerService } from './../player/player.service';
 import { TransfermarketService } from './transfermarket.service';
 import { TransfermarketNameFilter } from './transfermarket.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule,  MdNativeDateModule, MdTableModule} from '@angular/material';
+import { MatOptionModule,  MatNativeDateModule, MatTableModule} from '@angular/material';
 import { TeamModule } from './../team/team.module';
 import { BidinfoModule } from './../bidinfo/bidinfo.module';
 import { RouterModule } from '@angular/router';
@@ -32,33 +33,35 @@ import {
   CovalentChipsModule 
 } from '@covalent/core';
 import {
-  MdAutocompleteModule,  
-  MdButtonToggleModule,
-  MdCardModule,
-  MdCheckboxModule,
-  MdChipsModule,
-  MdDialogModule,
-  MdGridListModule,
-  MdIconModule,
-  MdInputModule,
-  MdListModule,
-  MdMenuModule,
-  MdButtonModule,
-  MdProgressBarModule,
-  MdProgressSpinnerModule,
-  MdRadioModule,
-  MdRippleModule,
-  MdSelectModule,
-  MdSidenavModule,
-  MdSliderModule,
-  MdSlideToggleModule,
-  MdSnackBarModule,
-  MdTabsModule,
-  MdToolbarModule,
-  MdTooltipModule,
-  OverlayModule,
-  PortalModule
+  MatAutocompleteModule,  
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatButtonModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatExpansionPanel,
+  MatExpansionModule
+  
 } from '@angular/material';
+import { AttributesItemComponent } from './transfermarket-panel/attributes-item/attributes-item.component';
 
 @NgModule({
   imports: [
@@ -67,39 +70,38 @@ import {
     RouterModule,
 		BidinfoModule,
 		TeamModule,
-		MdOptionModule,
-		MdSelectModule,
-		
-    MdNativeDateModule,
+		MatOptionModule,
+		MatSelectModule,		
+    MatNativeDateModule,
     ReactiveFormsModule,
-    MdSlideToggleModule,
-    MdTableModule,
+    MatSlideToggleModule,
+    MatTableModule,
 		NgxPaginationModule,
     FormsModule,
-    MdAutocompleteModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdCardModule,
-    MdChipsModule,
-    MdCheckboxModule,
-    MdDialogModule,
-    MdGridListModule,
-    MdIconModule,
-    MdInputModule,
-    MdListModule,
-    MdMenuModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdRadioModule,
-    MdRippleModule,
-    MdSelectModule,
-    MdSidenavModule,
-    MdSliderModule,
-    MdSlideToggleModule,
-    MdSnackBarModule,
-    MdTabsModule,
-    MdToolbarModule,
-    MdTooltipModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
     CovalentMediaModule,
     CovalentFileModule,
     CovalentStepsModule,
@@ -110,7 +112,8 @@ import {
     CovalentCommonModule,
     CovalentLoadingModule,
     CovalentExpansionPanelModule,
-    CovalentChipsModule 
+    CovalentChipsModule,
+    MatExpansionModule 
     
   ],
   entryComponents:[
@@ -120,7 +123,9 @@ import {
     TransfermarketFilterComponent, 
     TransfermarketNameFilter,
     TransfermarketTableComponent,
-    TransfermarketAttributesComponent
+    TransfermarketAttributesComponent,
+    TransfermarketPanelComponent,
+    AttributesItemComponent
   ],
   providers: [
     TransfermarketService, 

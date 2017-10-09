@@ -1,7 +1,7 @@
 import { NotificationService } from './notification.service';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdPaginatorModule, MdCheckboxModule, MdButtonModule } from '@angular/material';
+import { MatOptionModule, MatSelectModule,  MatNativeDateModule, MatPaginatorModule, MatCheckboxModule, MatButtonModule } from '@angular/material';
 
 
 import { RouterModule } from '@angular/router';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 
 
 import { FormsModule } from '@angular/forms';
-import {MdTableModule} from '@angular/material';
+import {MatTableModule} from '@angular/material';
 
 import {
   CovalentCommonModule,
@@ -33,14 +33,14 @@ import {
     CommonModule,
     FormsModule,
     RouterModule,
-		MdOptionModule,
-		MdSelectModule,
-		MdCheckboxModule,
-    MdNativeDateModule,
+		MatOptionModule,
+		MatSelectModule,
+		MatCheckboxModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
-    MdTableModule,
-    MdButtonModule,
-    MdPaginatorModule,    
+    MatTableModule,
+    MatButtonModule,
+    MatPaginatorModule,    
     CovalentMediaModule,
     CovalentFileModule,
     CovalentStepsModule,

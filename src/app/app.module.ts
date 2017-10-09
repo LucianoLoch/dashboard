@@ -28,7 +28,7 @@ import { AppComponent } from './app.component';
 import { TransfermarketFilterComponent } from './transfermarket/transfermarket-filter/transfermarket-filter.component';
 
 
-import { MdSelectModule, MdOptionModule, MdAutocompleteModule} from '@angular/material';
+import { MatSelectModule, MatOptionModule, MatAutocompleteModule} from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 
 import 'hammerjs';
@@ -44,9 +44,9 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
   imports:      [
     BrowserModule,
     BrowserAnimationsModule,
-    MdSelectModule,
-    MdOptionModule,  
-    MdAutocompleteModule,  
+    MatSelectModule,
+    MatOptionModule,  
+    MatAutocompleteModule,  
     AppRoutingModule,
     TeamModule,
     TransfermarketModule,

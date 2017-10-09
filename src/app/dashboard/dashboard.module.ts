@@ -10,13 +10,13 @@ import { DashboardComponent } from './dashboard.component';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdOptionModule, MdSelectModule,  MdNativeDateModule, MdButtonModule} from '@angular/material';
+import { MatOptionModule, MatSelectModule,  MatNativeDateModule, MatButtonModule} from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { UserService } from './../user/user.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MdTableModule} from '@angular/material';
+import {MatTableModule} from '@angular/material';
 import { CovalentExpansionPanelModule } from '@covalent/core';
 import { AdminComponent } from './admin/admin.component';
 import { ListTeamComponent } from './admin/list-team/list-team.component';
@@ -29,12 +29,12 @@ import { GraphComponent } from './admin/graph/graph.component';
     CommonModule,
     FormsModule,
     RouterModule,
-		MdOptionModule,
-    MdSelectModule,
-    MdButtonModule,		
-    MdNativeDateModule,
+		MatOptionModule,
+    MatSelectModule,
+    MatButtonModule,		
+    MatNativeDateModule,
     ReactiveFormsModule,
-    MdTableModule,
+    MatTableModule,
     CovalentExpansionPanelModule
   ],
   declarations: [
