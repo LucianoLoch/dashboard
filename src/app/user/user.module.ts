@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {  MdOptionModule, MdSelectModule, MdNativeDateModule } from '@angular/material';
+import {  MatOptionModule, MatSelectModule, MatNativeDateModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -15,10 +15,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     RouterModule,
 		
-		MdOptionModule,
-		MdSelectModule,
+		MatOptionModule,
+		MatSelectModule,
 		
-    MdNativeDateModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
   ],
   declarations: [
