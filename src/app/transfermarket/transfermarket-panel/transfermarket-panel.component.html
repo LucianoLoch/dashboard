@@ -45,35 +45,41 @@
         <mat-divider></mat-divider>
 
         <mat-toolbar class="text-center">
-            <div class="col-md-2">Jogador</div>
-            <div class="col-md-1">Rating</div>
-            <div class="col-md-1">Posição</div>
-            <div class="col-md-1">Lance Atual</div>
-            <div class="col-md-1">Lance Inicial</div>
-            <div class="col-md-1">Tem Lance</div>
-            <div class="col-md-1">Aprovado</div>
-            <div class="col-md-1">Lance</div>
-            <div class="col-md-1">Atributos</div>
+            <table class="table">
+                <thead class="text-gray">
+                    <th>Jogador</th>
+                    <th>Rating</th>
+                    <th>Posição</th>
+                    <th>Lance Atual</th>
+                     <th>Lance Inicial</th>
+                      <th>Tem Lance</th>
+                    <th>Aprovado</th>
+                    <th>Lance</th>                   
+                </thead>
+            </table>
         </mat-toolbar>
-
         <hr>
 
-        <div *ngFor="let shop of filteredData">
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <div class="col-md-2">{{shop.name}}</div>
-                    <div class="col-md-1"><span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span></div>
-                    <div class="col-md-1">{{shop.position}}</div>
-                    <div class="col-md-1">R$ {{shop.bidValue}},00</div>
-                    <div class="col-md-1">R$ {{shop.originalValue}},00</div>
-                    <div class="col-md-1"> <span><mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
-                    <div class="col-md-1"> <span><mat-checkbox [checked]="shop.bidAproved" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
-                    <div class="col-md-1"><button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)"><i class="fa fa-gavel" aria-hidden="true"></i></button></div>
-                <hr>
-                </mat-expansion-panel-header>
-                <app-attributes-item [player]="shop.player"></app-attributes-item>
-            </mat-expansion-panel>
-
+        <div>
+            <md-card  *ngFor="let shop of filteredData" class="background-gray-2"> 
+                <md-card-content>              
+                <mat-expansion-panel style="margin-top: 10px;  margin-bottom: 10px;">
+                    <mat-expansion-panel-header class="background-gray">                    
+                        <div class="col-md-1">{{shop.name}}</div>
+                        <div class="col-md-1"><span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span></div>
+                        <div class="col-md-1">{{shop.position}}</div>
+                        <div class="col-md-2">R$ {{shop.bidValue}},00</div>
+                        <div class="col-md-2">R$ {{shop.originalValue}},00</div>
+                        <div class="col-md-2"> <span><mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
+                        <div class="col-md-1"> <span><mat-checkbox [checked]="shop.bidAproved" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></div>
+                        <div class="col-md-1"><button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)"><i class="fa fa-gavel" aria-hidden="true"></i></button></div>
+                    
+                    </mat-expansion-panel-header>                    
+                    <app-attributes-item [player]="shop.player"></app-attributes-item>                     
+                </mat-expansion-panel>
+                </md-card-content>
+               
+            </md-card>
         </div>
 
 

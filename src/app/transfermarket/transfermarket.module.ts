@@ -1,3 +1,4 @@
+import { ProgressBarComponent } from './transfermarket-panel/progress-bar/progress-bar.component';
 import { TransfermarketPanelComponent } from './transfermarket-panel/transfermarket-panel.component';
 import { TransfermarketAttributesComponent } from './transfermarket-attributes/transfermarket-attributes.component';
 import { TransfermarketTableComponent } from './transfermarket-table/transfermarket-table.component';
@@ -19,6 +20,11 @@ import { CommonModule } from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { TdLoadingService } from '@covalent/core';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+
+
+
+
 import {
   CovalentCommonModule,
   CovalentDataTableModule,
@@ -58,10 +64,13 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatExpansionPanel,
-  MatExpansionModule
+  MatExpansionModule,
+  
+  
   
 } from '@angular/material';
 import { AttributesItemComponent } from './transfermarket-panel/attributes-item/attributes-item.component';
+
 
 @NgModule({
   imports: [
@@ -113,7 +122,10 @@ import { AttributesItemComponent } from './transfermarket-panel/attributes-item/
     CovalentLoadingModule,
     CovalentExpansionPanelModule,
     CovalentChipsModule,
-    MatExpansionModule 
+    MatExpansionModule,
+    MatProgressBarModule,
+    NgxChartsModule
+    
     
   ],
   entryComponents:[
@@ -125,7 +137,8 @@ import { AttributesItemComponent } from './transfermarket-panel/attributes-item/
     TransfermarketTableComponent,
     TransfermarketAttributesComponent,
     TransfermarketPanelComponent,
-    AttributesItemComponent
+    AttributesItemComponent,
+    ProgressBarComponent,
   ],
   providers: [
     TransfermarketService, 

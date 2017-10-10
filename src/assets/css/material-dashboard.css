@@ -424,6 +424,12 @@ h2.title {
   color: #162935;
 }
 
+
+.hr-gray { 
+  border-top: 1px solid #162935 !important;
+}
+
+
 .text-gray-2 {
   color: #05151E;
 }
