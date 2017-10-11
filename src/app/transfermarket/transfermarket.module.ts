@@ -70,6 +70,7 @@ import {
   
 } from '@angular/material';
 import { AttributesItemComponent } from './transfermarket-panel/attributes-item/attributes-item.component';
+import { AttributeComponent } from './transfermarket-panel/attribute/attribute.component';
 
 
 @NgModule({
@@ -139,6 +140,7 @@ import { AttributesItemComponent } from './transfermarket-panel/attributes-item/
     TransfermarketPanelComponent,
     AttributesItemComponent,
     ProgressBarComponent,
+    AttributeComponent,
   ],
   providers: [
     TransfermarketService, 

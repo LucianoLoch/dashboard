@@ -240,7 +240,7 @@ export class TransfermarketFilterComponent implements OnInit {
     }
 
     if (this.check(filterPlayer)) {
-      this.router.navigate(['/transfermarket/table'], this.filter(filterPlayer));
+      this.router.navigate(['/transfermarket/panel'], this.filter(filterPlayer));
     } else {
       this.alertService.error('Informe pelo menos um filtro!');
     }

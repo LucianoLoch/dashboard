@@ -68,6 +68,7 @@ export class TransfermarketPanelComponent implements OnInit {
     public team: Team;
     public transfermarketRest: TransfermarketRest = {};
     public attributesName: Array<string> = [];
+    public toogle: boolean;
 
     constructor(
         public _dataTableService: TdDataTableService,
@@ -87,6 +88,10 @@ export class TransfermarketPanelComponent implements OnInit {
 
     }
 
+
+    open(){
+        this.toogle = true;
+    }
 
 
     getTransfermarket() {

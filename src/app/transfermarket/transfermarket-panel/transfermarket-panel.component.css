@@ -26,3 +26,8 @@
 .mat-progress-spinner path, .mat-spinner path {
   stroke: #162935!important;
 }
+
+.mat-expansion-panel-content {
+  overflow: hidden;
+  background-color: #617A88 !important; 
+}

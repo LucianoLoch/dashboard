@@ -1,35 +1,28 @@
-<hr class="hr-gray">
-<md-card class="background-gray-3">
-  <md-card-header>
-  </md-card-header>
-  <md-card-content>
+<div style="height: 100px">
+  <div class="col-md-6">
+    <table class="table">
+      <thead class="text-gray">
+        <th>Altura</th>
+        <th>Peso</th>
+        <th>Idade</th>
+        <th>Perna Boa</th>
+        <th>WR</th>
+      </thead>
+      <tbody class="text-gray">
+        <tr>
+          <td>{{ player.height }} cm</td>
+          <td>{{ player.weight }}</td>
+          <td>{{ player.age }}</td>
+          <td>{{ player.foot }}</td>
+          <td>{{ player.atkWorkRate}} \ {{ player.defWorkRate}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-    <div class="row">
+  </div>
+  <div class="col-md-6">
 
-      <div class="col-md-6">
-        <table class="table">
-          <thead class="text-gray">
-            <th>Altura</th>
-            <th>Peso</th>
-            <th>Idade</th>
-            <th>Perna Boa</th>
-            <th>WR</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-gray">{{ player.height }} cm</td>
-              <td class="text-gray">{{ player.weight }}</td>
-              <td class="text-gray">{{ player.age }}</td>
-              <td class="text-gray">{{ player.foot }}</td>
-              <td class="text-gray">{{ player.atkWorkRate}} \ {{player.defWorkRate}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <app-progress-bar [attributes]="player.attributes"></app-progress-bar>
-      </div>
-    </div>
-  </md-card-content>
-</md-card>
-<hr class="hr-gray">
+    <app-attribute [attributes]="player.attributes"></app-attribute>
+
+  </div>
+</div>

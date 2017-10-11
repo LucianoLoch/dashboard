@@ -10,7 +10,7 @@
     </div>
     <div *ngIf="currentUser" class="collapse navbar-collapse">
       <ul *ngIf="currentUser" class="nav navbar-nav navbar-right">
-        <li><a><i class="material-icons">local_atm</i> {{team.budget}}</a></li>
+        <li *ngIf="team"><a><i class="material-icons">local_atm</i> {{team.budget}}</a></li>
         <li *ngIf="team" class="dropdown">
           <a *ngIf="notifications?.length > 0" href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="material-icons">notifications</i>
