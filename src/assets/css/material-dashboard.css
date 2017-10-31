@@ -477,6 +477,16 @@ h2.title {
   color: black !important;
 }
 
+.background-bid {
+  background-color: #9b9bb6!important; 
+  color: black !important;
+}
+
+.background-your-bid {
+  background-color: rgb(189, 202, 196)  !important; 
+  color: black !important;
+}
+
 
 .mat-accent .mat-slider-thumb, .mat-accent .mat-slider-thumb-label, .mat-accent .mat-slider-track-fill {
   background-color: #162935 !important; 

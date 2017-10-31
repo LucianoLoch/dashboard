@@ -11,13 +11,15 @@ import { Team } from './../../team/team.model';
 import { PlayerFilter } from './../playerFilter.model';
 import { Bidinfo } from './../../bidinfo/bidinfo.model';
 import { Transfermarket, TransfermarketRest } from './../transfermarket.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { AnonymousSubscription } from "rxjs/Subscription";
 import { PaginationInstance } from 'ngx-pagination';
 import { IPageChangeEvent } from '@covalent/core';
 import { MatSlideToggle } from '@angular/material';
+import { DOCUMENT } from "@angular/platform-browser";
+
 
 
 
@@ -69,8 +71,10 @@ export class TransfermarketPanelComponent implements OnInit {
     public transfermarketRest: TransfermarketRest = {};
     public attributesName: Array<string> = [];
     public toogle: boolean;
+    public fixed: boolean = false;
 
     constructor(
+        @Inject(DOCUMENT) private document: Document,
         public _dataTableService: TdDataTableService,
         public transfermarketService: TransfermarketService,
         public alertService: AlertService,
@@ -89,9 +93,32 @@ export class TransfermarketPanelComponent implements OnInit {
     }
 
 
-    open(){
+    open() {
         this.toogle = true;
     }
+
+    @HostListener("window:scroll", [])
+    onWindowScroll() {
+        console.log('scroll');
+        let num = this.document.body.scrollTop;
+        if (num > 50) {
+            this.fixed = true;
+        } else if (this.fixed && num < 5) {
+            this.fixed = false;
+        }
+    }
+
+    /**
+     #sticky.stick {
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    border-radius: 0 0 0.5em 0.5em;
+}
+     */
+
+
 
 
     getTransfermarket() {
@@ -113,7 +140,7 @@ export class TransfermarketPanelComponent implements OnInit {
         this.getTransfermarket();
     }
 
-   
+
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
@@ -228,7 +255,7 @@ export class TransfermarketPanelComponent implements OnInit {
                 }
 
             } else {
-                 this.alertService.error(check);
+                this.alertService.error(check);
             }
 
         });
@@ -260,71 +287,82 @@ export class TransfermarketPanelComponent implements OnInit {
           this.attributesName.push(this.getName(att.name));
         }
       }*/
-    
-      getAttributeColor(attribute: number) {
+
+    getAttributeColor(attribute: number) {
         if (attribute >= 90) {
-          return 'stats-90-99'
+            return 'stats-90-99'
         } else if (attribute >= 80) {
-          return 'stats-80-89'
+            return 'stats-80-89'
         } else if (attribute >= 70) {
-          return 'stats-70-79'
+            return 'stats-70-79'
         } else if (attribute >= 50) {
-          return 'stats-50-69'
+            return 'stats-50-69'
         } else if (attribute < 50) {
-          return 'stats-1-49'
+            return 'stats-1-49'
         }
-      }
-    
-      getRatingColor(attribute: number) {
+    }
+
+    getRatingColor(attribute: number) {
         if (attribute >= 75) {
-          return 'rating-75-99'
+            return 'rating-75-99'
         } else if (attribute >= 65) {
-          return 'rating-65-74'
+            return 'rating-65-74'
         } else if (attribute < 65) {
-          return 'rating-1-64'
+            return 'rating-1-64'
         }
-      }
-    
-      getName(attribute: string): string {
-    
-        let retorno : string;
-    
+    }
+
+    getName(attribute: string): string {
+
+        let retorno: string;
+
         switch (attribute) {
-          case 'PAS': {
-            retorno = 'Passes';
-            break;
-          }
-          case 'SHO': {
-            retorno = 'Finalização';
-            break;
-    
-          }
-          case 'DRI': {
-            retorno = 'Drible';
-            break;
-    
-          }
-          case 'DEF': {
-            retorno = 'Defesa';
-            break;
-    
-          }
-          case 'PHY': {
-            retorno = 'Físico';
-            break;
-    
-          }
-          case 'PAC': {
-            retorno = 'Ritmo';
-            break;
-          }
-    
-          default: {
-            retorno = attribute;
-            break;
-          }
+            case 'PAS': {
+                retorno = 'Passes';
+                break;
+            }
+            case 'SHO': {
+                retorno = 'Finalização';
+                break;
+
+            }
+            case 'DRI': {
+                retorno = 'Drible';
+                break;
+
+            }
+            case 'DEF': {
+                retorno = 'Defesa';
+                break;
+
+            }
+            case 'PHY': {
+                retorno = 'Físico';
+                break;
+
+            }
+            case 'PAC': {
+                retorno = 'Ritmo';
+                break;
+            }
+
+            default: {
+                retorno = attribute;
+                break;
+            }
         }
         return retorno;
-    
-      }
+
+    }
+
+    getBackground(shop: Transfermarket) {
+        let style = 'background-gray-6';
+        if (shop.hasBid) {
+            style = 'background-bid';
+            if (shop.bidAproved) {
+                style = 'background-your-bid'
+            }
+        }
+        return style;
+    }
 }
