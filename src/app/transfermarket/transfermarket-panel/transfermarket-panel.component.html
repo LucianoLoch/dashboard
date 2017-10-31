@@ -7,7 +7,9 @@
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="card card-stats text-center">
             <div class="card-footer">
-                <p class="category">Dinheiro Disponível <i class="material-icons">attach_money</i></p>
+                <p class="category">Dinheiro Disponível
+                    <i class="material-icons">attach_money</i>
+                </p>
                 <h3 class="title">R$ {{ team?.budget }},00</h3>
 
             </div>
@@ -28,11 +30,11 @@
 
         <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
             <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-    <span class="mat-title">Jogadores</span>
+                <span class="mat-title">Jogadores</span>
             </span>
             <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
-    <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-title"></span>
-            <span *ngIf="selectedRows.length && selectable" class="mat-body-1">0 item(s) selected</span>
+                <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="mat-title"></span>
+                <span *ngIf="selectedRows.length && selectable" class="mat-body-1">0 item(s) selected</span>
             </span>
             <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Pesquisar" (searchDebounce)="search($event)"
                 flex>
@@ -41,56 +43,72 @@
     </div>
 </div>
 <div class="col-md-12">
+
     <div class="card">
+        <nav class="navbar navbar-default navbar-fixed">
+            <div class="col-md-1">Rating</div>
+            <div class="col-md-5">Nome</div>
+            <div class="col-md-1">Posição</div>
+            <div class="col-md-1">Valor</div>
+            <div class="col-md-1">Listado</div>
+            <div class="col-md-2 text-right"></div>
+        </nav>
 
-        
-            <div *ngFor="let shop of filteredData">
-
-                <!---
+        <div *ngFor="let shop of filteredData">
             <mat-card style="padding-top: 10px;padding-bottom: 15px;" class="background-gray-6">
-                <mat-card-header>                       
-                        <div class="col-md-1"><h5>{{shop.name}}</h5></div>
-                        <div class="col-md-1"><h5><span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span></h5></div>
-                        <div class="col-md-1"><h5>{{shop.position}}</h5></div>
-                        <div class="col-md-2"><h5>Lance Atual: R$ {{shop.bidValue}},00</h5></div>
-                        <div class="col-md-2"><h5>Lance Inicial: R$ {{shop.originalValue}},00</h5></div>
-                        <div class="col-md-2"><h5><span><mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></h5></div>
-                        <div class="col-md-1"><h5><span><mat-checkbox [checked]="shop.bidAproved" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></h5></div>
-                        <div class="col-md-1"><h5><button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)"><i class="fa fa-gavel" aria-hidden="true"></i></button></h5></div>
-                        <div class="col-md-1"><h5><button mat-raised-button color="blue" class="background-gray-3" (click)="open()">Open</button></h5></div>
-                        
-                    </mat-card-header>
-       
-                <mat-card-content>              
-                <mat-expansion-panel open="toogle">
-                    <mat-expansion-panel-header class="background-gray-5">Atributos
-                    </mat-expansion-panel-header>                    
-                    <app-attributes-item [player]="shop.player"></app-attributes-item>                     
-                </mat-expansion-panel>
-                </mat-card-content>
-            </mat-card>
-        -->
+                <mat-card-header>
+                    <div class="col-md-1">
+                        <h5>
+                            <span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span>
+                        </h5>
+                    </div>
+                    <div class="col-md-5">
+                        <h5>{{shop.name}}</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5>{{shop.position}}</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5>$ {{shop.bidValue}},00</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5>
+                            <span>
+                                <mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox>
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <h5>
+                            <div class="col-md-9">
+                                <button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)">
+                                    <i class="fa fa-gavel" aria-hidden="true"></i>
+                                </button>
 
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                            <div class="col-md-1"><h5><span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span></h5></div>    
-                            <div class="col-md-7"><h5>{{shop.name}}</h5></div>
-                            <div class="col-md-1"><h5>{{shop.position}}</h5></div>
-                            <div class="col-md-1"><h5>$ {{shop.bidValue}},00</h5></div>
-                            <div class="col-md-1"><h5><span><mat-checkbox [checked]="shop.hasBid" [align]="center" [disabled]="true" class="text-center"></mat-checkbox></span></h5></div>
-                            <div class="col-md-1"><h5><button mat-raised-button color="blue" class="background-gray-3" (click)="onBid(shop)"><i class="fa fa-gavel" aria-hidden="true"></i></button></h5></div>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-            
+                            </div>
+                            <div class="col-md-3">
+                                <p (click)="onExpand(shop)">
+                                    <i class="{{shop.icon}}" aria-hidden="true"></i>
+                                </p>
+                            </div>
+                        </h5>
+                    </div>
+                </mat-card-header>
+            </mat-card>
+
+            <mat-expansion-panel [expanded]="shop.expanded">
                 <p>
-                    <app-attributes-item [player]="shop.player"></app-attributes-item>  
+                    <app-attributes-item [player]="shop.player"></app-attributes-item>
                 </p>
             </mat-expansion-panel>
 
 
+
+
+
+
         </div>
-        
+
 
 
 
@@ -103,8 +121,11 @@
         </div>
         <div class="card">
             <td-paging-bar #pagingBar2 [total]="transfermarketRest.totalElements" (change)="page($event)">
-                <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}} <span hide-xs>de {{transfermarketRest.totalElements}}</span>
-                <button mat-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar"><i class="fa fa-refresh"></i></button>
+                <span td-paging-bar-label hide-xs>Registros por página:</span> {{pagingBar2.range}}
+                <span hide-xs>de {{transfermarketRest.totalElements}}</span>
+                <button mat-raised-button color="blue" (click)="onRefresh()" rel="tooltip" class="background-gray-4" title="Atualizar">
+                    <i class="fa fa-refresh"></i>
+                </button>
             </td-paging-bar>
         </div>
     </div>

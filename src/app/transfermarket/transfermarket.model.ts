@@ -19,6 +19,8 @@ export class Transfermarket {
 		public bidAproved?: boolean,
 		public hasBid?: boolean,
 		public team?: Team,
+		public expanded?: boolean,
+		public icon?: string,
 		public attributes?: PlayerAttributes,
 		public clubName?:string) { }
 }

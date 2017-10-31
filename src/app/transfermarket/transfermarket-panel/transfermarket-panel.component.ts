@@ -150,6 +150,16 @@ export class TransfermarketPanelComponent implements OnInit {
         this.filter();
     }
 
+    onExpand(transferMarket: Transfermarket) {
+        if (!transferMarket.expanded) {
+            transferMarket.expanded = true;
+            transferMarket.icon = "fa fa-chevron-up";
+        } else {
+            transferMarket.expanded = false;
+            transferMarket.icon = "fa fa-chevron-down";
+        }
+    }
+
     check(transferMarket: Transfermarket): Promise<string> {
         return new Promise((resolve, reject) => {
             let mensagem: string = '';

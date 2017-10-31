@@ -197,6 +197,7 @@ export class TransfermarketService {
             shop.idPlayer = player.id;
             shop.team = this.team;
             shop.attributes = player.attributes;
+            shop.icon = "fa fa-chevron-down";
             if (!player.hasBid) {
               shop.idBid = 0;
               shop.bidValue = this.bid(player.rating);
