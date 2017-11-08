@@ -62,7 +62,7 @@
             <mat-card style="padding-top: 10px;padding-bottom: 15px;" [ngClass]="getBackground(shop)">
                 <mat-card-header>
                     <div class="col-md-1">
-                        <div mat-card-avatar style="background-image: url('{{shop.player.headshotImgUrl}}');  background-size: cover;"></div>
+                        <div class="img-player" mat-card-avatar [ngStyle]="{'background-image': 'url(' + shop.player.headshotImgUrl + ')'}"></div>
                     </div>
                     <div class="col-md-1">
                         <h5 style="font-weight: bold">
