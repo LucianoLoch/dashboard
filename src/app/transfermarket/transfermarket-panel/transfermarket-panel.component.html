@@ -46,7 +46,8 @@
 
     <mat-toolbar>
         <div class="col-md-1">Rating</div>
-        <div class="col-md-5">Nome</div>
+        <div class="col-md-3">Nome</div>
+        <div class="col-md-2">Clube</div>        
         <div class="col-md-2">Posição</div>
         <div class="col-md-2">Valor</div>
         <div class="col-md-2 text-right"></div>
@@ -64,8 +65,11 @@
                             <span [ngClass]="getRatingColor(shop.rating)">{{shop.rating}}</span>
                         </h5>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <h5>{{shop.name}}</h5>
+                    </div>
+                    <div class="col-md-2">
+                        <h5>{{shop.clubName}}</h5>
                     </div>
                     <div class="col-md-2">
                         <h5>{{shop.position}}</h5>
