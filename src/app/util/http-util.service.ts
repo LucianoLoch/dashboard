@@ -16,7 +16,7 @@ export class HttpUtilService {
 	//public API_URL: string = 'http://nbbnu006609:9191/';
 	//public API_URL: string = 'http://pcbnu006303:9191/';
 	//public API_URL: string = 'http://pcbnu006303:9292/';
-	public API_URL: string = 'http://pojetoluxa.ddns.net:9191';
+	public API_URL: string = 'http://pojetoluxa.ddns.net:9191/';
 	
 
 	//http://nbbnu006609:9191/player/get/5
