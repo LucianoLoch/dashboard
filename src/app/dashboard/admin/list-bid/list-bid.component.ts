@@ -12,14 +12,14 @@ export class ListBidComponent implements OnInit {
 
   public bids : Array<Bidinfo> = []; 
   public msgErro : string;
-  public bidsValue : number;
+  public bidsValue : number = 0;
 
   constructor(public bidinfoService : BidinfoService) { }
 
   ngOnInit() {
     this.bidinfoService.listarTodosBids()
       .subscribe((bids) => {
-        this.bids = bids;
+        this.bids = bids.content;
         this.getValues();
       }, error => this.msgErro = error);
 

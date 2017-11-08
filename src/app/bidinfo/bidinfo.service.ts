@@ -28,10 +28,10 @@ export class BidinfoService {
  *
  * @return Bidinfo[] Bidinfo
  */
-	listarTodosBids(): Observable<BidInfoRest[]> {
+	listarTodosBids(): Observable<BidInfoRest> {
 
 		return this.http.get(this.httpUtil.url(this.pathApi + '/list'), this.httpUtil.headers())
-			.map(this.httpUtil.extrairDadosContent)
+			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
 

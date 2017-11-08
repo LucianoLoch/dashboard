@@ -11,15 +11,22 @@ export class ListTeamComponent implements OnInit {
 
   public teams : Array<Team> = [];
   public msgErro: string;
+  public teamsValue: number = 0;
 
   constructor(public teamService : TeamService) { }
 
   ngOnInit() {
     this.teamService.listarTodos()
     .subscribe((teams) => {
-      console.log(teams);
       this.teams = teams
+      this.getTeamsValue();
     }, error => this.msgErro = error);
+  }
+
+  getTeamsValue(){
+    for (let team of this.teams){
+      this.teamsValue = this.teamsValue + team.budget;
+    }
   }
 
 }

@@ -5,7 +5,7 @@
   <tbody>
     <tr>
       <td *ngFor="let at of attributes">
-        <span [ngClass]="getAttributeColor(at.value)">{{ at.value }}</span>
+        <span  style="font-weight: bold" [ngClass]="getAttributeColor(at.value)">{{ at.value }}</span>
       </td>
     </tr>
   </tbody>
