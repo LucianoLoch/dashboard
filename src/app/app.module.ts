@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -15,7 +16,7 @@ import { UserModule } from './user/user.module';
 import { BidinfoModule } from './bidinfo/bidinfo.module';
 import { TransfermarketModule } from './transfermarket/transfermarket.module';
 import { TeamModule } from './team/team.module';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { UserCreateComponent } from './user/user-create/user-create.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -46,8 +47,8 @@ import { CovalentExpansionPanelModule } from '@covalent/core';
     BrowserAnimationsModule,
     MatSelectModule,
     MatOptionModule,  
-    MatAutocompleteModule,  
-    AppRoutingModule,
+    MatAutocompleteModule,      
+    RouterModule.forRoot(routes,{ useHash: true }),     
     TeamModule,
     TransfermarketModule,
     UserModule,
